@@ -1,0 +1,23 @@
+{
+  "name": "pown",
+  "version": "0.0.0",
+  "description": "Pownage guaranteed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git"
+  },
+  "keywords": [
+    "exploit",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown#readme"
+}
