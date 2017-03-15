@@ -37,7 +37,7 @@ Pown.js also provides a set of compiler and transpiler utilities served by the [
 
 ## Why JavaScript, Node.js and NPM
 
-Node and NPM are vibrant development community. JavaScript is not going away anytime soon given it underpins the World Wide Web we know today. NPM provides access to countless of modules which support a wide-range of technologies - unprecedented characteristic previously unseen in other development communities.
+Node and NPM have vibrant development community. JavaScript is not going away anytime soon given it underpins the World Wide Web we know today. NPM provides access to countless of modules which support a wide-range of technologies - unprecedented characteristic previously unseen in other development communities.
 
 The bottom line is that even if you don't like using JavaScript, you can alway build your modules using your language of choice that can transpile to JavaScript and in the future you can also build in C/C++, go and whatever you like by utilising WebAssembly.
 
