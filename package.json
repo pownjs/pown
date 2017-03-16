@@ -4,7 +4,7 @@
   "description": "Pownage guaranteed",
   "main": "index.js",
   "bin": {
-    "pown": "./node_modules/.bin/pown"
+    "pown": "./index.js"
   },
   "scripts": {},
   "repository": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
-    "pown-cli": "^0.1.1",
-    "pown-dist": "0.0.0"
+    "pown-cli": "^0.2.1",
+    "pown-dist": "^0.4.0"
   }
 }
