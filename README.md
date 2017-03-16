@@ -1,5 +1,3 @@
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pownjs/Lobby)
-
 ```
  _______  _______  _     _  __    _      ___  _______ 
 |       ||       || | _ | ||  |  | |    |   ||       |
@@ -10,7 +8,9 @@
 |___|    |_______||__| |__||_|  |__||_______||_______|
 ```
 
-Pown.js is the security testing an exploitation toolkit built on top of Node.js and NPM.
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pownjs/Lobby)
+
+> Pown.js is the security testing an exploitation toolkit built on top of Node.js and NPM.
 
 ## Why Pown.js
 
