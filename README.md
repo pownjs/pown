@@ -49,6 +49,13 @@ Needless to say, Pown.js is missing important features:
 
 - [ ] a rich collection of payloads
 - [ ] a rich collection of exploits
+- [ ] radio hacking tools and frameworks
+- [ ] zigbee hacking and discovery
+- [ ] tools for discovering targets on the internet
+- [ ] nmap alternative in node
+- [ ] corss-compiler toolchain
+- [ ] tv hacking modules
+- [ ] usb hacking modules
 
 ## How To Contribute
 
