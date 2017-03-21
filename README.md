@@ -1,16 +1,31 @@
 ```
- _______  _______  _     _  __    _      ___  _______ 
-|       ||       || | _ | ||  |  | |    |   ||       |
-|    _  ||   _   || || || ||   |_| |    |   ||  _____|
-|   |_| ||  | |  ||       ||       |    |   || |_____ 
-|    ___||  |_|  ||       ||  _    | ___|   ||_____  |
-|   |    |       ||   _   || | |   ||       | _____| |
-|___|    |_______||__| |__||_|  |__||_______||_______|
++---------------------------------------------+
+|                                             |
+|                                             |
+|    88888b.  8888b. 888  888  88888888b.     |
+|    888 "88b    "88b888  888  888888 "88b    |
+|    888  888.d888888888  888  888888  888    |
+|    888 d88P888  888Y88b 888 d88P888  888    |
+|    88888P" "Y888888 "Y8888888P" 888  888    |
+|    888    d8b                               |
+|    888    Y8P                               |
+|    888                                      |
+|          8888 .d8888b                       |
+|          "888 88K                           |
+|           888 "Y8888b.                      |
+|           888      X88                      |
+|           888  88888P'                      |
+|           888                               |
+|          d88P                               |
+|        888P"                                |
+|                                             |
+|                                             |
++---------------------------------------------+
 ```
 
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pownjs/Lobby)
 
-> Pown.js is the security testing an exploitation toolkit built on top of Node.js and NPM.
+> Pown.js is the security testing an exploitation framework built on top of Node.js and NPM.
 
 ## Why Pown.js
 
@@ -37,6 +52,8 @@ Pown.js also provides a set of compiler and transpiler utilities served by the [
 
 ## Why JavaScript, Node.js and NPM
 
+Pown.js is all about fast prototying, experimentation and getting results. JavaScript gets out of your way to achieve that in the fastest possible way.
+
 Node and NPM have vibrant development community. JavaScript is not going away anytime soon given it underpins the World Wide Web we know today. NPM provides access to countless of modules which support a wide-range of technologies - unprecedented characteristic previously unseen in other development communities.
 
 The bottom line is that even if you don't like using JavaScript, you can alway build your modules using your language of choice that can transpile to JavaScript and in the future you can also build in C/C++, go and whatever you like by utilising WebAssembly.
@@ -53,9 +70,10 @@ Needless to say, Pown.js is missing important features:
 - [ ] zigbee hacking and discovery
 - [ ] tools for discovering targets on the internet
 - [ ] nmap alternative in node
-- [ ] corss-compiler toolchain
+- [ ] cross-compiler toolchain
 - [ ] tv hacking modules
 - [ ] usb hacking modules
+- [ ] network hacking modules
 
 ## How To Contribute
 
