@@ -27,6 +27,16 @@
 
 > Pown.js is the security testing an exploitation framework built on top of Node.js and NPM.
 
+## Quickstart
+
+Install Pown.js globally like this:
+
+```sh
+$ npm install -g pown
+```
+
+Use the pown modules to get access to internal features.
+
 ## Why Pown.js
 
 Unlike existing frameworks, such as Metasploit, the development of Pown.js is 100% decentralised and community driven. Pown.js is unopinionated and programmatic in nature. All Pown.js features come in the form of standard NPM modules which are orchestrated through Node's event-driven paradigms and some form of module auto-discovery. If you are familiar with other Node projects such as Grunt, Babel or Browserify you are already familiar with Pown.js.
