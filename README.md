@@ -64,9 +64,9 @@ Pown.js also provides a set of compiler and transpiler utilities served by the [
 
 Pown.js is all about fast prototying, experimentation and getting results. JavaScript gets out of your way to achieve that in the fastest possible way.
 
-Node and NPM have vibrant development community. JavaScript is not going away anytime soon given it underpins the World Wide Web we know today. NPM provides access to countless of modules which support a wide-range of technologies - unprecedented characteristic previously unseen in other development communities.
+Node and NPM have vibrant development community. NPM provides access to countless of modules which support a wide-range of technologies - unprecedented characteristic previously unseen in other development communities.
 
-The bottom line is that even if you don't like using JavaScript, you can alway build your modules using your language of choice that can transpile to JavaScript and in the future you can also build in C/C++, go and whatever you like by utilising WebAssembly.
+JavaScript is not going away anytime soon given it underpins the World Wide Web we know today. Even if you don't like using JavaScript, you can alway build your modules using your language of choice that can transpile to JavaScript and in the future you can also build in C/C++, go and whatever you like by utilising WebAssembly.
 
 Given that Pown.js is nothing more than a simple orchestration layer and a community and the fact that modules are encouraged to be as framework-agnostic as possible, it is safe to say that any contributions to this framework will be relevant for the time to come.
 
@@ -90,3 +90,16 @@ Needless to say, Pown.js is missing important features:
 Follow us on [twitter](https://twitter.com/pownjs). Star us on [GitHub](https://github.com/pownjs). Join the conversation on [Gitter](https://gitter.im/pownjs/Lobby#).
 
 Many of the details are still ironed out but since this is the beginning it is an excellent opportunity not only to expand your knowledge in the field of information security by contributing directly to Pown.js but also to become a leading member and a frontrunner of the Pown.js eco-system and the security field wold-wide.
+
+## Get Help & Information
+
+Pown.js is relatively new so there is not a single source of reference. You can however follow our work at the following places:
+
+* [pownjs.com](https://pownjs.com) - official site
+* [github.com/pownjs](https://github.com/pownjs) - official code repo
+* [twitter.com/pownjs](https://twitter.com/pownjs) - official twitter feed
+* [websecurify.com](https://websecurify.com) - main sponsor
+* [gnucitizen.org](https://gnucitizen.org) - main sponsor
+* [twitter.com/pdp](https://twitter.com/pdp) - pdp's twitter feed
+* [twitter.com/websecurify](https://twitter.com/websecurify) - websecurify's twitter feed
+* [twitter.com/gnucitizen](https://twitter.com/gnucitizen) - gnucitizen's twitter feed
