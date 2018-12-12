@@ -1,31 +1,8 @@
-```
-+---------------------------------------------+
-|                                             |
-|                                             |
-|    88888b.  8888b. 888  888  88888888b.     |
-|    888 "88b    "88b888  888  888888 "88b    |
-|    888  888.d888888888  888  888888  888    |
-|    888 d88P888  888Y88b 888 d88P888  888    |
-|    88888P" "Y888888 "Y8888888P" 888  888    |
-|    888    d8b                               |
-|    888    Y8P                               |
-|    888                                      |
-|          8888 .d8888b                       |
-|          "888 88K                           |
-|           888 "Y8888b.                      |
-|           888      X88                      |
-|           888  88888P'                      |
-|           888                               |
-|          d88P                               |
-|        888P"                                |
-|                                             |
-|                                             |
-+---------------------------------------------+
-```
+[![Follow on Twitter](https://img.shields.io/twitter/follow/pownjs.svg?logo=twitter)](https://twitter.com/pownjs)
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pownjs/Lobby)
+# Pown
 
-> Pown.js is the security testing an exploitation framework built on top of Node.js and NPM.
+Pown.js is the security testing an exploitation framework built on top of Node.js and NPM.
 
 ## Quickstart
 
@@ -49,10 +26,8 @@ Pown.js modules are organised into distributions. The official Pown.js distribut
 
 The Pown.js capabilities are accessed by the user via framework modules called tools, which are orchestrated by the command-line interface [pown-cli](https://github.com/pownjs/pown-dist). The current list of official tools include:
 
-* [pown-shell](https://github.com/pownjs/pown-shell) - interactive command shell
 * [pown-credits](https://github.com/pownjs/pown-credits) - credit all contributors
 * [pown-proxy](https://github.com/pownjs/pown-proxy) - interactive web proxy
-* [pown-network](https://github.com/pownjs/pown-network) - interactive network attacker
 
 Other tools are provided and advertised via the NPM module system. Pown.js tools can run on their own without relying on the pown-cli module, which ensures that the original authors are in full control of their project.
 
@@ -87,7 +62,7 @@ Needless to say, Pown.js is missing important features:
 
 ## How To Contribute
 
-Follow us on [twitter](https://twitter.com/pownjs). Star us on [GitHub](https://github.com/pownjs). Join the conversation on [Gitter](https://gitter.im/pownjs/Lobby#).
+Follow us on [twitter](https://twitter.com/pownjs). Star us on [GitHub](https://github.com/pownjs). Join the conversation on [Slack](#slack).
 
 Many of the details are still ironed out but since this is the beginning it is an excellent opportunity not only to expand your knowledge in the field of information security by contributing directly to Pown.js but also to become a leading member and a frontrunner of the Pown.js eco-system and the security field wold-wide.
 

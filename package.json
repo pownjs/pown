@@ -1,12 +1,14 @@
 {
   "name": "pown",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "description": "Pownage guaranteed",
-  "main": "index.js",
+  "main": "lib/index.js",
   "bin": {
-    "pown": "./index.js"
+    "pown": "bin/pown.js"
   },
-  "scripts": {},
+  "scripts": {
+    "pown": "POWN_ROOT=. node bin/pown.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pownjs/pown.git"
@@ -23,8 +25,8 @@
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
-    "pown-cli": "^0.3.0",
-    "pown-dist": "^0.9.0"
+    "@pown/cli": "^0.5.1",
+    "@pown/dist": "^0.10.0"
   },
   "devDependencies": {}
 }
