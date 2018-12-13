@@ -7,7 +7,8 @@
     "pown": "bin/pown.js"
   },
   "scripts": {
-    "pown": "POWN_ROOT=. node bin/pown.js"
+    "pown": "POWN_ROOT=. node bin/pown.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,8 @@
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
-    "@pown/cli": "^0.5.1",
-    "@pown/dist": "^0.10.0"
+    "@pown/cli": "^2.0.0",
+    "@pown/dist": "^2.0.0"
   },
   "devDependencies": {}
 }
