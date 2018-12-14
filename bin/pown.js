@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-require('@pown/cli/bin/pown')
+require('@pown/cli/bin/cli')
