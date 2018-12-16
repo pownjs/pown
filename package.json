@@ -28,7 +28,7 @@
   "dependencies": {
     "@pown/cli": "^2.0.6",
     "@pown/dist": "^2.0.2",
-    "@pown/proxy": "^2.0.0"
+    "@pown/proxy": "^2.1.0"
   },
   "devDependencies": {}
 }
