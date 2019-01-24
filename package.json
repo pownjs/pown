@@ -26,11 +26,12 @@
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
-    "@pown/cli": "^2.1.0",
-    "@pown/dicts": "^2.0.0",
+    "@pown/buster": "^2.0.0",
+    "@pown/cli": "^2.3.0",
+    "@pown/dicts": "^2.2.1",
     "@pown/dist": "^2.1.0",
     "@pown/proxy": "^2.1.0",
-    "@pown/recon": "^2.0.0"
+    "@pown/recon": "^2.7.0"
   },
   "devDependencies": {}
 }
