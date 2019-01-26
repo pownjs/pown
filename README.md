@@ -13,4 +13,21 @@ Install Pown.js globally like this:
 $ npm install -g pown@latest
 ```
 
-Use the pown modules to get access to internal features
+## Usage
+
+```
+Usage: pown [options] <command> [command options]
+
+Commands:
+  pown modules                    List loadable modules
+  pown buster [options] <url>     Web file and directory bruteforcer (a.k.a dirbuster)
+  pown credits [options]          list contributors and credits
+  pown dicts [options] <search>   Assorted Dictionaries
+  pown proxy [options] [command]  HTTP proxy
+  pown recon [options] <command>  Target recon
+
+Options:
+  --version  Show version number  [boolean]
+  --debug    Debug mode  [boolean]
+  --help     Show help  [boolean]
+```
