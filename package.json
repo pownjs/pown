@@ -1,6 +1,6 @@
 {
   "name": "pown",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "bin": {
