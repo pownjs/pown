@@ -16,18 +16,19 @@ $ npm install -g pown@latest
 ## Usage
 
 ```
-Usage: pown [options] <command> [command options]
+pown [options] <command> [command options]
 
 Commands:
-  pown modules                    List loadable modules
+  pown update [options]           Update global installation of pown  [aliases: upgrade, up]
   pown buster [options] <url>     Web file and directory bruteforcer (a.k.a dirbuster)
   pown credits [options]          list contributors and credits
   pown dicts [options] <search>   Assorted Dictionaries
   pown proxy [options] [command]  HTTP proxy
   pown recon [options] <command>  Target recon
+  pown script <file>              Simple scripting engine
+  pown shell [options]            Simple shell
 
 Options:
   --version  Show version number  [boolean]
-  --debug    Debug mode  [boolean]
   --help     Show help  [boolean]
 ```
