@@ -35,5 +35,10 @@
     "@pown/script": "^2.0.1",
     "@pown/shell": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "pown": {
+    "commands": [
+      "lib/commands/update.js"
+    ]
+  }
 }
