@@ -19,13 +19,15 @@ $ npm install -g pown@latest
 pown [options] <command> [command options]
 
 Commands:
+  pown modules <command>          Module manager  [aliases: module, m]
   pown update [options]           Update global installation of pown  [aliases: upgrade, up]
   pown buster [options] <url>     Web file and directory bruteforcer (a.k.a dirbuster)
   pown credits [options]          list contributors and credits
   pown dicts [options] <search>   Assorted Dictionaries
+  pown preferences <command>      Preferences  [aliases: prefs]
   pown proxy [options] [command]  HTTP proxy
-  pown recon [options] <command>  Target recon
-  pown script <file>              Simple scripting engine
+  pown recon <command>            Target recon
+  pown script [file|script]       Simple scripting engine
   pown shell [options]            Simple shell
 
 Options:
