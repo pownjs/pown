@@ -227,3 +227,7 @@ Options:
   --version  Show version number  [boolean]
   --help     Show help  [boolean]
 ```
+
+## Modules
+
+Pown.js comes with several builtin modules for convenience. However, additional modules can be installed directly from the NPM registry using `pown modules` command. Optional modules are installed in the current users's home folder under `.pown/modules`.
