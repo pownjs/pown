@@ -8,7 +8,7 @@ Pown.js is a security testing and exploitation toolkit built on top of Node.js a
 
 ## Quickstart
 
-Install Pown.js globally like this:
+Install Pown.js globally with npm or yarn.
 
 ```sh
 $ npm install -g pown@latest
