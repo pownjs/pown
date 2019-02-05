@@ -4,7 +4,7 @@
 
 # Pown
 
-Pown.js is a security testing an exploitation toolkit built on top of Node.js and NPM.
+Pown.js is a security testing and exploitation toolkit built on top of Node.js and NPM.
 
 ## Quickstart
 
