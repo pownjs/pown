@@ -35,7 +35,7 @@
     "@pown/preferences": "^2.2.1",
     "@pown/proxy": "^2.1.0",
     "@pown/recon": "^2.18.1",
-    "@pown/script": "^2.8.0",
+    "@pown/script": "^2.9.0",
     "@pown/shell": "^2.1.0"
   },
   "devDependencies": {},
