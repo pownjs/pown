@@ -31,6 +31,7 @@
     "@pown/dicts": "^2.5.0",
     "@pown/dist": "^2.4.0",
     "@pown/duct": "^2.1.0",
+    "@pown/figlet": "^2.0.0",
     "@pown/preferences": "^2.2.1",
     "@pown/proxy": "^2.1.0",
     "@pown/recon": "^2.18.1",
