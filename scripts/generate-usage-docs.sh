@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 COMMANDS="pown"
-SUBCOMMANDS="modules update buster credits dicts duct preferences proxy recon script shell"
+SUBCOMMANDS="modules update buster credits dicts duct figlet preferences proxy recon script shell whoarethey"
 
 export POWN_ROOT=.
 

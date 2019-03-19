@@ -20,17 +20,19 @@ $ npm install -g pown@latest
 pown [options] <command> [command options]
 
 Commands:
-  pown modules <command>          Module manager  [aliases: module, m]
-  pown update [options]           Update global installation of pown  [aliases: upgrade, up]
-  pown buster [options] <url>     Web file and directory bruteforcer (a.k.a dirbuster)
-  pown credits [options]          list contributors and credits
-  pown dicts [options] <search>   Assorted Dictionaries
-  pown duct <command>             Side-channel attack enabler  [aliases: ducting, d]
-  pown preferences <command>      Preferences  [aliases: prefs]
-  pown proxy [options] [command]  HTTP proxy
-  pown recon <command>            Target recon
-  pown script [file|script]       Simple scripting engine
-  pown shell [options]            Simple shell
+  pown modules <command>               Module manager  [aliases: module, m]
+  pown update [options]                Update global installation of pown  [aliases: upgrade, up]
+  pown buster <command>                Multi-service bruteforce discovery tool  [aliases: bust]
+  pown credits [options]               list contributors and credits
+  pown dicts [options] <search>        Assorted Dictionaries
+  pown duct <command>                  Side-channel attack enabler  [aliases: ducting, d]
+  pown figlet <text>                   Generate figlet
+  pown preferences <command>           Preferences  [aliases: prefs]
+  pown proxy [options] [command]       HTTP proxy
+  pown recon <command>                 Target recon
+  pown script [file|script] [args...]  Simple scripting engine for automating pown commands.
+  pown shell [options]                 Simple shell
+  pown whoarethey <accounts...>        find social networking accounts and more
 
 Options:
   --version  Show version number  [boolean]
@@ -71,32 +73,17 @@ Options:
 ### `pown buster`
 
 ```
-pown buster [options] <url>
+pown buster <command>
 
-Web file and directory bruteforcer (a.k.a dirbuster)
+Multi-service bruteforce discovery tool
+
+Commands:
+  pown buster web [options] <url>       Web file and directory bruteforcer (a.k.a dirbuster)
+  pown buster email [options] <domain>  Email bruteforce discovery tool (via smtp)  [aliases: emails]
 
 Options:
-  --version                   Show version number  [boolean]
-  --help                      Show help  [boolean]
-  --request-method, -X        Request method  [string] [default: "GET"]
-  --name-dictionary, -n       Name dictionary file  [string]
-  --extension-dictionary, -e  Extension dictionary file  [string]
-  --name-prefix               Name prefix  [string] [default: "/"]
-  --name-suffix               Name suffix  [string] [default: ""]
-  --extension-prefix          Extension prefix  [string] [default: "."]
-  --extension-suffix          Extension suffix  [string] [default: ""]
-  --request-concurrency, -r   The number of request to run concurrently  [string] [default: Infinity]
-  --load-concurrency, -l      The number of assync operations to run concurrently  [string] [default: Infinity]
-  --header, -H                Set header  [array] [default: []]
-  --timeout, -t               Request timeout in milliseconds  [number] [default: 30000]
-  --all, -y                   Display all results  [boolean] [default: false]
-  --yes, -y                   Answer yes to all questions  [boolean] [default: false]
-  --blessed, -b               Start with blessed ui  [boolean] [default: false]
-
-Examples:
-  pown buster -X HEAD -n words.txt http://target                                             Send requests using the HEAD HTTP method
-  pown buster -H 'Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l' -n words.txt http://target  Send basic authentication headers
-  pown buster -b --all -n words.txt http://target                                            Start buster but also open the results in nice text user interface
+  --version  Show version number  [boolean]
+  --help     Show help  [boolean]
 ```
 
 ### `pown credits`
@@ -141,6 +128,22 @@ Options:
   --help     Show help  [boolean]
 ```
 
+### `pown figlet`
+
+```
+pown figlet <text>
+
+Generate figlet
+
+Options:
+  --version   Show version number  [boolean]
+  --help      Show help  [boolean]
+  --font, -f  FIGlet font to use  [string] [default: "Standard"]
+  --fg        Foreground color  [choices: "default", "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "gray", "grey"] [default: "default"]
+  --bg        Background color  [choices: "default", "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"] [default: "default"]
+  --bold      Make it bold  [boolean] [default: false]
+```
+
 ### `pown preferences`
 
 ```
@@ -176,7 +179,7 @@ Options:
   --ws-host                 Web socket server host  [string] [default: "0.0.0.0"]
   --ws-port                 Web socket server port  [number] [default: 9090]
   --ws-app                  Open app  [string] [choices: "", "httpview"] [default: ""]
-  --certs-dir               Directory for the certificates  [string] [default: "/Users/pdp/.pown/proxy/certs"]
+  --certs-dir               Directory for the certificates  [string] [default: "/home/ec2-user/.pown/proxy/certs"]
   --server-key-length       Default key length for certificates  [number] [default: 1024]
   --default-ca-common-name  The CA common name  [string] [default: "Pown.js Proxy"]
 ```
@@ -197,6 +200,8 @@ Commands:
   pown recon diff <fileA> <fileB>         Perform a diff between two recon files  [aliases: d]
   pown recon group <name> <selectors...>  Group nodes  [aliases: g]
   pown recon ungroup <selectors...>       Ungroup nodes  [aliases: u]
+  pown recon import <file>                Import file  [aliases: i]
+  pown recon export <file>                Export to file  [aliases: e]
 
 Options:
   --version  Show version number  [boolean]
@@ -206,14 +211,17 @@ Options:
 ### `pown script`
 
 ```
-pown script [file|script]
+pown script [file|script] [args...]
 
-Simple scripting engine
+Simple scripting engine for automating pown commands.
 
 Options:
-  --version   Show version number  [boolean]
-  --help      Show help  [boolean]
-  --eval, -e  Evaluate inline script  [boolean] [default: false]
+  --version      Show version number  [boolean]
+  --help         Show help  [boolean]
+  --command, -c  Evaluate inline commands  [boolean] [default: false]
+  --exit, -e     Exit immediately  [boolean] [default: false]
+  --expand, -x   Expand command  [boolean] [default: false]
+  --skip, -s     Skip number of lines  [number] [default: 0]
 ```
 
 ### `pown shell`
@@ -222,6 +230,18 @@ Options:
 pown shell [options]
 
 Simple shell
+
+Options:
+  --version  Show version number  [boolean]
+  --help     Show help  [boolean]
+```
+
+### `pown whoarethey`
+
+```
+pown whoarethey <accounts...>
+
+find social networking accounts and more
 
 Options:
   --version  Show version number  [boolean]
