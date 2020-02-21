@@ -27,18 +27,19 @@
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
     "@pown/buster": "^2.7.2",
-    "@pown/cdb": "^2.0.0",
-    "@pown/cli": "^2.14.1",
-    "@pown/dicts": "^2.5.0",
+    "@pown/cdb": "^2.2.0",
+    "@pown/cli": "^2.20.0",
+    "@pown/dicts": "^2.7.6",
     "@pown/dist": "^2.4.0",
     "@pown/duct": "^2.1.0",
+    "@pown/encoder": "^2.2.0",
     "@pown/figlet": "^2.0.0",
     "@pown/preferences": "^2.3.0",
     "@pown/proxy": "^2.1.0",
-    "@pown/recon": "^2.45.5",
-    "@pown/script": "^2.10.0",
+    "@pown/recon": "^2.74.0",
+    "@pown/script": "^2.10.1",
     "@pown/shell": "^2.1.0",
-    "@pown/whoarethey": "^2.1.0"
+    "@pown/whoarethey": "^2.4.0"
   },
   "devDependencies": {},
   "pown": {
