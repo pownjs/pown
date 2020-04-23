@@ -35,6 +35,7 @@
     "@pown/encoder": "^2.3.0",
     "@pown/figlet": "^2.0.0",
     "@pown/lau": "^2.0.0",
+    "@pown/leaks": "^2.5.0",
     "@pown/preferences": "^2.3.0",
     "@pown/proxy": "^2.1.0",
     "@pown/recon": "^2.81.0",
