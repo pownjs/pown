@@ -7,8 +7,9 @@
     "pown": "bin/pown.js"
   },
   "scripts": {
-    "pown": "POWN_ROOT=. node bin/pown.js",
-    "test": "mocha"
+    "build": "true",
+    "test": "mocha",
+    "pown": "POWN_ROOT=. node bin/pown.js"
   },
   "repository": {
     "type": "git",
@@ -28,20 +29,20 @@
   "dependencies": {
     "@pown/buster": "^2.7.2",
     "@pown/cdb": "^2.3.1",
-    "@pown/cli": "^2.20.0",
-    "@pown/dicts": "^2.7.6",
+    "@pown/cli": "^2.21.3",
+    "@pown/dicts": "^2.8.0",
     "@pown/dist": "^2.4.0",
     "@pown/duct": "^2.1.0",
     "@pown/encoder": "^2.3.0",
     "@pown/figlet": "^2.0.0",
-    "@pown/lau": "^2.0.0",
-    "@pown/leaks": "^2.5.0",
+    "@pown/lau": "^2.1.0",
+    "@pown/leaks": "^2.8.0",
     "@pown/preferences": "^2.3.0",
     "@pown/proxy": "^2.1.0",
-    "@pown/recon": "^2.81.0",
+    "@pown/recon": "^2.86.0",
     "@pown/script": "^2.10.1",
     "@pown/shell": "^2.1.0",
-    "@pown/whoarethey": "^2.4.0"
+    "@pown/whoarethey": "^2.5.0"
   },
   "devDependencies": {},
   "pown": {
