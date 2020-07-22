@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 
+
 const boot = async() => {
     const path = require('path')
     const { ensurePreferencesFilename, getPreferencesDirectory } = require('@pown/preferences')
+
+    // stage0: add the local node_modules to the module search path
+
+    module.paths.push(path.join(__dirname, '..', 'node_modules'))
 
     // stage1: setup pown root
 
@@ -10,7 +15,7 @@ const boot = async() => {
         process.env.POWN_ROOT = path.join(__dirname, '..')
     }
 
-    // stage2: setup node modules
+    // stage2: add modules node_modules to the module search path
 
     await ensurePreferencesFilename('modules', 'package.json')
 
