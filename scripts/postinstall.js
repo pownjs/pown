@@ -5,36 +5,30 @@ const child_process = require('child_process')
 const run = (command) => {
     console.log(`[$] ${command}`)
 
-    child_process.execSync(command)
+    child_process.execSync(command, { stdio: 'ignore' })
 }
 
 const main = () => {
     require('../lib/splash')
 
-    console.log('[*] installing default modules')
+    const modules = [
+        'modules',
+        'preferences',
+        'blessed',
+        'recon'
+    ]
 
-    ; // WTF
+    console.log('[*] installing default modules', modules.join(', '))
 
-    [
-        '@pown/buster',
-        '@pown/cdb',
-        '@pown/dicts',
-        '@pown/blessed',
-        '@pown/duct',
-        '@pown/encoder',
-        '@pown/lau',
-        '@pown/leaks',
-        '@pown/preferences',
-        '@pown/proxy',
-        '@pown/whoarethey',
-        '@pown/recon'
-    ].forEach(((module) => {
-        run(`pown modules install ${module}`)
+    modules.forEach(((module) => {
+        run(`pown modules install @pown/${module}`)
     }))
 
     console.log('[*] updating all modules')
 
     run('pown modules update')
+
+    console.log('\n')
 }
 
 main()
