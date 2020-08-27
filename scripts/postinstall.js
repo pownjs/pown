@@ -3,9 +3,9 @@
 const child_process = require('child_process')
 
 const run = (command) => {
-    console.log(`[$] ${command}`)
+    console.log(`$ ${command}`)
 
-    child_process.execSync(command, { stdio: 'ignore' })
+    return child_process.execSync(command, { stdio: 'ignore' })
 }
 
 const main = () => {
@@ -18,16 +18,20 @@ const main = () => {
         'recon'
     ]
 
-    console.log('[*] installing default modules', modules.join(', '))
+    console.log('* installing default modules', modules.join(', '))
 
     modules.forEach(((module) => {
         run(`pown modules install @pown/${module}`)
     }))
 
-    console.log('[*] updating all modules')
+    console.log('* updating all modules')
 
     run('pown modules update')
 
+    console.log('')
+    console.log('Additional modules available!')
+    console.log('')
+    console.log('Try `pown modules search @pown`.')
     console.log('\n')
 }
 
