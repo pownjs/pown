@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 const boot = async() => {
     const path = require('path')
     const { ensurePreferencesFilename, getPreferencesDirectory } = require('@pown/preferences')
@@ -25,7 +24,7 @@ const boot = async() => {
 
     // stage3: setup pown modules
 
-    process.env.POWN_PATH = [...(process.env.POWN_PATH ? process.env.POWN_PATH : []), dirname].join(path.delimiter)
+    process.env.POWN_PATH = [...(process.env.POWN_PATH ? [process.env.POWN_PATH] : []), dirname].join(path.delimiter)
 
     // stage4: launch
 
