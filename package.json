@@ -9,7 +9,8 @@
   "scripts": {
     "build": "true",
     "test": "mocha",
-    "pown": "POWN_ROOT=. node bin/pown.js"
+    "pown": "POWN_ROOT=. node bin/pown.js",
+    "postinstall": "node scripts/postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -27,28 +28,18 @@
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
-    "@pown/buster": "^2.7.2",
-    "@pown/cdb": "^2.3.1",
-    "@pown/cli": "^2.21.3",
-    "@pown/dicts": "^2.8.0",
-    "@pown/dist": "^2.4.0",
-    "@pown/duct": "^2.1.0",
-    "@pown/encoder": "^2.3.0",
-    "@pown/figlet": "^2.0.0",
-    "@pown/lau": "^2.1.0",
-    "@pown/leaks": "^2.8.0",
+    "@pown/cli": "^2.22.0",
+    "@pown/credits": "^2.5.0",
+    "@pown/modules": "^2.3.2",
     "@pown/preferences": "^2.3.0",
-    "@pown/proxy": "^2.1.0",
-    "@pown/recon": "^2.87.1",
     "@pown/script": "^2.10.1",
-    "@pown/shell": "^2.1.0",
-    "@pown/whoarethey": "^2.6.0"
+    "@pown/shell": "^2.1.0"
   },
   "devDependencies": {},
   "pown": {
     "commands": [
-      "lib/commands/modules.js",
-      "lib/commands/update.js"
+      "commands/modules",
+      "commands/update"
     ]
   }
 }

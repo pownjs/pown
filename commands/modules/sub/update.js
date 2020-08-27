@@ -1,6 +1,7 @@
 exports.yargs = {
     command: 'update [modules...]',
     describe: 'Update modules',
+    aliases: ['upgrade', 'up', 'u'],
 
     handler: async(yargs) => {
         const { modules = [] } = yargs

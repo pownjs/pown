@@ -1,6 +1,7 @@
 exports.yargs = {
     command: 'search <terms...>',
     describe: 'Search modules',
+    aliases: ['s'],
 
     handler: async(yargs) => {
         const { terms = [] } = yargs

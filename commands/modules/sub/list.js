@@ -1,6 +1,7 @@
 exports.yargs = {
     command: 'list',
     describe: 'List install modules',
+    aliases: ['ls', 'l'],
 
     builder: (yargs) => {
         yargs.option('optional', {

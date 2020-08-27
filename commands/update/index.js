@@ -1,7 +1,7 @@
 exports.yargs = {
     command: 'update [options]',
     describe: 'Update global installation of pown',
-    aliases: ['upgrade', 'up'],
+    aliases: ['upgrade', 'up', 'u'],
 
     handler: async(argv) => {
         const util = require('util')

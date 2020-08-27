@@ -1,6 +1,7 @@
 exports.yargs = {
     command: 'uninstall <modules...>',
     describe: 'Uninstall modules',
+    aliases: ['u'],
 
     handler: async(yargs) => {
         const { modules = [] } = yargs
