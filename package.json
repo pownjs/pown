@@ -39,10 +39,10 @@
     "@pown/leaks": "^2.8.0",
     "@pown/preferences": "^2.3.0",
     "@pown/proxy": "^2.1.0",
-    "@pown/recon": "^2.86.0",
+    "@pown/recon": "^2.87.1",
     "@pown/script": "^2.10.1",
     "@pown/shell": "^2.1.0",
-    "@pown/whoarethey": "^2.5.0"
+    "@pown/whoarethey": "^2.6.0"
   },
   "devDependencies": {},
   "pown": {
