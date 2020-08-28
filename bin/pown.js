@@ -31,4 +31,8 @@ const boot = async() => {
     require('@pown/cli/bin/cli')
 }
 
-boot()
+boot().catch((error) => {
+    console.error(error)
+
+    process.exit(1)
+})
