@@ -1,14 +1,25 @@
 exports.yargs = {
-    command: 'update [options]',
+    command: 'update',
     describe: 'Update global installation of pown',
     aliases: ['upgrade', 'up', 'u'],
 
-    handler: async(argv) => {
+    builder: (yargs) => {
+        yargs.option('development', {
+            type: 'boolean',
+            describe: 'Install development.',
+            alias: ['d'],
+            default: false
+        })
+    },
+
+    handler: async(yargs) => {
+        const { development } = yargs
+
         const util = require('util')
         const { spawn } = require('child_process')
 
         const spawnAsync = util.promisify(spawn)
 
-        await spawnAsync('npm', ['install', '-g', 'pown@latest'], { stdio: 'inherit' })
+        await spawnAsync('npm', ['install', '-g', 'pown@latest', ...(development ? [] : ['--production'])], { stdio: 'inherit' })
     }
 }

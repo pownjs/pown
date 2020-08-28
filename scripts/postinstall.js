@@ -11,22 +11,15 @@ const run = (command) => {
 const main = () => {
     require('../lib/splash')
 
-    const modules = [
-        'modules',
-        'preferences',
-        'blessed',
-        'recon'
-    ]
+    const modules = []
 
-    console.log('* installing default modules', modules.join(', '))
+    if (modules.length) {
+        console.log('* installing default modules', modules.join(', '))
 
-    modules.forEach(((module) => {
-        run(`pown modules install @pown/${module}`)
-    }))
-
-    console.log('* updating all modules')
-
-    run('pown modules update')
+        modules.forEach(((module) => {
+            run(`pown modules install @pown/${module}`)
+        }))
+    }
 
     console.log('')
     console.log('Additional modules available!')
