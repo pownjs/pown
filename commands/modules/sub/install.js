@@ -3,8 +3,17 @@ exports.yargs = {
     describe: 'Install modules',
     aliases: ['i'],
 
+    builder: (yargs) => {
+        yargs.option('development', {
+            type: 'boolean',
+            describe: 'Install development.',
+            alias: ['o'],
+            default: false
+        })
+    },
+
     handler: async(yargs) => {
-        const { modules = [] } = yargs
+        const { modules = [], development } = yargs
 
         const util = require('util')
         const { writeFile } = require('fs')
@@ -20,6 +29,6 @@ exports.yargs = {
 
         const dirname = getPreferencesDirectory('modules')
 
-        await spawnAsync('npm', ['install', ...modules], { stdio: 'inherit', cwd: dirname })
+        await spawnAsync('npm', ['install', ...modules, ...(development ? [] : ['--production'])], { stdio: 'inherit', cwd: dirname })
     }
 }
