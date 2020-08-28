@@ -5,6 +5,7 @@ const boot = async() => {
     const { ensurePreferencesFilename, getPreferencesDirectory } = require('@pown/preferences')
 
     // stage0: add the local node_modules to the module search path
+    // NOTE: this is mute
 
     module.paths.push(path.join(__dirname, '..', 'node_modules'))
 
@@ -15,6 +16,7 @@ const boot = async() => {
     }
 
     // stage2: add modules node_modules to the module search path
+    // NOTE: this is mute
 
     await ensurePreferencesFilename('modules', 'package.json')
 
