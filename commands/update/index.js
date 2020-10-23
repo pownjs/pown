@@ -20,6 +20,6 @@ exports.yargs = {
 
         const spawnAsync = util.promisify(spawn)
 
-        await spawnAsync('npm', ['install', '-g', 'pown@latest', ...(development ? [] : ['--production'])], { stdio: 'inherit' })
+        await spawnAsync('npm', ['install', '-g', 'pown@latest', ...(development ? [] : ['--production'])], { shell: true, stdio: 'inherit' })
     }
 }
