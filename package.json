@@ -33,7 +33,7 @@
     "@pown/modules": "^2.7.0",
     "@pown/preferences": "^2.3.0",
     "@pown/script": "^2.14.0",
-    "@pown/shell": "^2.2.0"
+    "@pown/shell": "^2.3.0"
   },
   "devDependencies": {},
   "pown": {
