@@ -30,7 +30,7 @@
   "dependencies": {
     "@pown/cli": "^2.28.0",
     "@pown/credits": "^2.6.0",
-    "@pown/modules": "^2.7.0",
+    "@pown/modules": "^2.8.0",
     "@pown/preferences": "^2.4.0",
     "@pown/script": "^2.15.0",
     "@pown/shell": "^2.4.0"
