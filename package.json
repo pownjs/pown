@@ -7,9 +7,10 @@
     "pown": "bin/pown.js"
   },
   "scripts": {
-    "build": "true",
-    "test": "mocha",
     "pown": "POWN_ROOT=. node bin/pown.js",
+    "usage": "true",
+    "build": "true",
+    "test": "true",
     "postinstall": "node scripts/postinstall.js"
   },
   "repository": {
@@ -28,14 +29,16 @@
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
-    "@pown/cli": "^2.28.0",
+    "@pown/cli": "^2.29.0",
     "@pown/credits": "^2.6.0",
     "@pown/modules": "^2.8.0",
-    "@pown/preferences": "^2.4.0",
-    "@pown/script": "^2.15.0",
-    "@pown/shell": "^2.4.0"
+    "@pown/preferences": "^2.5.0",
+    "@pown/script": "^2.16.0",
+    "@pown/shell": "^2.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@pown/toolchain": "^2.1.0"
+  },
   "pown": {
     "commands": [
       "commands/update"
