@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pown": "POWN_ROOT=. node bin/pown.js",
-    "usage": "true",
+    "usage": "POWN_ROOT=. npm run pown -- --help",
     "build": "true",
     "test": "true",
     "postinstall": "node scripts/postinstall.js"
