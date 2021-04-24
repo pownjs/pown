@@ -6,7 +6,7 @@
 
 # Pown
 
-Pown.js is a security testing and exploitation toolkit built on top of Node.js and NPM. Unlike traditional security tools like Metasploits, Pown.js considers frameworks to be an anti-pattern. Therefore, each module in Pown is in fact a standalone NPM module allowing greater degree of reuse and flexibility. Creating new modules is a matter of publishing to NPM.
+Pown.js is a security testing and exploitation toolkit built on top of Node.js and NPM. Unlike traditional security tools, notably Metasploits, Pown.js considers frameworks to be an anti-pattern. Therefore, each feature in Pown is in fact a standalone NPM module allowing greater degree of reuse and flexibility. Creating new features is a matter of publishing new modules to NPM. This module provides simple means to start the cli. As a result you can easily build your own tools with pown or create new tools by composition.
 
 ## Quickstart
 
