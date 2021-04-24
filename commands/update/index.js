@@ -7,7 +7,7 @@ exports.yargs = {
         yargs.option('development', {
             type: 'boolean',
             describe: 'Install development.',
-            alias: ['d'],
+            alias: ['d', 'dev'],
             default: false
         })
     },
