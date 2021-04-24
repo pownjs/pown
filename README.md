@@ -6,7 +6,7 @@
 
 # Pown
 
-Pown.js is a security testing and exploitation toolkit built on top of Node.js and NPM. Unlike traditional security tools like Metasploits, Pown.js considers frameworks to be an anti-pattern. Therefore, each module in Pown is in fact a standalone NPM module allowing greater degree of reuse and flexibility. Creating new modules is a matter of publishing to NPM and tagging it with the correct tags. The rest is handled automatically.
+Pown.js is a security testing and exploitation toolkit built on top of Node.js and NPM. Unlike traditional security tools like Metasploits, Pown.js considers frameworks to be an anti-pattern. Therefore, each module in Pown is in fact a standalone NPM module allowing greater degree of reuse and flexibility. Creating new modules is a matter of publishing to NPM.
 
 ## Quickstart
 
@@ -36,4 +36,4 @@ Options:
 
 ## Modules
 
-Pown.js comes with several builtin modules for convenience. However, additional modules can be installed directly from the NPM registry using `pown modules` command. Optional modules are installed in the current users's home folder under `.pown/modules`.
+Pown.js comes with several builtin modules for convenience. However, additional modules can be installed directly from the NPM registry using `pown modules` command. Optional modules are installed in the current users's home folder under `~/.pown/modules`.
