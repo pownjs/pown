@@ -22,12 +22,12 @@ $ npm install -g pown@latest
 pown.js [options] <command> [command options]
 
 Commands:
-  pown.js update                          Update global installation of pown  [aliases: upgrade, up, u]
-  pown.js credits [options]               list contributors and credits
-  pown.js modules <command>               Module manager  [aliases: module, mo, m]
-  pown.js preferences <command>           Preferences  [aliases: prefs]
-  pown.js script [file|script] [args...]  Simple scripting engine for automating pown commands.
-  pown.js shell [options]                 Simple shell for executing pown commands
+  pown.js update                   Update global installation of pown  [aliases: upgrade, up, u]
+  pown.js credits [options]        list contributors and credits
+  pown.js modules <command>        Module manager  [aliases: module, mo, m]
+  pown.js preferences <command>    Preferences  [aliases: prefs]
+  pown.js script [file] [args...]  Simple scripting engine for automating pown commands.
+  pown.js shell [options]          Simple shell for executing pown commands
 
 Options:
   --version  Show version number  [boolean]
