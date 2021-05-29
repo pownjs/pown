@@ -34,7 +34,7 @@
     "@pown/credits": "^2.7.0",
     "@pown/modules": "^2.10.0",
     "@pown/preferences": "^2.6.0",
-    "@pown/script": "^2.20.0",
+    "@pown/script": "^2.20.1",
     "@pown/shell": "^2.6.0"
   },
   "pown": {
