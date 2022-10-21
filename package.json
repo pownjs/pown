@@ -40,6 +40,8 @@
     "fix:dependency-versions": "check-dependency-version-consistency . --fix",
     "fix:package-json": "node scripts/fix-package-json.js",
     "fix:test": "sh scripts/fix-test.sh",
+    "fix:npm": "sh scripts/fix-npm.sh",
+    "fix:license": "sh scripts/fix-license.sh",
     "format": "run-s format:*",
     "format:pkg": "npx format-package -w",
     "format:src": "prettier -w .",
