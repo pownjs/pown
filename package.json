@@ -21,6 +21,7 @@
     "packages/preferences",
     "packages/modules",
     "packages/async",
+    "packages/regexp",
     "packages/cli",
     "packages/credits",
     "packages/script",
