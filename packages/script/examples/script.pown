@@ -1,0 +1,3 @@
+set -xe
+
+script ./echo.pown
