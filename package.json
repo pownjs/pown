@@ -20,6 +20,7 @@
   "workspaces": [
     "packages/preferences",
     "packages/modules",
+    "packages/async",
     "packages/cli",
     "packages/script",
     "packages/shell",
@@ -28,9 +29,9 @@
   ],
   "scripts": {
     "build": "npm-run-all \"build:*\"",
-    "build:packages": "npw -ws run build",
+    "build:packages": "npm -ws run build",
     "test": "npm-run-all \"test:*\"",
-    "test:packages": "npw -ws run test",
+    "test:packages": "npm -ws run test",
     "lint": "npm-run-all --continue-on-error --aggregate-output --parallel \"lint:*\"",
     "lint:dependency-versions": "check-dependency-version-consistency .",
     "fix": "npm-run-all \"fix:*\"",
