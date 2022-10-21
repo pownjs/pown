@@ -1,6 +1,6 @@
 {
   "name": "@pown/credits",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "scripts": {
