@@ -1,6 +1,6 @@
 {
   "name": "@pown/script",
-  "version": "3.0.0",
+  "version": "2.22.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "scripts": {
@@ -21,14 +21,6 @@
     "url": "https://github.com/pownjs/pown/issues"
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/script#readme",
-  "peerDependencies": {
-    "@pown/cli": "^2.41.0",
-    "@pown/modules": "^2.11.0"
-  },
-  "devDependencies": {
-    "@pown/cli": "^3.0.0",
-    "@pown/modules": "^3.0.0"
-  },
   "engines": {
     "node": ">=14"
   },
