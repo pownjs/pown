@@ -26,8 +26,8 @@
     "@pown/modules": "^2.11.0"
   },
   "devDependencies": {
-    "@pown/cli": "^3.0.0",
-    "@pown/modules": "^3.0.0"
+    "@pown/cli": "*",
+    "@pown/modules": "*"
   },
   "engines": {
     "node": ">=14"
