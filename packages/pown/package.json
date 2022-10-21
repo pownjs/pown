@@ -37,5 +37,8 @@
     "commands": [
       "commands/update"
     ]
+  },
+  "engines": {
+    "node": ">=14"
   }
 }

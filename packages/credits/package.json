@@ -25,5 +25,8 @@
     "commands": [
       "commands/credits/index.js"
     ]
+  },
+  "engines": {
+    "node": ">=14"
   }
 }

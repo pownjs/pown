@@ -25,5 +25,8 @@
     "commands": [
       "commands/preferences/index.js"
     ]
+  },
+  "engines": {
+    "node": ">=14"
   }
 }

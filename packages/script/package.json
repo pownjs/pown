@@ -30,7 +30,7 @@
     "@pown/modules": "^3.0.0"
   },
   "engines": {
-    "node": ">=11.0.0"
+    "node": ">=14"
   },
   "pown": {
     "commands": [

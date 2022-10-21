@@ -27,7 +27,7 @@
     "@pown/script": "^3.0.0"
   },
   "engines": {
-    "node": ">=0.11"
+    "node": ">=14"
   },
   "pown": {
     "commands": [

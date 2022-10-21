@@ -30,5 +30,8 @@
     "commands": [
       "commands/modules"
     ]
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
