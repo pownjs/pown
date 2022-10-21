@@ -33,7 +33,7 @@
     "packages/pown"
   ],
   "scripts": {
-    "preversion": "node scripts/preversion.js && npm add -A; git commit -m $npm_new_version",
+    "version": "node scripts/on-version.js",
     "build": "npm-run-all \"build:*\"",
     "build:packages": "npm -ws run build",
     "test": "npm-run-all \"test:*\"",
