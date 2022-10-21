@@ -18,7 +18,13 @@
     "url": "https://github.com/pownjs/pown/issues"
   },
   "workspaces": [
-    "packages/*"
+    "packages/preferences",
+    "packages/modules",
+    "packages/cli",
+    "packages/script",
+    "packages/shell",
+    "packages/credits",
+    "packages/pown"
   ],
   "scripts": {
     "build": "npm-run-all \"build:*\"",
