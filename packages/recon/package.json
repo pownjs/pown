@@ -100,5 +100,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "version": "3.0.6"
 }
