@@ -17,7 +17,7 @@ const main = async () => {
 
         package.homepage = `https://github.com/pownjs/pown.git/packages/${dir}#readme`,
 
-        package.license = 'MIT'
+            package.license = 'MIT'
 
         package.repository = {
             type: 'git',
@@ -26,6 +26,10 @@ const main = async () => {
 
         package.bugs = {
             url: "https://github.com/pownjs/pown/issues"
+        }
+
+        package.engines = {
+            node: '>=14'
         }
 
         fs.writeFileSync(packageFile, JSON.stringify(package, '', 2))

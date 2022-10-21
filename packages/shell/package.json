@@ -1,10 +1,9 @@
 {
   "name": "@pown/shell",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "scripts": {
-    "shell": "POWN_ROOT=. pown-cli shell",
     "test": "NODE_ENV=test npx -y mocha@latest"
   },
   "repository": {
@@ -23,9 +22,9 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/shell#readme",
   "dependencies": {
-    "@pown/cli": "^2.41.0",
-    "@pown/modules": "^2.11.0",
-    "@pown/script": "^2.22.0"
+    "@pown/cli": "^3.0.0",
+    "@pown/modules": "^3.0.0",
+    "@pown/script": "^3.0.0"
   },
   "engines": {
     "node": ">=0.11"

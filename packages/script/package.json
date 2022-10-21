@@ -1,12 +1,9 @@
 {
   "name": "@pown/script",
-  "version": "2.22.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "scripts": {
-    "script": "POWN_ROOT=. pown-cli script",
-    "usage": "POWN_ROOT=. pown-cli script --help",
-    "build": "true",
     "test": "NODE_ENV=test npx -y mocha@latest"
   },
   "repository": {
@@ -29,10 +26,9 @@
     "@pown/modules": "^2.11.0"
   },
   "devDependencies": {
-    "@pown/cli": "^2.41.0",
-    "@pown/modules": "^2.11.0"
+    "@pown/cli": "^3.0.0",
+    "@pown/modules": "^3.0.0"
   },
-  "dependencies": {},
   "engines": {
     "node": ">=11.0.0"
   },

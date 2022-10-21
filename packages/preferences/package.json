@@ -1,6 +1,6 @@
 {
   "name": "@pown/preferences",
-  "version": "2.7.0",
+  "version": "3.0.0",
   "description": "Pownage preference",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,6 @@
     "url": "https://github.com/pownjs/pown/issues"
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/preferences#readme",
-  "dependencies": {},
   "pown": {
     "commands": [
       "commands/preferences/index.js"

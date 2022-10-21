@@ -1,6 +1,6 @@
 {
   "name": "@pown/modules",
-  "version": "2.11.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/modules#readme",
   "dependencies": {
-    "@pown/preferences": "^2.7.0",
+    "@pown/preferences": "^3.0.0",
     "read-package-tree": "^5.2.1"
   },
   "pown": {

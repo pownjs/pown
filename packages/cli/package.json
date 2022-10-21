@@ -1,15 +1,12 @@
 {
   "name": "@pown/cli",
-  "version": "2.41.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "bin": {
     "pown-cli": "bin/cli.js"
   },
   "scripts": {
-    "cli": "POWN_ROOT=. node bin/cli.js",
-    "usage": "POWN_ROOT=. node bin/cli.js --help",
-    "build": "true",
     "test": "NODE_ENV=test npx -y mocha@latest"
   },
   "repository": {
@@ -28,7 +25,7 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/cli#readme",
   "dependencies": {
-    "@pown/modules": "^2.11.0",
+    "@pown/modules": "^3.0.0",
     "are-we-there-yet": "^1.1.5",
     "chalk": "^2.4.2",
     "cli-progress": "^2.1.1",
