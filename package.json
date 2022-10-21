@@ -28,6 +28,7 @@
     "packages/script",
     "packages/shell",
     "packages/request",
+    "packages/connect",
     "packages/pown"
   ],
   "scripts": {
