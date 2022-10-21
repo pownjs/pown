@@ -28,13 +28,12 @@
     "url": "https://github.com/pownjs/pown/issues"
   },
   "homepage": "https://github.com/pownjs/pown#readme",
-  "devDependencies": {},
   "dependencies": {
-    "@pown/cli": "^2.33.0",
+    "@pown/cli": "^2.41.0",
     "@pown/credits": "^2.7.0",
-    "@pown/modules": "^2.10.0",
+    "@pown/modules": "^2.11.0",
     "@pown/preferences": "^2.6.0",
-    "@pown/script": "^2.20.1",
+    "@pown/script": "^2.22.0",
     "@pown/shell": "^2.6.0"
   },
   "pown": {
