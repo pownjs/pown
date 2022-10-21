@@ -1,0 +1,50 @@
+{
+  "name": "@pown/connect",
+  "version": "2.2.1",
+  "description": "Pownage guaranteed",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test npx -y mocha@latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git/packages/connect"
+  },
+  "keywords": [
+    "exploit",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown.git/packages/connect#readme",
+  "peerDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*"
+  },
+  "devDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*"
+  },
+  "dependencies": {
+    "bottleneck": "^2.19.5",
+    "is-deflate": "^1.0.0",
+    "is-gzip": "^2.0.0",
+    "performance-now": "^2.1.0"
+  },
+  "pown": {
+    "commands": [
+      "commands/connect"
+    ]
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
