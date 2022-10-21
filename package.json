@@ -1,7 +1,7 @@
 {
   "name": "@pown/monorepo",
   "private": true,
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Pownage guaranteed",
   "repository": {
     "type": "git",
