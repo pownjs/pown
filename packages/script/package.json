@@ -1,6 +1,6 @@
 {
   "name": "@pown/script",
-  "version": "2.22.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "scripts": {

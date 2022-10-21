@@ -1,6 +1,6 @@
 {
   "name": "pown",
-  "version": "2.43.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
   "bin": {
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/pown#readme",
   "dependencies": {
-    "@pown/cli": "^2.41.0",
+    "@pown/cli": "^3.0.0",
     "@pown/credits": "^3.0.0",
     "@pown/modules": "^3.0.0",
     "@pown/preferences": "^3.0.0",
