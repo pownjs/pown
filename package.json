@@ -29,7 +29,6 @@
     "packages/pown"
   ],
   "scripts": {
-    "preversion": "printenv && false && npm -ws version",
     "build": "npm-run-all \"build:*\"",
     "build:packages": "npm -ws run build",
     "test": "npm-run-all \"test:*\"",
