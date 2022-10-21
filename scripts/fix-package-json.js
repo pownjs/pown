@@ -21,7 +21,7 @@ const main = async () => {
 
     pkg.repository = {
       type: 'git',
-      url: `git+https://github.com/pownjs/pown/tree/master/packages/${dir}`,
+      url: `git+https://github.com/pownjs/pown.git`,
     }
 
     pkg.bugs = {

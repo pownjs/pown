@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown/tree/master/packages/script"
+    "url": "git+https://github.com/pownjs/pown.git"
   },
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
