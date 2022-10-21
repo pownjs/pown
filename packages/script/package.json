@@ -26,8 +26,8 @@
     "@pown/modules": "^2.11.0"
   },
   "devDependencies": {
-    "@pown/cli": "*",
-    "@pown/modules": "*"
+    "@pown/cli": "^3.0.0",
+    "@pown/modules": "^3.0.0"
   },
   "engines": {
     "node": ">=14"
@@ -36,5 +36,9 @@
     "commands": [
       "commands/script/index.js"
     ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

@@ -21,6 +21,7 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "build": "npm-run-all \"build:*\"",
     "build:packages": "npx lerna run build",
     "test": "npm-run-all \"test:*\"",
@@ -30,7 +31,8 @@
     "fix": "npm-run-all \"fix:*\"",
     "fix:dependency-versions": "check-dependency-version-consistency . --fix",
     "fix:package-json": "node scripts/fix-package-json.js",
-    "fix:test": "sh scripts/fix-test.sh"
+    "fix:test": "sh scripts/fix-test.sh",
+    "ci:publish": "lerna publish --yes"
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {

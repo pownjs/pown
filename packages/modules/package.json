@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/modules#readme",
   "dependencies": {
-    "@pown/preferences": "*",
+    "@pown/preferences": "^3.0.0",
     "read-package-tree": "^5.2.1"
   },
   "pown": {
@@ -33,5 +33,9 @@
   },
   "engines": {
     "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

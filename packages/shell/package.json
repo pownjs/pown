@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/shell#readme",
   "dependencies": {
-    "@pown/cli": "*",
-    "@pown/modules": "*",
-    "@pown/script": "*"
+    "@pown/cli": "^3.0.0",
+    "@pown/modules": "^3.0.0",
+    "@pown/script": "^3.0.0"
   },
   "engines": {
     "node": ">=14"
@@ -33,5 +33,9 @@
     "commands": [
       "commands/shell"
     ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
