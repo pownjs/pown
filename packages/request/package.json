@@ -1,5 +1,5 @@
 {
-  "name": "@pown/modules",
+  "name": "@pown/request",
   "version": "3.0.1",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
@@ -8,12 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/modules"
+    "url": "git+https://github.com/pownjs/pown.git/packages/request"
   },
   "keywords": [
-    "security",
-    "framework",
-    "modules"
+    "exploit",
+    "framework"
   ],
   "author": "pdp <pdp@gnucitizen.org>",
   "contributors": [],
@@ -21,14 +20,25 @@
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/modules#readme",
+  "homepage": "https://github.com/pownjs/pown.git/packages/request#readme",
+  "peerDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*"
+  },
+  "devDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*"
+  },
   "dependencies": {
-    "@pown/preferences": "*",
-    "read-package-tree": "^5.2.1"
+    "proxy-agent": "^5.0.0",
+    "bottleneck": "^2.19.5",
+    "is-deflate": "^1.0.0",
+    "is-gzip": "^2.0.0",
+    "performance-now": "^2.1.0"
   },
   "pown": {
     "commands": [
-      "commands/modules"
+      "commands/request"
     ]
   },
   "engines": {

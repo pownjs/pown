@@ -1,5 +1,5 @@
 {
-  "name": "@pown/modules",
+  "name": "@pown/async",
   "version": "3.0.1",
   "description": "Pownage guaranteed",
   "main": "lib/index.js",
@@ -8,12 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/modules"
+    "url": "git+https://github.com/pownjs/pown.git/packages/async"
   },
   "keywords": [
     "security",
-    "framework",
-    "modules"
+    "framework"
   ],
   "author": "pdp <pdp@gnucitizen.org>",
   "contributors": [],
@@ -21,16 +20,8 @@
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/modules#readme",
-  "dependencies": {
-    "@pown/preferences": "*",
-    "read-package-tree": "^5.2.1"
-  },
-  "pown": {
-    "commands": [
-      "commands/modules"
-    ]
-  },
+  "homepage": "https://github.com/pownjs/pown.git/packages/async#readme",
+  "dependencies": {},
   "engines": {
     "node": ">=14"
   },
