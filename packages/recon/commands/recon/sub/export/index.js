@@ -1,9 +1,9 @@
 exports.yargs = {
-    command: 'export <file>',
-    describe: 'Export to file',
-    aliases: ['x'],
+  command: 'export <file>',
+  describe: 'Export to file',
+  aliases: ['x'],
 
-    builder: (yargs) => {},
+  builder: (yargs) => {},
 
-    handler: async(argv) => {}
+  handler: async (argv) => {},
 }

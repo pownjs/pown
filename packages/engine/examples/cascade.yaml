@@ -4,11 +4,11 @@ task:
   - extract:
       value: ip0
       name: ip1
-      
+
   - extract:
       value: ip1
       name: ip2
-      
+
   - extract:
       value: ip2
       name: ip3

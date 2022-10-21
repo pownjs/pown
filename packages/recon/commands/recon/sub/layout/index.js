@@ -1,56 +1,62 @@
 exports.yargs = {
-    command: 'layout <name>',
-    describe: 'Layout the graph',
-    aliases: ['k'],
+  command: 'layout <name>',
+  describe: 'Layout the graph',
+  aliases: ['k'],
 
-    builder: (yargs) => {
-        const { installReadOptions, installWriteOptions } = require('../../lib/handlers/file')
+  builder: (yargs) => {
+    const {
+      installReadOptions,
+      installWriteOptions,
+    } = require('../../lib/handlers/file')
 
-        installReadOptions(yargs)
-        installWriteOptions(yargs)
-    },
+    installReadOptions(yargs)
+    installWriteOptions(yargs)
+  },
 
-    handler: async(argv) => {
-        const { name } = argv
+  handler: async (argv) => {
+    const { name } = argv
 
-        const { cytoscape } = require('../../../../lib/cytoscape')
+    const { cytoscape } = require('../../../../lib/cytoscape')
 
-        const klay = require('cytoscape-klay')
-        const dagre = require('cytoscape-dagre')
-        const euler = require('cytoscape-euler')
+    const klay = require('cytoscape-klay')
+    const dagre = require('cytoscape-dagre')
+    const euler = require('cytoscape-euler')
 
-        cytoscape.use(klay)
-        cytoscape.use(dagre)
-        cytoscape.use(euler)
+    cytoscape.use(klay)
+    cytoscape.use(dagre)
+    cytoscape.use(euler)
 
-        const { recon } = require('../../lib/globals/recon')
+    const { recon } = require('../../lib/globals/recon')
 
-        recon.resetGraph({
-            headless: true,
+    recon.resetGraph({
+      headless: true,
 
-            styleEnabled: true
-        })
+      styleEnabled: true,
+    })
 
-        const { handleReadOptions, handleWriteOptions } = require('../../lib/handlers/file')
+    const {
+      handleReadOptions,
+      handleWriteOptions,
+    } = require('../../lib/handlers/file')
 
-        await handleReadOptions(argv, recon)
+    await handleReadOptions(argv, recon)
 
-        const layout = recon.elements().layout({
-            boundingBox: { x1: 0, y1: 0, w: 4096, h: 3072 },
+    const layout = recon.elements().layout({
+      boundingBox: { x1: 0, y1: 0, w: 4096, h: 3072 },
 
-            name: name,
+      name: name,
 
-            animate: false,
+      animate: false,
 
-            nodeDimensionsIncludeLabels: true
-        })
+      nodeDimensionsIncludeLabels: true,
+    })
 
-        const promise = layout.pon('layoutstop')
+    const promise = layout.pon('layoutstop')
 
-        await layout.run()
+    await layout.run()
 
-        await promise
+    await promise
 
-        await handleWriteOptions(argv, recon)
-    }
+    await handleWriteOptions(argv, recon)
+  },
 }

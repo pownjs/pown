@@ -9,47 +9,50 @@ const util = require('util')
  */
 
 class Tracer {
-    constructor() {
-        this.trace = /** @type {TraceStep[]} */([])
-    }
+  constructor() {
+    this.trace = /** @type {TraceStep[]} */ ([])
+  }
 
-    /**
-     * 
-     * @param {string} message
-     * @param {Record<String,any>} [data] 
-     */
-    push(message, data = {}) {
-        this.trace.push({message, data, ts: Date.now()})
-    }
+  /**
+   *
+   * @param {string} message
+   * @param {Record<String,any>} [data]
+   */
+  push(message, data = {}) {
+    this.trace.push({ message, data, ts: Date.now() })
+  }
 
-    /**
-     * 
-     * returns {TraceStep[]}
-     */
-    getTrace() {
-        return this.trace
-    }
+  /**
+   *
+   * returns {TraceStep[]}
+   */
+  getTrace() {
+    return this.trace
+  }
 }
 
 class ConsoleTracer extends Tracer {
-    /**
-     * 
-     * @param {string} message
-     * @param {Record<String,any>} [data] 
-     */
-    push(message, data = {}) {
-        if (process.env.DEBUG) {
-            console.debug(`* [${Date.now()}]`, message, util.inspect(data, { colors: true, depth: Infinity }))
-        }
-        else {
-            console.info(`* [${Date.now()}]`, message)
-        }
-
-        super.push(message, data)
+  /**
+   *
+   * @param {string} message
+   * @param {Record<String,any>} [data]
+   */
+  push(message, data = {}) {
+    if (process.env.DEBUG) {
+      console.debug(
+        `* [${Date.now()}]`,
+        message,
+        util.inspect(data, { colors: true, depth: Infinity })
+      )
+    } else {
+      console.info(`* [${Date.now()}]`, message)
     }
+
+    super.push(message, data)
+  }
 }
 
 module.exports = {
-    Tracer,
-    ConsoleTracer
+  Tracer,
+  ConsoleTracer,
 }

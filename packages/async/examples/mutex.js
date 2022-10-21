@@ -1,17 +1,17 @@
 const { Mutex } = require('../lib/mutex')
 
-const main = async() => {
-    const mutex = new Mutex()
+const main = async () => {
+  const mutex = new Mutex()
 
-    setTimeout(() => {
-        mutex.unlock()
-    }, 5000)
+  setTimeout(() => {
+    mutex.unlock()
+  }, 5000)
 
-    console.log('locked')
+  console.log('locked')
 
-    await mutex.lock()
+  await mutex.lock()
 
-    console.log('unlocked')
+  console.log('unlocked')
 }
 
 main()

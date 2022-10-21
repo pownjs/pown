@@ -1,15 +1,15 @@
 let cache
 
 const getCache = () => {
-    return cache
+  return cache
 }
 
 const setCache = (c) => {
-    cache = c
+  cache = c
 }
 
 const clearCache = (c) => {
-    cache = undefined
+  cache = undefined
 }
 
 module.exports = { getCache, setCache, clearCache }

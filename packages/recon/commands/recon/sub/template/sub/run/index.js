@@ -1,95 +1,97 @@
 exports.yargs = {
-    command: 'run <templates...>',
-    describe: 'Run template',
-    aliases: ['r'],
+  command: 'run <templates...>',
+  describe: 'Run template',
+  aliases: ['r'],
 
-    builder: (yargs) => {
-        const { installReadOptions, installWriteOptions } = require('../../../../lib/handlers/file')
+  builder: (yargs) => {
+    const {
+      installReadOptions,
+      installWriteOptions,
+    } = require('../../../../lib/handlers/file')
 
-        installReadOptions(yargs)
-        installWriteOptions(yargs)
+    installReadOptions(yargs)
+    installWriteOptions(yargs)
 
-        const { installOutputOptions } = require('../../../../lib/handlers/output')
+    const { installOutputOptions } = require('../../../../lib/handlers/output')
 
-        installOutputOptions(yargs)
-    },
+    installOutputOptions(yargs)
+  },
 
-    handler: async(argv) => {
-        const { templates } = argv
+  handler: async (argv) => {
+    const { templates } = argv
 
-        const { recon: gRecon } = require('../../../../lib/globals/recon')
+    const { recon: gRecon } = require('../../../../lib/globals/recon')
 
-        const { getCompoundTransforms } = require('../../../transform/transforms')
+    const { getCompoundTransforms } = require('../../../transform/transforms')
 
-        const compoundTransforms = await getCompoundTransforms()
+    const compoundTransforms = await getCompoundTransforms()
 
-        gRecon.registerTransforms(compoundTransforms)
+    gRecon.registerTransforms(compoundTransforms)
 
-        const { handleReadOptions, handleWriteOptions } = require('../../../../lib/handlers/file')
+    const {
+      handleReadOptions,
+      handleWriteOptions,
+    } = require('../../../../lib/handlers/file')
 
-        await handleReadOptions(argv, gRecon)
+    await handleReadOptions(argv, gRecon)
 
-        const jsYaml = require('js-yaml')
+    const jsYaml = require('js-yaml')
 
-        const { extname, join } = require('path')
-        const { statSync, readdirSync, readFileSync } = require('fs')
+    const { extname, join } = require('path')
+    const { statSync, readdirSync, readFileSync } = require('fs')
 
-        const { ReconTemplate } = require('../../../../../../lib/template')
+    const { ReconTemplate } = require('../../../../../../lib/template')
 
-        const { Scheduler } = require('../../../../../../lib/scheduler')
+    const { Scheduler } = require('../../../../../../lib/scheduler')
 
-        const scheduler = new Scheduler()
+    const scheduler = new Scheduler()
 
-        const findTemplates = function*(paths) {
-            for (let path of paths) {
-                const stat = statSync(path)
+    const findTemplates = function* (paths) {
+      for (let path of paths) {
+        const stat = statSync(path)
 
-                if (stat.isDirectory()) {
-                    for (let dir of readdirSync(path)) {
-                        yield* findTemplates([join(path, dir)])
-                    }
-                }
-                else {
-                    const ext = extname(path)
+        if (stat.isDirectory()) {
+          for (let dir of readdirSync(path)) {
+            yield* findTemplates([join(path, dir)])
+          }
+        } else {
+          const ext = extname(path)
 
-                    let doc
+          let doc
 
-                    if (['.yaml', '.yml'].includes(ext)) {
-                        const data = readFileSync(path)
+          if (['.yaml', '.yml'].includes(ext)) {
+            const data = readFileSync(path)
 
-                        doc = jsYaml.load(data)
-                    }
-                    else
-                    if (['.json'].includes(ext)) {
-                        const data = readFileSync(path)
+            doc = jsYaml.load(data)
+          } else if (['.json'].includes(ext)) {
+            const data = readFileSync(path)
 
-                        doc = JSON.parse(data)
-                    }
-                    else {
-                        return
-                    }
+            doc = JSON.parse(data)
+          } else {
+            return
+          }
 
-                    const template = new ReconTemplate(doc, { scheduler })
+          const template = new ReconTemplate(doc, { scheduler })
 
-                    template.path = path
+          template.path = path
 
-                    yield template
-                }
-            }
+          yield template
         }
-
-        const { handleOutputOptions } = require('../../../../lib/handlers/output')
-
-        for (let template of findTemplates(templates)) {
-            console.info(`running template ${template.id || template.path}`)
-
-            await template.run({}, gRecon)
-
-            const resultNodes = gRecon.selection.map(node => node.data())
-
-            await handleOutputOptions(argv, resultNodes)
-        }
-
-        await handleWriteOptions(argv, gRecon)
+      }
     }
+
+    const { handleOutputOptions } = require('../../../../lib/handlers/output')
+
+    for (let template of findTemplates(templates)) {
+      console.info(`running template ${template.id || template.path}`)
+
+      await template.run({}, gRecon)
+
+      const resultNodes = gRecon.selection.map((node) => node.data())
+
+      await handleOutputOptions(argv, resultNodes)
+    }
+
+    await handleWriteOptions(argv, gRecon)
+  },
 }

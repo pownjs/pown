@@ -1,72 +1,75 @@
 exports.yargs = {
-    command: 'connect [address]',
-    describe: 'Connect to addreess',
+  command: 'connect [address]',
+  describe: 'Connect to addreess',
 
-    builder: {
-        ...require('./options/output'),
-        ...require('./options/connect'),
-        ...require('./options/scheduler'),
+  builder: {
+    ...require('./options/output'),
+    ...require('./options/connect'),
+    ...require('./options/scheduler'),
 
-        'task-concurrency': {
-            alias: ['C'],
-            type: 'number',
-            describe: 'The number of connect tasks to run at the same time',
-            default: Infinity
-        },
-
-        'data': {
-            alias: ['d'],
-            type: 'string',
-            describe: 'Data to send'
-        },
-
-        'json-data': {
-            alias: ['D'],
-            type: 'string',
-            describe: 'Data to send (json encoded string)'
-        }
+    'task-concurrency': {
+      alias: ['C'],
+      type: 'number',
+      describe: 'The number of connect tasks to run at the same time',
+      default: Infinity,
     },
 
-    handler: async(argv) => {
-        const { taskConcurrency, data, jsonData, address } = argv
+    data: {
+      alias: ['d'],
+      type: 'string',
+      describe: 'Data to send',
+    },
 
-        const { Scheduler } = require('../../lib/scheduler')
+    'json-data': {
+      alias: ['D'],
+      type: 'string',
+      describe: 'Data to send (json encoded string)',
+    },
+  },
 
-        const scheduler = new Scheduler()
+  handler: async (argv) => {
+    const { taskConcurrency, data, jsonData, address } = argv
 
-        require('./options/output/handler').init(argv, scheduler)
-        require('./options/connect/handler').init(argv, scheduler)
-        require('./options/scheduler/handler').init(argv, scheduler)
+    const { Scheduler } = require('../../lib/scheduler')
 
-        const dataToSend = data ? data : jsonData ? JSON.parse(`"${jsonData}"`) : ''
+    const scheduler = new Scheduler()
 
-        const { makeLineIterator } = require('@pown/cli/lib/line')
-        const { eachOfLimit } = require('@pown/async/lib/eachOfLimit')
+    require('./options/output/handler').init(argv, scheduler)
+    require('./options/connect/handler').init(argv, scheduler)
+    require('./options/scheduler/handler').init(argv, scheduler)
 
-        const it = makeLineIterator(address)
+    const dataToSend = data ? data : jsonData ? JSON.parse(`"${jsonData}"`) : ''
 
-        await eachOfLimit(it(), taskConcurrency, async(address) => {
-            if (!address) {
-                return
-            }
+    const { makeLineIterator } = require('@pown/cli/lib/line')
+    const { eachOfLimit } = require('@pown/async/lib/eachOfLimit')
 
-            address = address.trim()
+    const it = makeLineIterator(address)
 
-            if (!address) {
-                return
-            }
+    await eachOfLimit(it(), taskConcurrency, async (address) => {
+      if (!address) {
+        return
+      }
 
-            const pair = address.split(':')
+      address = address.trim()
 
-            const host = (pair[0] || '').trim()
-            const port = (pair[1] || '').trim()
+      if (!address) {
+        return
+      }
 
-            try {
-                await scheduler.connect({ host, port: parseInt(port), data: dataToSend })
-            }
-            catch (e) {
-                console.error(e)
-            }
+      const pair = address.split(':')
+
+      const host = (pair[0] || '').trim()
+      const port = (pair[1] || '').trim()
+
+      try {
+        await scheduler.connect({
+          host,
+          port: parseInt(port),
+          data: dataToSend,
         })
-    }
+      } catch (e) {
+        console.error(e)
+      }
+    })
+  },
 }

@@ -25,15 +25,31 @@ Content-Length: 3\r
 `
 
 scheduler
-    .connect({ timeout: 1000, host: 'target.com', data: firstRequest, port: 443, tls: true })
-    .then(async(response) => {
-        console.log('---')
-        console.log(response.responseData.toString())
+  .connect({
+    timeout: 1000,
+    host: 'target.com',
+    data: firstRequest,
+    port: 443,
+    tls: true,
+  })
+  .then(async (response) => {
+    console.log('---')
+    console.log(response.responseData.toString())
 
-        await Promise.all(Array(15).fill(0).map(async() => {
-            const response = await scheduler.connect({ timeout: 1000, host: 'target.com', data: subsequentRequest, port: 443, tls: true })
+    await Promise.all(
+      Array(15)
+        .fill(0)
+        .map(async () => {
+          const response = await scheduler.connect({
+            timeout: 1000,
+            host: 'target.com',
+            data: subsequentRequest,
+            port: 443,
+            tls: true,
+          })
 
-            console.log('---')
-            console.log(response.responseData.toString())
-        }))
-    })
+          console.log('---')
+          console.log(response.responseData.toString())
+        })
+    )
+  })

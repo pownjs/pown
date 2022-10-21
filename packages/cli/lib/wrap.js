@@ -1,4 +1,3 @@
- const wordwrap = require('wordwrap')
+const wordwrap = require('wordwrap')
 
- module.exports = wordwrap(79)
- 
+module.exports = wordwrap(79)

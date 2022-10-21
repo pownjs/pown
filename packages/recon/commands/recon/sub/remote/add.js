@@ -1,37 +1,45 @@
 exports.yargs = {
-    command: 'add <uris...>',
-    describe: 'Add remote',
-    aliases: ['a'],
+  command: 'add <uris...>',
+  describe: 'Add remote',
+  aliases: ['a'],
 
-    handler: async(argv) => {
-        const { uris } = argv
+  handler: async (argv) => {
+    const { uris } = argv
 
-        const { getPreferences, setPreferences } = require('@pown/preferences')
+    const { getPreferences, setPreferences } = require('@pown/preferences')
 
-        const { fetchRemoteTransforms } = require('../../../../lib/remote')
+    const { fetchRemoteTransforms } = require('../../../../lib/remote')
 
-        const preferences = await getPreferences('recon')
+    const preferences = await getPreferences('recon')
 
-        preferences.remotes = {
-            ...preferences.remotes,
+    preferences.remotes = {
+      ...preferences.remotes,
 
-            ...Object.assign({}, ...(await Promise.all(uris.map(async(uri) => {
-                const transforms = await fetchRemoteTransforms(uri)
+      ...Object.assign(
+        {},
+        ...(await Promise.all(
+          uris.map(async (uri) => {
+            const transforms = await fetchRemoteTransforms(uri)
 
-                console.group(uri)
+            console.group(uri)
 
-                Object.entries(transforms).forEach(([name, def]) => {
-                    console.table([{ ...def, name }], ['name', 'title', 'description'])
-                })
+            Object.entries(transforms).forEach(([name, def]) => {
+              console.table(
+                [{ ...def, name }],
+                ['name', 'title', 'description']
+              )
+            })
 
-                console.groupEnd()
+            console.groupEnd()
 
-                return {
-                    [uri]: transforms
-                }
-            }))))
-        }
-
-        await setPreferences('recon', preferences)
+            return {
+              [uri]: transforms,
+            }
+          })
+        ))
+      ),
     }
+
+    await setPreferences('recon', preferences)
+  },
 }

@@ -1,14 +1,14 @@
 exports.yargs = {
-    command: 'get <name>',
-    describe: 'Get named traversal',
+  command: 'get <name>',
+  describe: 'Get named traversal',
 
-    builder: (yargs) => {},
+  builder: (yargs) => {},
 
-    handler: async(argv) => {
-        const { name } = argv
+  handler: async (argv) => {
+    const { name } = argv
 
-        const { recon } = require('../../../lib/globals/recon')
+    const { recon } = require('../../../lib/globals/recon')
 
-        console.log(recon.cy.getTraversalByName(name))
-    }
+    console.log(recon.cy.getTraversalByName(name))
+  },
 }

@@ -1,16 +1,16 @@
 exports.yargs = {
-    command: 'exit <code>',
-    describe: 'Exit',
+  command: 'exit <code>',
+  describe: 'Exit',
 
-    builder: {},
+  builder: {},
 
-    handler: (argv) => {
-        const { code } = argv
+  handler: (argv) => {
+    const { code } = argv
 
-        const error = new Error('Forced exit')
+    const error = new Error('Forced exit')
 
-        error.exitCode = parseInt(code)
+    error.exitCode = parseInt(code)
 
-        throw error
-    }
+    throw error
+  },
 }

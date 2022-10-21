@@ -1,34 +1,40 @@
 exports.yargs = {
-    command: 'select <expressions...>',
-    describe: 'Select nodes',
-    aliases: ['s'],
+  command: 'select <expressions...>',
+  describe: 'Select nodes',
+  aliases: ['s'],
 
-    builder: (yargs) => {
-        const { installReadOptions, installWriteOptions } = require('../../lib/handlers/file')
+  builder: (yargs) => {
+    const {
+      installReadOptions,
+      installWriteOptions,
+    } = require('../../lib/handlers/file')
 
-        installReadOptions(yargs)
-        installWriteOptions(yargs)
+    installReadOptions(yargs)
+    installWriteOptions(yargs)
 
-        const { installOutputOptions } = require('../../lib/handlers/output')
+    const { installOutputOptions } = require('../../lib/handlers/output')
 
-        installOutputOptions(yargs)
-    },
+    installOutputOptions(yargs)
+  },
 
-    handler: async(argv) => {
-        const { expressions } = argv
+  handler: async (argv) => {
+    const { expressions } = argv
 
-        const { recon } = require('../../lib/globals/recon')
+    const { recon } = require('../../lib/globals/recon')
 
-        const { handleReadOptions, handleWriteOptions } = require('../../lib/handlers/file')
+    const {
+      handleReadOptions,
+      handleWriteOptions,
+    } = require('../../lib/handlers/file')
 
-        await handleReadOptions(argv, recon)
+    await handleReadOptions(argv, recon)
 
-        const resultNodes = recon.select(...expressions).map(node => node.data())
+    const resultNodes = recon.select(...expressions).map((node) => node.data())
 
-        await handleWriteOptions(argv, recon)
+    await handleWriteOptions(argv, recon)
 
-        const { handleOutputOptions } = require('../../lib/handlers/output')
+    const { handleOutputOptions } = require('../../lib/handlers/output')
 
-        await handleOutputOptions(argv, resultNodes)
-    }
+    await handleOutputOptions(argv, resultNodes)
+  },
 }

@@ -6,7 +6,7 @@ request:
   extract:
     value: responseCode
     name: code
-    
+
 add:
   type: string
   label: HTTP/${code}

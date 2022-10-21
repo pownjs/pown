@@ -9,14 +9,14 @@
  * @param {Handler} handler
  * @returns {Promise<boolean>}
  */
-const asyncEvery = async(it, handler) => {
-    for await (let e of it) {
-        if (!await handler(e)) {
-            return false
-        }
+const asyncEvery = async (it, handler) => {
+  for await (let e of it) {
+    if (!(await handler(e))) {
+      return false
     }
+  }
 
-    return true
+  return true
 }
 
 /**
@@ -24,14 +24,14 @@ const asyncEvery = async(it, handler) => {
  * @param {Handler} handler
  * @returns {Promise<boolean>}
  */
-const asyncSome = async(it, handler) => {
-    for await (let e of it) {
-        if (await handler(e)) {
-            return true
-        }
+const asyncSome = async (it, handler) => {
+  for await (let e of it) {
+    if (await handler(e)) {
+      return true
     }
+  }
 
-    return false
+  return false
 }
 
 /**
@@ -39,18 +39,18 @@ const asyncSome = async(it, handler) => {
  * @param {Handler} handler
  * @returns {Promise<boolean>}
  */
-const asyncNone = async(it, handler) => {
-    for await (let e of it) {
-        if (await handler(e)) {
-            return false
-        }
+const asyncNone = async (it, handler) => {
+  for await (let e of it) {
+    if (await handler(e)) {
+      return false
     }
+  }
 
-    return true
+  return true
 }
 
 module.exports = {
-    asyncEvery,
-    asyncSome,
-    asyncNone
+  asyncEvery,
+  asyncSome,
+  asyncNone,
 }

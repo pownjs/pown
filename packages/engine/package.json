@@ -2,33 +2,34 @@
   "name": "@pown/engine",
   "version": "3.0.8",
   "description": "Pownage guaranteed",
-  "main": "lib/index.js",
-  "scripts": {
-    "check": "npx -y -p typescript tsc",
-    "test": "NODE_ENV=test npx -y mocha@latest"
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pownjs/pown.git/packages/engine"
   },
-  "keywords": [
-    "security",
-    "framework"
-  ],
-  "author": "pdp <pdp@gnucitizen.org>",
-  "contributors": [],
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/engine#readme",
-  "types": "types/index.d.ts",
-  "devDependencies": {
-    "@pown/request": "*",
-    "@types/mocha": "^10.0.0",
-    "@types/node": "^18.8.5",
-    "js-yaml": "^4.1.0"
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
+  "scripts": {
+    "check": "npx -y -p typescript tsc",
+    "test": "NODE_ENV=test npx -y mocha@latest"
+  },
+  "types": "types/index.d.ts",
   "dependencies": {
     "@pown/regexp": "*",
     "deepmerge": "^4.2.2",
@@ -36,11 +37,10 @@
     "nightly-esprima": "^2021.8.30",
     "static-eval": "^2.1.0"
   },
-  "engines": {
-    "node": ">=14"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "devDependencies": {
+    "@pown/request": "*",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.8.5",
+    "js-yaml": "^4.1.0"
   }
 }

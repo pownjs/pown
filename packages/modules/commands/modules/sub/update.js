@@ -1,21 +1,28 @@
 exports.yargs = {
-    command: 'update [modules...]',
-    describe: 'Update modules',
-    aliases: ['upgrade', 'up', 'u'],
+  command: 'update [modules...]',
+  describe: 'Update modules',
+  aliases: ['upgrade', 'up', 'u'],
 
-    handler: async(yargs) => {
-        const { modules = [] } = yargs
+  handler: async (yargs) => {
+    const { modules = [] } = yargs
 
-        const util = require('util')
-        const { spawn } = require('child_process')
-        const { ensurePreferencesFilename, getPreferencesDirectory } = require('@pown/preferences')
+    const util = require('util')
+    const { spawn } = require('child_process')
+    const {
+      ensurePreferencesFilename,
+      getPreferencesDirectory,
+    } = require('@pown/preferences')
 
-        const spawnAsync = util.promisify(spawn)
+    const spawnAsync = util.promisify(spawn)
 
-        await ensurePreferencesFilename('modules', 'package.json')
+    await ensurePreferencesFilename('modules', 'package.json')
 
-        const dirname = getPreferencesDirectory('modules')
+    const dirname = getPreferencesDirectory('modules')
 
-        await spawnAsync('npm', ['update', '--depth', '9999', ...modules], { shell: true, stdio: 'inherit', cwd: dirname })
-    }
+    await spawnAsync('npm', ['update', '--depth', '9999', ...modules], {
+      shell: true,
+      stdio: 'inherit',
+      cwd: dirname,
+    })
+  },
 }

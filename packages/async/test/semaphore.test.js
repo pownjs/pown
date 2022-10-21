@@ -4,43 +4,43 @@ const { sleep } = require('../lib/sleep')
 const { Semaphore } = require('../lib/semaphore')
 
 describe('semaphore', () => {
-    describe('#acquire', () => {
-        it('acquires at 1 room', async() => {
-            const semaphore = new Semaphore(1)
+  describe('#acquire', () => {
+    it('acquires at 1 room', async () => {
+      const semaphore = new Semaphore(1)
 
-            const r1 = await semaphore.acquire()
+      const r1 = await semaphore.acquire()
 
-            r1()
+      r1()
 
-            const r2 = await semaphore.acquire()
+      const r2 = await semaphore.acquire()
 
-            r2()
+      r2()
 
-            const r3 = await semaphore.acquire()
+      const r3 = await semaphore.acquire()
 
-            r3()
+      r3()
 
-            assert.ok(true, 'done')
-        })
+      assert.ok(true, 'done')
     })
+  })
 
-    describe('#acquire', () => {
-        it('acquires at 1 room with release promises', async() => {
-            const semaphore = new Semaphore(1)
+  describe('#acquire', () => {
+    it('acquires at 1 room with release promises', async () => {
+      const semaphore = new Semaphore(1)
 
-            const r1 = await semaphore.acquire()
+      const r1 = await semaphore.acquire()
 
-            r1(sleep(300))
+      r1(sleep(300))
 
-            const r2 = await semaphore.acquire()
+      const r2 = await semaphore.acquire()
 
-            r2(sleep(300))
+      r2(sleep(300))
 
-            const r3 = await semaphore.acquire()
+      const r3 = await semaphore.acquire()
 
-            r3(sleep(300))
+      r3(sleep(300))
 
-            assert.ok(true, 'done')
-        }).timeout(1000)
-    })
+      assert.ok(true, 'done')
+    }).timeout(1000)
+  })
 })

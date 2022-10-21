@@ -2,33 +2,37 @@
   "name": "@pown/request",
   "version": "3.0.8",
   "description": "Pownage guaranteed",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "NODE_ENV=test npx -y mocha@latest",
-    "start": "POWN_ROOT=. pown-cli"
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pownjs/pown.git/packages/request"
   },
-  "keywords": [
-    "exploit",
-    "framework"
-  ],
-  "author": "pdp <pdp@gnucitizen.org>",
-  "contributors": [],
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/request#readme",
-  "peerDependencies": {
-    "@pown/async": "*",
-    "@pown/cli": "*"
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "keywords": [
+    "exploit",
+    "framework"
+  ],
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
-  "devDependencies": {
-    "@pown/async": "*",
-    "@pown/cli": "*"
+  "scripts": {
+    "start": "POWN_ROOT=. pown-cli",
+    "test": "NODE_ENV=test npx -y mocha@latest"
+  },
+  "pown": {
+    "commands": [
+      "commands/request"
+    ]
   },
   "dependencies": {
     "proxy-agent": "^5.0.0",
@@ -37,16 +41,12 @@
     "is-gzip": "^2.0.0",
     "performance-now": "^2.1.0"
   },
-  "pown": {
-    "commands": [
-      "commands/request"
-    ]
+  "peerDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*"
   },
-  "engines": {
-    "node": ">=14"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "devDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*"
   }
 }

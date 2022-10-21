@@ -10,6 +10,6 @@ console.log(t1.toString())
 
 const t2 = new Table()
 
-t2.push({ 'a': 'b', 'c': 'd' })
+t2.push({ a: 'b', c: 'd' })
 
 console.log(t2.toString())

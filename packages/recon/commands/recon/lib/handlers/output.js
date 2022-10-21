@@ -1,195 +1,204 @@
 const installOutputOptions = (yargs) => {
-    yargs.options('output-format', {
-        description: 'Output format',
-        alias: 'o',
-        type: 'string',
-        default: 'table',
-        choices: ['table', 'grid', 'csv', 'json', 'jsonstream', 'none']
-    })
+  yargs.options('output-format', {
+    description: 'Output format',
+    alias: 'o',
+    type: 'string',
+    default: 'table',
+    choices: ['table', 'grid', 'csv', 'json', 'jsonstream', 'none'],
+  })
 
-    yargs.options('output-ids', {
-        description: 'Output ids',
-        type: 'boolean',
-        default: false
-    })
+  yargs.options('output-ids', {
+    description: 'Output ids',
+    type: 'boolean',
+    default: false,
+  })
 
-    yargs.options('output-labels', {
-        description: 'Output labels',
-        type: 'boolean',
-        default: false
-    })
+  yargs.options('output-labels', {
+    description: 'Output labels',
+    type: 'boolean',
+    default: false,
+  })
 
-    yargs.options('output-fields', {
-        description: 'Output fields',
-        type: 'string',
-        default: ''
-    })
+  yargs.options('output-fields', {
+    description: 'Output fields',
+    type: 'string',
+    default: '',
+  })
 
-    yargs.options('max-output-size', {
-        description: 'Maximum amount of nodes to output',
-        type: 'number',
-        default: Infinity
-    })
+  yargs.options('max-output-size', {
+    description: 'Maximum amount of nodes to output',
+    type: 'number',
+    default: Infinity,
+  })
 }
 
 const handleOutputOptions = (argv, nodes) => {
-    const { outputFormat, outputIds, outputLabels, outputFields, maxOutputSize } = argv
+  const { outputFormat, outputIds, outputLabels, outputFields, maxOutputSize } =
+    argv
 
-    let propsFilter
+  let propsFilter
 
-    if (outputFields) {
-        const fields = outputFields.split(/[\s,]+/g).map(f => f.trim()).filter(f => f)
+  if (outputFields) {
+    const fields = outputFields
+      .split(/[\s,]+/g)
+      .map((f) => f.trim())
+      .filter((f) => f)
 
-        propsFilter = (props) => Object.entries(props).filter(([key]) => fields.includes(key)).slice(0, 5)
-    }
-    else {
-        propsFilter = (props) => Object.entries(props).slice(0, 5)
-    }
+    propsFilter = (props) =>
+      Object.entries(props)
+        .filter(([key]) => fields.includes(key))
+        .slice(0, 5)
+  } else {
+    propsFilter = (props) => Object.entries(props).slice(0, 5)
+  }
 
-    switch (outputFormat) {
-        case 'table':
-            const tables = {}
+  switch (outputFormat) {
+    case 'table':
+      const tables = {}
 
-            nodes.forEach(({ type, id, label, image, parent, props = {} }) => {
-                const row = {}
+      nodes.forEach(({ type, id, label, image, parent, props = {} }) => {
+        const row = {}
 
-                if (type === 'group') {
-                    row['label'] = label
-                }
+        if (type === 'group') {
+          row['label'] = label
+        }
 
-                if (outputIds) {
-                    row['id'] = id
-                }
+        if (outputIds) {
+          row['id'] = id
+        }
 
-                if (outputLabels) {
-                    row['label'] = label
-                }
+        if (outputLabels) {
+          row['label'] = label
+        }
 
-                propsFilter(props).forEach(([name, value]) => {
-                    row[name] = value
-                })
+        propsFilter(props).forEach(([name, value]) => {
+          row[name] = value
+        })
 
-                let table = tables[type] || []
+        let table = tables[type] || []
 
-                table.push(row)
+        table.push(row)
 
-                tables[type] = table
-            })
+        tables[type] = table
+      })
 
-            Object.entries(tables).forEach(([type, table]) => {
-                console.group(type)
-                console.table(table.slice(0, maxOutputSize))
-                console.groupEnd()
-            })
+      Object.entries(tables).forEach(([type, table]) => {
+        console.group(type)
+        console.table(table.slice(0, maxOutputSize))
+        console.groupEnd()
+      })
 
-            break
+      break
 
-        case 'grid':
-            const table = []
+    case 'grid':
+      const table = []
 
-            nodes.forEach(({ type, id, label, image, parent, props = {} }) => {
-                const row = {}
+      nodes.forEach(({ type, id, label, image, parent, props = {} }) => {
+        const row = {}
 
-                row['type'] = type
+        row['type'] = type
 
-                if (type === 'group') {
-                    row['label'] = label
-                }
+        if (type === 'group') {
+          row['label'] = label
+        }
 
-                if (outputIds) {
-                    row['id'] = id
-                }
+        if (outputIds) {
+          row['id'] = id
+        }
 
-                if (outputLabels) {
-                    row['label'] = label
-                }
+        if (outputLabels) {
+          row['label'] = label
+        }
 
-                propsFilter(props).forEach(([name, value]) => {
-                    row[name] = value
-                })
+        propsFilter(props).forEach(([name, value]) => {
+          row[name] = value
+        })
 
-                table.push(row)
-            })
+        table.push(row)
+      })
 
-            console.table(table.slice(0, maxOutputSize))
+      console.table(table.slice(0, maxOutputSize))
 
-            break
+      break
 
-        case 'csv':
-            const fields = {}
-            const lines = []
+    case 'csv':
+      const fields = {}
+      const lines = []
 
-            nodes.forEach(({ id, type, label, image, parent, props }) => {
-                const line = {}
+      nodes.forEach(({ id, type, label, image, parent, props }) => {
+        const line = {}
 
-                fields['type'] = 1
-                line['type'] = type
+        fields['type'] = 1
+        line['type'] = type
 
-                if (type === 'group') {
-                    fields['label'] = 1
-                    line['label'] = label
-                }
+        if (type === 'group') {
+          fields['label'] = 1
+          line['label'] = label
+        }
 
-                if (outputIds) {
-                    fields['id'] = 1
-                    line['id'] = id
-                }
+        if (outputIds) {
+          fields['id'] = 1
+          line['id'] = id
+        }
 
-                if (outputLabels) {
-                    fields['label'] = 1
-                    line['label'] = label
-                }
+        if (outputLabels) {
+          fields['label'] = 1
+          line['label'] = label
+        }
 
-                propsFilter(props).forEach(([name, value]) => {
-                    fields[name] = 1
-                    line[name] = value
-                })
+        propsFilter(props).forEach(([name, value]) => {
+          fields[name] = 1
+          line[name] = value
+        })
 
-                lines.push(line)
-            })
+        lines.push(line)
+      })
 
-            const fieldNames = Object.keys(fields)
+      const fieldNames = Object.keys(fields)
 
-            console.log('#' + fieldNames.join(','))
+      console.log('#' + fieldNames.join(','))
 
-            lines.slice(0, maxOutputSize).forEach((line) => {
-                const fieldValues = fieldNames.map((name) => JSON.stringify(line[name] || ''))
+      lines.slice(0, maxOutputSize).forEach((line) => {
+        const fieldValues = fieldNames.map((name) =>
+          JSON.stringify(line[name] || '')
+        )
 
-                console.log(fieldValues.join(','))
-            })
+        console.log(fieldValues.join(','))
+      })
 
-            break
+      break
 
-        case 'json':
-            console.log('[');
+    case 'json':
+      console.log('[')
 
-            const lastIndex = nodes.length - 1
+      const lastIndex = nodes.length - 1
 
-            nodes.slice(0, maxOutputSize).forEach((node, index) => {
-                try {
-                    console.log('  ', JSON.stringify(node) + (index === lastIndex ? '' : ','))
-                }
-                catch (e) {
-                    console.error(e)
-                }
-            })
+      nodes.slice(0, maxOutputSize).forEach((node, index) => {
+        try {
+          console.log(
+            '  ',
+            JSON.stringify(node) + (index === lastIndex ? '' : ',')
+          )
+        } catch (e) {
+          console.error(e)
+        }
+      })
 
-            console.log(']');
+      console.log(']')
 
-            break
+      break
 
-        case 'jsonstream':
-            nodes.slice(0, maxOutputSize).forEach((node) => {
-                try {
-                    console.log(JSON.stringify(node))
-                }
-                catch (e) {
-                    console.error(e)
-                }
-            })
+    case 'jsonstream':
+      nodes.slice(0, maxOutputSize).forEach((node) => {
+        try {
+          console.log(JSON.stringify(node))
+        } catch (e) {
+          console.error(e)
+        }
+      })
 
-            break
-    }
+      break
+  }
 }
 
 module.exports = { installOutputOptions, handleOutputOptions }

@@ -1,18 +1,18 @@
 exports.yargs = {
-    command: 'sleep [options] <seconds>',
-    describe: 'Sleep seconds',
+  command: 'sleep [options] <seconds>',
+  describe: 'Sleep seconds',
 
-    builder: {},
+  builder: {},
 
-    handler: (argv) => {
-        const { seconds } = argv
+  handler: (argv) => {
+    const { seconds } = argv
 
-        const { setTimeout } = require('timers')
+    const { setTimeout } = require('timers')
 
-        const milliseconds = parseInt(seconds) * 1000
+    const milliseconds = parseInt(seconds) * 1000
 
-        return new Promise((resolve) => {
-            setTimeout(resolve, milliseconds)
-        })
-    }
+    return new Promise((resolve) => {
+      setTimeout(resolve, milliseconds)
+    })
+  },
 }

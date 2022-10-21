@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "plugin:require-path-exists/recommended",
-    "prettier"
-  ],
+  "extends": ["plugin:require-path-exists/recommended", "prettier"],
   "plugins": ["require-path-exists"],
   "rules": {
     "no-console": 2

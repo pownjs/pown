@@ -1,19 +1,19 @@
 exports.yargs = {
-    command: 'remove <uris...>',
-    describe: 'Remove remote',
-    aliases: ['a'],
+  command: 'remove <uris...>',
+  describe: 'Remove remote',
+  aliases: ['a'],
 
-    handler: async(argv) => {
-        const { uris } = argv
+  handler: async (argv) => {
+    const { uris } = argv
 
-        const { getPreferences, setPreferences } = require('@pown/preferences')
+    const { getPreferences, setPreferences } = require('@pown/preferences')
 
-        const preferences = await getPreferences('recon')
+    const preferences = await getPreferences('recon')
 
-        uris.forEach((uri) => {
-            delete preferences.remotes[uri]
-        })
+    uris.forEach((uri) => {
+      delete preferences.remotes[uri]
+    })
 
-        setPreferences('recon', preferences)
-    }
+    setPreferences('recon', preferences)
+  },
 }

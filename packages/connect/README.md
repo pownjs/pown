@@ -22,7 +22,7 @@ This tool is part of [secapps.com](https://secapps.com) open-source initiative.
 
 ### Authors
 
-* [@pdp](https://twitter.com/pdp) - https://pdparchitect.github.io/www/
+- [@pdp](https://twitter.com/pdp) - https://pdparchitect.github.io/www/
 
 ## Quickstart
 

@@ -1,33 +1,33 @@
 exports.yargs = {
-    command: 'shell [options]',
-    describe: 'Simple shell for executing pown commands',
+  command: 'shell [options]',
+  describe: 'Simple shell for executing pown commands',
 
-    handler: async(argv) => {
-        const { execute } = require('@pown/cli')
-        const { extract } = require('@pown/modules')
+  handler: async (argv) => {
+    const { execute } = require('@pown/cli')
+    const { extract } = require('@pown/modules')
 
-        const { loadableModules, loadableCommands } = await extract()
+    const { loadableModules, loadableCommands } = await extract()
 
-        const { subcommands } = require('@pown/script/commands/script/subcommands')
+    const { subcommands } = require('@pown/script/commands/script/subcommands')
 
-        const executeOptions = {
-            loadableModules: loadableModules,
-            loadableCommands: loadableCommands,
+    const executeOptions = {
+      loadableModules: loadableModules,
+      loadableCommands: loadableCommands,
 
-            inlineCommands: subcommands
-        }
+      inlineCommands: subcommands,
+    }
 
-        const readline = require('readline')
+    const readline = require('readline')
 
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-            prompt: 'pown> ',
-            terminal: true,
-            completer: () => []
-        })
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      prompt: 'pown> ',
+      terminal: true,
+      completer: () => [],
+    })
 
-        rl.write(`
+    rl.write(`
 88888b.   .d88b.  888  888  888 88888b.
 888 "88b d88""88b 888  888  888 888 "88b
 888  888 888  888 888  888  888 888  888
@@ -38,44 +38,42 @@ exports.yargs = {
 888
 `)
 
-        const originalExit = process.exit
+    const originalExit = process.exit
 
-        process.exit = function(...args) {}
+    process.exit = function (...args) {}
 
-        const processExit = (code) => {
-            process.exit = originalExit
+    const processExit = (code) => {
+      process.exit = originalExit
 
-            process.exit(code)
-        }
+      process.exit(code)
+    }
 
+    rl.prompt()
+
+    for await (let line of rl) {
+      line = line.trim()
+
+      if (!line || line.startsWith('#')) {
         rl.prompt()
 
-        for await (let line of rl) {
-            line = line.trim()
+        continue
+      }
 
-            if (!line || line.startsWith('#')) {
-                rl.prompt()
+      try {
+        await execute(line, executeOptions)
+      } catch (e) {
+        if (e.exitCode) {
+          console.warn(e.message)
 
-                continue
-            }
-
-            try {
-                await execute(line, executeOptions)
-            }
-            catch (e) {
-                if (e.exitCode) {
-                    console.warn(e.message)
-
-                    return processExit(e.exitCode)
-                }
-                else {
-                    console.error(e)
-                }
-            }
-
-            prompt: rl.prompt()
+          return processExit(e.exitCode)
+        } else {
+          console.error(e)
         }
+      }
 
-        return processExit(0)
+      prompt: rl.prompt()
     }
+
+    return processExit(0)
+  },
 }

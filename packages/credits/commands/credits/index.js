@@ -1,21 +1,22 @@
 exports.yargs = {
-    command: 'credits [options]',
-    describe: 'list contributors and credits',
+  command: 'credits [options]',
+  describe: 'list contributors and credits',
 
-    builder: {
-        only: {
-            type: 'boolean',
-            alias: 'o',
-            describe: 'Only Pown.js contributors'
-        }
+  builder: {
+    only: {
+      type: 'boolean',
+      alias: 'o',
+      describe: 'Only Pown.js contributors',
     },
+  },
 
-    handler: async(argv) => {
-        const modules = require('@pown/modules')
-        const wrap = require('@pown/cli/lib/wrap')
-        const colors = require('@pown/cli/lib/colors')
+  handler: async (argv) => {
+    const modules = require('@pown/modules')
+    const wrap = require('@pown/cli/lib/wrap')
+    const colors = require('@pown/cli/lib/colors')
 
-        console.log(colors.yellow(`
+    console.log(
+      colors.yellow(`
 +----------------------------------------------+
 |                                              |
 |   88888b.   .d88b.  888  888  888 88888b.    |
@@ -36,44 +37,58 @@ exports.yargs = {
 |       888P"                                  |
 |                                              |
 +----------------------------------------------+
-`))
+`)
+    )
 
-        console.log(wrap(`\n${colors.magenta('Pown.js is proudly sponsored by:')}\n\n${['SecApps - https://secapps.com', 'Websecurify - https://websecurify.com'].join('\n')}\n`))
+    console.log(
+      wrap(
+        `\n${colors.magenta('Pown.js is proudly sponsored by:')}\n\n${[
+          'SecApps - https://secapps.com',
+          'Websecurify - https://websecurify.com',
+        ].join('\n')}\n`
+      )
+    )
 
-        let list
+    let list
 
-        if (argv.only) {
-            list = modules.listPownModules.bind(modules)
-        }
-        else {
-            list = modules.listNodeModules.bind(modules)
-        }
-
-        let selectedModules
-
-        try {
-            selectedModules = await list()
-        }
-        catch (e) {
-            console.error(e)
-
-            return
-        }
-
-        let people = []
-
-        selectedModules.forEach(module => {
-            if (module.package.author) {
-                people.push(module.package.author.name.trim())
-            }
-
-            if (module.package.contributors) {
-                people = people.concat(module.package.contributors.map(person => person.name.trim()))
-            }
-        })
-
-        if (people.length) {
-            console.log(wrap(`\n${colors.magenta('Pown.js is possible because of the following people:')}\n\n${Array.from(new Set(people)).join(', ')}\n`))
-        }
+    if (argv.only) {
+      list = modules.listPownModules.bind(modules)
+    } else {
+      list = modules.listNodeModules.bind(modules)
     }
+
+    let selectedModules
+
+    try {
+      selectedModules = await list()
+    } catch (e) {
+      console.error(e)
+
+      return
+    }
+
+    let people = []
+
+    selectedModules.forEach((module) => {
+      if (module.package.author) {
+        people.push(module.package.author.name.trim())
+      }
+
+      if (module.package.contributors) {
+        people = people.concat(
+          module.package.contributors.map((person) => person.name.trim())
+        )
+      }
+    })
+
+    if (people.length) {
+      console.log(
+        wrap(
+          `\n${colors.magenta(
+            'Pown.js is possible because of the following people:'
+          )}\n\n${Array.from(new Set(people)).join(', ')}\n`
+        )
+      )
+    }
+  },
 }

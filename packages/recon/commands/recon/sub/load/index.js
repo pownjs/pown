@@ -1,23 +1,26 @@
 exports.yargs = {
-    command: 'load <file>',
-    describe: 'Load a file',
-    aliases: ['l'],
+  command: 'load <file>',
+  describe: 'Load a file',
+  aliases: ['l'],
 
-    builder: (yargs) => {
-        const { installWriteOptions } = require('../../lib/handlers/file')
+  builder: (yargs) => {
+    const { installWriteOptions } = require('../../lib/handlers/file')
 
-        installWriteOptions(yargs)
-    },
+    installWriteOptions(yargs)
+  },
 
-    handler: async(argv) => {
-        const { file } = argv
+  handler: async (argv) => {
+    const { file } = argv
 
-        const { recon } = require('../../lib/globals/recon')
+    const { recon } = require('../../lib/globals/recon')
 
-        const { handleWriteOptions, handleReadOptions } = require('../../lib/handlers/file')
+    const {
+      handleWriteOptions,
+      handleReadOptions,
+    } = require('../../lib/handlers/file')
 
-        await handleReadOptions({ read: file }, recon)
+    await handleReadOptions({ read: file }, recon)
 
-        await handleWriteOptions(argv, recon)
-    }
+    await handleWriteOptions(argv, recon)
+  },
 }

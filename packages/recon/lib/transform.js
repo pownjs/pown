@@ -4,113 +4,110 @@ const { eachOfLimit } = require('@pown/async/lib/eachOfLimit')
 const { iterateOverEmitter } = require('@pown/async/lib/iterateOverEmitter')
 
 class Transform extends EventEmitter {
-    constructor(options) {
-        super()
+  constructor(options) {
+    super()
 
-        const { concurrency = Infinity, ...rest } = options || {}
+    const { concurrency = Infinity, ...rest } = options || {}
 
-        this.concurrency = concurrency
+    this.concurrency = concurrency
 
-        Object.assign(this, rest)
+    Object.assign(this, rest)
+  }
+
+  info(...args) {
+    this.emit('info', ...args)
+  }
+
+  warn(...args) {
+    this.emit('warn', ...args)
+  }
+
+  error(...args) {
+    this.emit('error', ...args)
+  }
+
+  debug(...args) {
+    this.emit('debug', ...args)
+  }
+
+  progress(...args) {
+    this.emit('progress', ...args)
+  }
+
+  async handle() {
+    throw new Error(`Not implemented`) // NOTE: virtual method
+  }
+
+  async *itr(nodes, options = {}, concurrency = this.concurrency) {
+    let updateProgress
+
+    if (Array.isArray(nodes)) {
+      let i = 0
+      let l = nodes.length
+
+      updateProgress = (c = 0) => this.progress((i += c), l)
+    } else if (isIterable(nodes)) {
+      let i = 0
+
+      updateProgress = (c = 0) => this.progress((i += c))
+    } else {
+      throw new Error(`Non-iterable nodes detected`)
     }
 
-    info(...args) {
-        this.emit('info', ...args)
-    }
+    const em = new EventEmitter()
 
-    warn(...args) {
-        this.emit('warn', ...args)
-    }
+    eachOfLimit(nodes, concurrency, async (node) => {
+      updateProgress()
 
-    error(...args) {
-        this.emit('error', ...args)
-    }
+      let results
 
-    debug(...args) {
-        this.emit('debug', ...args)
-    }
+      try {
+        results = await this.handle(node, options)
+      } catch (e) {
+        this.error(e) // NOTE: report the error but do not break execution for other nodes
 
-    progress(...args) {
-        this.emit('progress', ...args)
-    }
+        updateProgress(1)
 
-    async handle() {
-        throw new Error(`Not implemented`) // NOTE: virtual method
-    }
+        return
+      }
 
-    async * itr(nodes, options = {}, concurrency = this.concurrency) {
-        let updateProgress
+      if (!results) {
+        return
+      }
 
-        if (Array.isArray(nodes)) {
-            let i = 0
-            let l = nodes.length
+      if (!isIterable(results)) {
+        results = [results]
+      }
 
-            updateProgress = (c = 0) => this.progress((i += c), l)
+      try {
+        for await (let result of results) {
+          em.emit('result', result)
         }
-        else
-        if (isIterable(nodes)) {
-            let i = 0
+      } catch (e) {
+        this.error(e) // NOTE: report the error but do not break execution for other nodes
 
-            updateProgress = (c = 0) => this.progress((i += c))
-        }
-        else {
-            throw new Error(`Non-iterable nodes detected`)
-        }
+        updateProgress(1)
 
-        const em = new EventEmitter()
+        return
+      }
 
-        eachOfLimit(nodes, concurrency, async(node) => {
-            updateProgress()
+      updateProgress(1)
+    })
+      .then(() => em.emit('end'))
+      .catch((error) => em.emit('error', error))
 
-            let results
+    yield* iterateOverEmitter(em, 'result')
+  }
 
-            try {
-                results = await this.handle(node, options)
-            }
-            catch (e) {
-                this.error(e) // NOTE: report the error but do not break execution for other nodes
+  async run(...args) {
+    const results = []
 
-                updateProgress(1)
-
-                return
-            }
-
-            if (!results) {
-                return
-            }
-
-            if (!isIterable(results)) {
-                results = [results]
-            }
-
-            try {
-                for await (let result of results) {
-                    em.emit('result', result)
-                }
-            }
-            catch (e) {
-                this.error(e) // NOTE: report the error but do not break execution for other nodes
-
-                updateProgress(1)
-
-                return
-            }
-
-            updateProgress(1)
-        }).then(() => em.emit('end')).catch((error) => em.emit('error', error))
-
-        yield* iterateOverEmitter(em, 'result')
+    for await (let result of this.itr(...args)) {
+      results.push(result)
     }
 
-    async run(...args) {
-        const results = []
-
-        for await (let result of this.itr(...args)) {
-            results.push(result)
-        }
-
-        return results
-    }
+    return results
+  }
 }
 
 module.exports = { Transform }

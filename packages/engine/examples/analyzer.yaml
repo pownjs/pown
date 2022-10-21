@@ -5,20 +5,20 @@ analyzer:
     - type: word
       word: '*'
       part: responseHeaders['access-control-allow-origin']
-      
+
     - type: word
       word: 'true'
       part: responseHeaders['access-control-allow-credentials']
-      
+
   extractors:
     - type: value
       path: responseHeaders['access-control-allow-origin']
       name: info.origin
-      
+
     - type: value
       path: responseHeaders['access-control-allow-credentials']
       name: info.credentials
-      
+
   level: 1
   title: Permissive Cross-Origin Resource Sharing
   description: >

@@ -1,9 +1,9 @@
 const init = (options, scheduler) => {
-    const { requestConcurrency } = options
+  const { requestConcurrency } = options
 
-    if (requestConcurrency) {
-        scheduler.update({ maxConcurrent: requestConcurrency })
-    }
+  if (requestConcurrency) {
+    scheduler.update({ maxConcurrent: requestConcurrency })
+  }
 }
 
 module.exports = { init }

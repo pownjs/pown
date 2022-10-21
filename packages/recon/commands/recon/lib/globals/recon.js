@@ -14,37 +14,37 @@ recon.on('debug', console.debug.bind(console))
 const bars = {}
 
 recon.on('barStart', (name, { total = 0 }) => {
-    if (total < 1000) {
-        return
-    }
+  if (total < 1000) {
+    return
+  }
 
-    const bar = new Bar()
+  const bar = new Bar()
 
-    bar.start(total, 0)
+  bar.start(total, 0)
 
-    bars[name] = bar
+  bars[name] = bar
 })
 
 recon.on('barStep', (name, { step = 0 }) => {
-    const bar = bars[name]
+  const bar = bars[name]
 
-    if (!bar) {
-        return
-    }
+  if (!bar) {
+    return
+  }
 
-    bar.update(step)
+  bar.update(step)
 })
 
 recon.on('barEnd', (name) => {
-    const bar = bars[name]
+  const bar = bars[name]
 
-    if (!bar) {
-        return
-    }
+  if (!bar) {
+    return
+  }
 
-    bar.stop()
+  bar.stop()
 
-    delete bars[name]
+  delete bars[name]
 })
 
 module.exports = { recon }

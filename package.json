@@ -1,22 +1,23 @@
 {
   "name": "@pown/monorepo",
-  "private": true,
   "version": "3.0.8",
   "description": "Pownage guaranteed",
+  "license": "MIT",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pownjs/pown.git"
   },
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown#readme",
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
   "keywords": [
     "security",
     "framework"
   ],
-  "author": "pdp <pdp@gnucitizen.org>",
-  "contributors": [],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pownjs/pown/issues"
-  },
   "workspaces": [
     "packages/preferences",
     "packages/modules",
@@ -33,31 +34,30 @@
     "packages/pown"
   ],
   "scripts": {
-    "version": "node scripts/on-version.js",
-    "format": "run-s format:*",
-    "format:pkg": "npx format-package -w",
-    "format:src": "prettier -w .",
     "build": "npm-run-all \"build:*\"",
     "build:packages": "npm -ws run build",
-    "test": "npm-run-all \"test:*\"",
-    "test:packages": "npm -ws run test",
-    "lint": "npm-run-all --continue-on-error --aggregate-output --parallel \"lint:*\"",
-    "lint:dependency-versions": "check-dependency-version-consistency .",
     "fix": "npm-run-all \"fix:*\"",
     "fix:dependency-versions": "check-dependency-version-consistency . --fix",
     "fix:package-json": "node scripts/fix-package-json.js",
-    "fix:test": "sh scripts/fix-test.sh"
-  },
-  "homepage": "https://github.com/pownjs/pown#readme",
-  "devDependencies": {
-    "check-dependency-version-consistency": "^3.0.3",
-    "eslint": "^8.26.0",
-    "format-package": "^7.0.0",
-    "npm-run-all": "^4.1.5"
+    "fix:test": "sh scripts/fix-test.sh",
+    "format": "run-s format:*",
+    "format:pkg": "npx format-package -w",
+    "format:src": "prettier -w .",
+    "lint": "npm-run-all --continue-on-error --aggregate-output --parallel \"lint:*\"",
+    "lint:dependency-versions": "check-dependency-version-consistency .",
+    "test": "npm-run-all \"test:*\"",
+    "test:packages": "npm -ws run test",
+    "version": "node scripts/on-version.js"
   },
   "dependencies": {
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-require-path-exists": "^1.1.9",
     "prettier": "^2.7.1"
+  },
+  "devDependencies": {
+    "check-dependency-version-consistency": "^3.0.3",
+    "eslint": "^8.26.0",
+    "format-package": "^7.0.0",
+    "npm-run-all": "^4.1.5"
   }
 }

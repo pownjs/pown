@@ -36,8 +36,7 @@ For example:
 task1:
   matcher: field === 'abc'
 
-task2:
-  ...
+task2: ...
 ```
 
 Task `task2` will only execute if the output of task1 has a field called `field` with the string value `abc`.
@@ -50,8 +49,7 @@ task1:
     eq: 'abc'
     part: field
 
-task2:
-  ...
+task2: ...
 ```
 
 ## Extracting
@@ -78,6 +76,5 @@ task1:
     value: niceText
     path: $.text
 
-task2:
-  ...
+task2: ...
 ```

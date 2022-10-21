@@ -7,15 +7,17 @@ const { execute } = require('../lib/cli')
 const { init: initConsole } = require('../lib/console')
 
 const boot = async () => {
-    const { loadableModules, loadableCommands } = await extract()
+  const { loadableModules, loadableCommands } = await extract()
 
-    initConsole()
+  initConsole()
 
-    await execute(process.argv.slice(2), { loadableModules, loadableCommands })
+  await execute(process.argv.slice(2), { loadableModules, loadableCommands })
 }
 
-boot().then(() => process.exit(0)).catch((error) => {
+boot()
+  .then(() => process.exit(0))
+  .catch((error) => {
     console.error(error)
 
     process.exit(error.code || 1)
-})
+  })

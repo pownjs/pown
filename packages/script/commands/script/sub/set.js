@@ -1,32 +1,32 @@
 exports.yargs = {
-    command: 'set [options]',
-    describe: 'Set scripting options',
+  command: 'set [options]',
+  describe: 'Set scripting options',
 
-    builder: {
-        exit: {
-            describe: 'Exit immediately',
-            type: 'boolean',
-            alias: ['e']
-        },
-
-        expand: {
-            describe: 'Expand command',
-            type: 'boolean',
-            alias: ['x']
-        }
+  builder: {
+    exit: {
+      describe: 'Exit immediately',
+      type: 'boolean',
+      alias: ['e'],
     },
 
-    handler: (argv) => {
-        const { exit, expand } = argv
+    expand: {
+      describe: 'Expand command',
+      type: 'boolean',
+      alias: ['x'],
+    },
+  },
 
-        const { options } = require('../globals/options')
+  handler: (argv) => {
+    const { exit, expand } = argv
 
-        if (exit !== undefined) {
-            options.exit = exit
-        }
+    const { options } = require('../globals/options')
 
-        if (expand !== undefined) {
-            options.expand = expand
-        }
+    if (exit !== undefined) {
+      options.exit = exit
     }
+
+    if (expand !== undefined) {
+      options.expand = expand
+    }
+  },
 }

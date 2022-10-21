@@ -1,15 +1,15 @@
-const eachMatch = function*(regexp, input) {
-    if (process.env.NODE_ENV !== 'production') {
-        if (!regexp.global) {
-            throw new Error(`Regex ${regexp} does not have global flag`)
-        }
+const eachMatch = function* (regexp, input) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (!regexp.global) {
+      throw new Error(`Regex ${regexp} does not have global flag`)
     }
+  }
 
-    let match
+  let match
 
-    while ((match = regexp.exec(input)) !== null) {
-        yield match
-    }
+  while ((match = regexp.exec(input)) !== null) {
+    yield match
+  }
 }
 
 module.exports = { eachMatch }

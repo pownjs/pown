@@ -4,45 +4,37 @@ const { sleep } = require('../lib/sleep')
 const { unrollOfParallel } = require('../lib/unrollOfParallel')
 
 describe('unrollOfParallel', () => {
-    it('produces the correct numbers', async() => {
-        const generators = [
-            [0],
-            [1],
-            [2]
-        ]
+  it('produces the correct numbers', async () => {
+    const generators = [[0], [1], [2]]
 
-        const items = []
+    const items = []
 
-        for await (const item of unrollOfParallel(generators)) {
-            items.push(item)
-        }
+    for await (const item of unrollOfParallel(generators)) {
+      items.push(item)
+    }
 
-        items.sort()
+    items.sort()
 
-        assert.deepEqual(items, [0, 1, 2], 'items are 0, 1, 2')
-    })
+    assert.deepEqual(items, [0, 1, 2], 'items are 0, 1, 2')
+  })
 
-    it('produces the correct numbers with delays', async() => {
-        const gen = async function*(t, i) {
-            await sleep(t)
+  it('produces the correct numbers with delays', async () => {
+    const gen = async function* (t, i) {
+      await sleep(t)
 
-            yield i
-        }
+      yield i
+    }
 
-        const generators = [
-            gen(1, 0),
-            gen(500, 1),
-            gen(1, 2)
-        ]
+    const generators = [gen(1, 0), gen(500, 1), gen(1, 2)]
 
-        const items = []
+    const items = []
 
-        for await (const item of unrollOfParallel(generators)) {
-            items.push(item)
-        }
+    for await (const item of unrollOfParallel(generators)) {
+      items.push(item)
+    }
 
-        items.sort()
+    items.sort()
 
-        assert.deepEqual(items, [0, 1, 2], 'items are 0, 1, 2')
-    }).timeout(1000)
+    assert.deepEqual(items, [0, 1, 2], 'items are 0, 1, 2')
+  }).timeout(1000)
 })

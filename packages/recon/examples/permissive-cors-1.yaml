@@ -2,25 +2,25 @@ id: permissive-cors
 
 add:
   select: node[type="uri"]
-  
+
   matchers:
     - type: word
       word: '*'
       part: props.responseHeaders['access-control-allow-origin']
-      
+
     - type: word
       word: 'true'
       part: props.responseHeaders['access-control-allow-credentials']
-      
+
   extractors:
     - type: value
       path: props.responseHeaders['access-control-allow-origin']
       name: props.origin
-      
+
     - type: value
       path: props.responseHeaders['access-control-allow-credentials']
       name: props.credentials
-      
+
   type: issue
   label: Permissive Cross-Origin Resource Sharing
   props:
