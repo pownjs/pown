@@ -32,6 +32,11 @@ const main = async () => {
             node: '>=14'
         }
 
+        package.publishConfig = {
+            access: 'public',
+            registry: 'https://registry.npmjs.org/'
+        }
+
         fs.writeFileSync(packageFile, JSON.stringify(package, '', 2))
     }
 }
