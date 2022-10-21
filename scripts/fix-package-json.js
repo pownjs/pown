@@ -37,7 +37,7 @@ const main = async () => {
             registry: 'https://registry.npmjs.org/'
         }
 
-        fs.writeFileSync(packageFile, JSON.stringify(package, '', 2))
+        fs.writeFileSync(packageFile, JSON.stringify(package, '', 2) + '\n')
     }
 }
 
