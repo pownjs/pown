@@ -209,6 +209,21 @@ const hasPownModule = (module) => {
   return true
 }
 
+const atain = async (module) => {
+  try {
+    return require(module)
+  } catch (e) {
+    if (
+      e.code === 'ERR_REQUIRE_ESM' ||
+      e.message === 'Cannot use import statement outside a module'
+    ) {
+      return await import(module)
+    }
+
+    throw e
+  }
+}
+
 module.exports = {
   listNodeModules,
   listPownModules,
@@ -222,4 +237,6 @@ module.exports = {
 
   hasNodeModule,
   hasPownModule,
+
+  atain,
 }
