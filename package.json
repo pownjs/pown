@@ -31,6 +31,7 @@
     "packages/pown"
   ],
   "scripts": {
+    "version": "workspace-version -g",
     "build": "npm-run-all \"build:*\"",
     "build:packages": "npm -ws run build",
     "test": "npm-run-all \"test:*\"",
@@ -46,5 +47,8 @@
   "dependencies": {
     "check-dependency-version-consistency": "^3.0.3",
     "npm-run-all": "^4.1.5"
+  },
+  "devDependencies": {
+    "workspace-version": "^0.1.4"
   }
 }
