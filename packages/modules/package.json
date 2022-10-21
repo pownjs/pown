@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/modules"
+    "url": "git+https://github.com/pownjs/pown/packages/tree/master/modules"
   },
   "keywords": [
     "security",
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/modules#readme",
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/modules#readme",
   "dependencies": {
     "@pown/preferences": "*",
     "read-package-tree": "^5.2.1"

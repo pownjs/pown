@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/preferences"
+    "url": "git+https://github.com/pownjs/pown/packages/tree/master/preferences"
   },
   "keywords": [
     "security",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/preferences#readme",
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/preferences#readme",
   "pown": {
     "commands": [
       "commands/preferences/index.js"

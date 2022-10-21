@@ -15,13 +15,13 @@ const main = async () => {
 
         package.scripts.test = 'NODE_ENV=test npx -y mocha@latest'
 
-        package.homepage = `https://github.com/pownjs/pown.git/packages/${dir}#readme`,
+        package.homepage = `https://github.com/pownjs/pown/tree/master/packages/${dir}#readme`,
 
             package.license = 'MIT'
 
         package.repository = {
             type: 'git',
-            url: `git+https://github.com/pownjs/pown.git/packages/${dir}`
+            url: `git+https://github.com/pownjs/pown/packages/tree/master/${dir}`
         }
 
         package.bugs = {
