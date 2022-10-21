@@ -1,0 +1,104 @@
+{
+  "name": "@pown/recon",
+  "description": "Pownage guaranteed",
+  "main": "lib/index.js",
+  "bin": {},
+  "scripts": {
+    "test": "NODE_ENV=test npx -y mocha@latest",
+    "start": "POWN_ROOT=. pown-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git/packages/recon"
+  },
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown.git/packages/recon#readme",
+  "peerDependencies": {
+    "aws-sdk": "^2.899.0",
+    "memcached": "^2.2.2",
+    "@pown/cli": "*"
+  },
+  "devDependencies": {
+    "@pown/script": "*",
+    "@pown/shell": "*",
+    "aws-sdk": "^2.1221.0",
+    "memcached": "^2.2.2",
+    "mocha": "^9.0.3",
+    "@pown/cli": "*"
+  },
+  "dependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*",
+    "@pown/connect": "*",
+    "@pown/engine": "*",
+    "@pown/modules": "*",
+    "@pown/preferences": "*",
+    "@pown/request": "*",
+    "cytoscape": "^3.19.0",
+    "cytoscape-dagre": "^2.3.2",
+    "cytoscape-euler": "^1.2.2",
+    "cytoscape-klay": "^3.1.4",
+    "deepmerge": "^4.2.2",
+    "esprima": "^4.0.1",
+    "js-yaml": "^4.1.0",
+    "jsonpath": "^1.1.1",
+    "name": "^0.0.2",
+    "static-eval": "^2.1.0",
+    "stream-chain": "^2.2.4",
+    "stream-csv-as-json": "^1.0.4",
+    "stream-json": "^1.7.2",
+    "uuid": "^8.3.2"
+  },
+  "pown": {
+    "commands": [
+      "commands/recon"
+    ],
+    "transforms": [
+      "transforms/bitbucket",
+      "transforms/bufferoverrun",
+      "transforms/certspotter",
+      "transforms/cloudflare",
+      "transforms/crtsh",
+      "transforms/dns",
+      "transforms/dockerhub",
+      "transforms/gravatar",
+      "transforms/hackertarget",
+      "transforms/http",
+      "transforms/ipinfoio",
+      "transforms/omnisint",
+      "transforms/pks",
+      "transforms/pwndb",
+      "transforms/riddler",
+      "transforms/script",
+      "transforms/scylla",
+      "transforms/securitytrails",
+      "transforms/shodan",
+      "transforms/spyse",
+      "transforms/tcp",
+      "transforms/threatcrowd",
+      "transforms/urlscan",
+      "transforms/utils",
+      "transforms/virustotal",
+      "transforms/vulners",
+      "transforms/wappalyzer",
+      "transforms/worker",
+      "transforms/zonecruncher"
+    ]
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
