@@ -38,6 +38,8 @@ const main = async () => {
         }
 
         if (package?.pown?.commands?.length > 0) {
+            package.scripts.start = 'POWN_ROOT=. pown-cli'
+            
             if (!package.peerDependencies) {
                 package.peerDependencies = {}
             }

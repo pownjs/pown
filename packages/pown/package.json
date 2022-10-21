@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test npx -y mocha@latest",
-    "postinstall": "node scripts/postinstall.js"
+    "postinstall": "node scripts/postinstall.js",
+    "start": "POWN_ROOT=. pown-cli"
   },
   "repository": {
     "type": "git",
