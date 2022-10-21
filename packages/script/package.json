@@ -35,9 +35,11 @@
     ]
   },
   "peerDependencies": {
-    "@pown/cli": "*"
+    "@pown/cli": "*",
+    "@pown/modules": "*"
   },
   "devDependencies": {
-    "@pown/cli": "*"
+    "@pown/cli": "*",
+    "@pown/modules": "*"
   }
 }
