@@ -1,7 +1,7 @@
 {
   "name": "@pown/monorepo",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Pownage guaranteed",
   "repository": {
     "type": "git",
@@ -21,25 +21,20 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
     "build": "npm-run-all \"build:*\"",
-    "build:packages": "npx lerna run build",
+    "build:packages": "npw -ws run build",
     "test": "npm-run-all \"test:*\"",
-    "test:packages": "npx lerna run test",
+    "test:packages": "npw -ws run test",
     "lint": "npm-run-all --continue-on-error --aggregate-output --parallel \"lint:*\"",
     "lint:dependency-versions": "check-dependency-version-consistency .",
     "fix": "npm-run-all \"fix:*\"",
     "fix:dependency-versions": "check-dependency-version-consistency . --fix",
     "fix:package-json": "node scripts/fix-package-json.js",
-    "fix:test": "sh scripts/fix-test.sh",
-    "ci:publish": "lerna publish --yes"
+    "fix:test": "sh scripts/fix-test.sh"
   },
   "homepage": "https://github.com/pownjs/pown#readme",
   "dependencies": {
     "check-dependency-version-consistency": "^3.0.3",
     "npm-run-all": "^4.1.5"
-  },
-  "devDependencies": {
-    "lerna": "^6.0.1"
   }
 }

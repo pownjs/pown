@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/pownjs/pown.git/packages/shell#readme",
   "dependencies": {
-    "@pown/cli": "^3.0.0",
-    "@pown/modules": "^3.0.0",
-    "@pown/script": "^3.0.0"
+    "@pown/cli": "*",
+    "@pown/modules": "*",
+    "@pown/script": "*"
   },
   "engines": {
     "node": ">=14"
