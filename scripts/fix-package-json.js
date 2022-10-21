@@ -9,50 +9,51 @@ const main = async () => {
 
     const packageJSON = fs.readFileSync(packageFile)
 
-    const package = JSON.parse(packageJSON.toString())
+    const pkg = JSON.parse(packageJSON.toString())
 
-    package.main = 'lib/index.js'
+    pkg.main = 'lib/index.js'
 
-    package.scripts.test = 'NODE_ENV=test npx -y mocha@latest'
+    pkg.scripts.test = 'NODE_ENV=test npx -y mocha@latest'
 
-    ;(package.homepage = `https://github.com/pownjs/pown.git/packages/${dir}#readme`),
-      (package.license = 'MIT')
+    pkg.homepage = `https://github.com/pownjs/pown/tree/master/packages/${dir}#readme`
 
-    package.repository = {
+    pkg.license = 'MIT'
+
+    pkg.repository = {
       type: 'git',
-      url: `git+https://github.com/pownjs/pown.git/packages/${dir}`,
+      url: `git+https://github.com/pownjs/pown/tree/master/packages/${dir}`,
     }
 
-    package.bugs = {
+    pkg.bugs = {
       url: 'https://github.com/pownjs/pown/issues',
     }
 
-    package.engines = {
+    pkg.engines = {
       node: '>=14',
     }
 
-    package.publishConfig = {
+    pkg.publishConfig = {
       access: 'public',
       registry: 'https://registry.npmjs.org/',
     }
 
-    if (package?.pown?.commands?.length > 0) {
-      package.scripts.start = 'POWN_ROOT=. pown-cli'
+    if (pkg?.pown?.commands?.length > 0) {
+      pkg.scripts.start = 'POWN_ROOT=. pown-cli'
 
-      if (!package.peerDependencies) {
-        package.peerDependencies = {}
+      if (!pkg.peerDependencies) {
+        pkg.peerDependencies = {}
       }
 
-      package.peerDependencies['@pown/cli'] = '*'
+      pkg.peerDependencies['@pown/cli'] = '*'
 
-      if (!package.devDependencies) {
-        package.devDependencies = {}
+      if (!pkg.devDependencies) {
+        pkg.devDependencies = {}
       }
 
-      package.devDependencies['@pown/cli'] = '*'
+      pkg.devDependencies['@pown/cli'] = '*'
     }
 
-    fs.writeFileSync(packageFile, JSON.stringify(package, '', 2) + '\n')
+    fs.writeFileSync(packageFile, JSON.stringify(pkg, '', 2) + '\n')
   }
 }
 

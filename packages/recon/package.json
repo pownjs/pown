@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/recon"
+    "url": "git+https://github.com/pownjs/pown/tree/master/packages/recon"
   },
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/recon#readme",
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/recon#readme",
   "author": "pdp <pdp@gnucitizen.org>",
   "contributors": [],
   "keywords": [

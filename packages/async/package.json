@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/async"
+    "url": "git+https://github.com/pownjs/pown/tree/master/packages/async"
   },
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/async#readme",
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/async#readme",
   "author": "pdp <pdp@gnucitizen.org>",
   "contributors": [],
   "keywords": [

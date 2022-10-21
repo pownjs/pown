@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pownjs/pown.git/packages/preferences"
+    "url": "git+https://github.com/pownjs/pown/tree/master/packages/preferences"
   },
   "bugs": {
     "url": "https://github.com/pownjs/pown/issues"
   },
-  "homepage": "https://github.com/pownjs/pown.git/packages/preferences#readme",
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/preferences#readme",
   "author": "pdp <pdp@gnucitizen.org>",
   "contributors": [],
   "keywords": [
