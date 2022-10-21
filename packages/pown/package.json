@@ -1,0 +1,48 @@
+{
+  "name": "pown",
+  "version": "3.0.0",
+  "description": "Pownage guaranteed",
+  "main": "lib/index.js",
+  "bin": {
+    "pown": "bin/pown.js"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test npx -y mocha@latest",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git/packages/pown"
+  },
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown.git/packages/pown#readme",
+  "dependencies": {
+    "@pown/cli": "^3.0.0",
+    "@pown/credits": "^3.0.0",
+    "@pown/modules": "^3.0.0",
+    "@pown/preferences": "^3.0.0",
+    "@pown/script": "^3.0.0",
+    "@pown/shell": "^3.0.0"
+  },
+  "pown": {
+    "commands": [
+      "commands/update"
+    ]
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

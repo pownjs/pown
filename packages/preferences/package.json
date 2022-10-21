@@ -1,0 +1,36 @@
+{
+  "name": "@pown/preferences",
+  "version": "3.0.0",
+  "description": "Pownage preference",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test npx -y mocha@latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git/packages/preferences"
+  },
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown.git/packages/preferences#readme",
+  "pown": {
+    "commands": [
+      "commands/preferences/index.js"
+    ]
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

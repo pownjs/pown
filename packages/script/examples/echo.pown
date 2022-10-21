@@ -1,0 +1,3 @@
+echo -t info Hello World!
+echo -t warn Hello World!
+echo -t error Hello World!

@@ -1,0 +1,5 @@
+set -x
+
+echo -t info Hello
+throw Boom
+echo -t info World!
