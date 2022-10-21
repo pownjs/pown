@@ -1,0 +1,23 @@
+id: workflow
+
+ops:
+  - requests:
+    - id: request1
+      uri: https://httpbin.org/status/200
+      
+    - id: request2
+      uri: https://httpbin.org/status/300
+      
+  - screenshots:
+    - id: screenshot1
+      uri: https://httpbin.org/status/200
+    - id: screenshot2
+      uri: https://httpbin.org/status/300
+      
+requests:
+  - id: request3
+    uri: https://httpbin.org/status/400
+    
+screenshots:
+  - id: screenshot3
+    uri: https://httpbin.org/status/400

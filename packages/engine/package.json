@@ -1,0 +1,46 @@
+{
+  "name": "@pown/engine",
+  "version": "3.0.2",
+  "description": "Pownage guaranteed",
+  "main": "lib/index.js",
+  "scripts": {
+    "check": "npx -y -p typescript tsc",
+    "test": "NODE_ENV=test npx -y mocha@latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git/packages/engine"
+  },
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown.git/packages/engine#readme",
+  "types": "types/index.d.ts",
+  "devDependencies": {
+    "@pown/request": "*",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.8.5",
+    "js-yaml": "^4.1.0"
+  },
+  "dependencies": {
+    "@pown/regexp": "*",
+    "deepmerge": "^4.2.2",
+    "jsonpath": "^1.1.1",
+    "nightly-esprima": "^2021.8.30",
+    "static-eval": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

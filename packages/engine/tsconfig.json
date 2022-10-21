@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "lib": ["esnext"],
+      "allowJs": true,
+      "checkJs": true,
+      "skipLibCheck": false,
+      "strict": false,
+      "forceConsistentCasingInFileNames": true,
+      "declaration": true,
+      "emitDeclarationOnly": true,
+      "incremental": true,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "resolveJsonModule": true,
+      "moduleResolution": "node",
+      "outFile": "types/index.d.ts"
+    },
+    "include": ["**/*.js", "**/*.ts"],
+    "exclude": ["types/index.d.ts", "node_modules"]
+}
