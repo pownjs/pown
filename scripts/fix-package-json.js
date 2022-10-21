@@ -37,6 +37,20 @@ const main = async () => {
             registry: 'https://registry.npmjs.org/'
         }
 
+        if (package?.pown?.commands?.length > 0) {
+            if (!package.peerDependencies) {
+                package.peerDependencies = {}
+            }
+
+            package.peerDependencies['@pown/cli'] = '*'
+
+            if (!package.devDependencies) {
+                package.devDependencies = {}
+            }
+
+            package.devDependencies['@pown/cli'] = '*'
+        }
+
         fs.writeFileSync(packageFile, JSON.stringify(package, '', 2) + '\n')
     }
 }
