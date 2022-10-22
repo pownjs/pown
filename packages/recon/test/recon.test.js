@@ -13,7 +13,7 @@ describe('recon', () => {
       r.select('*')
 
       assert.ok(r.selection.length === 1)
-      assert.ok(r.selection[0].data('props').string === undefined)
+      assert.ok(r.selection[0].data('props').string === 'test')
     })
 
     it('must update node if node exists', async function () {
@@ -24,7 +24,7 @@ describe('recon', () => {
       r.select('*')
 
       assert.ok(r.selection.length === 1)
-      assert.ok(r.selection[0].data('props').string === undefined)
+      assert.ok(r.selection[0].data('props').string === 'test')
 
       await r.addNodes([
         makeNode({ type: 'string', label: 'test', props: { string: 'test' } }),

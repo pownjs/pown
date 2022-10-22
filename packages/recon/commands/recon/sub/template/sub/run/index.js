@@ -24,7 +24,7 @@ exports.yargs = {
 
     const { getCompoundTransforms } = require('../../../transform/transforms')
 
-    const compoundTransforms = await getCompoundTransforms()
+    const compoundTransforms = getCompoundTransforms()
 
     gRecon.registerTransforms(compoundTransforms)
 

@@ -3,7 +3,7 @@ exports.yargs = {
   describe: 'Perform inline transformation',
   aliases: ['t'],
 
-  builder: async (yargs) => {
+  builder: (yargs) => {
     const {
       installReadOptions,
       installWriteOptions,
@@ -16,7 +16,7 @@ exports.yargs = {
 
     const { getCompoundTransforms } = require('./transforms')
 
-    const compoundTransforms = await getCompoundTransforms()
+    const compoundTransforms = getCompoundTransforms()
 
     const auto = {
       aliases: ['a'],

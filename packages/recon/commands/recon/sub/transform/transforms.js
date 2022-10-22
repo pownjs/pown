@@ -1,9 +1,9 @@
-const { extractSync, atain } = require('@pown/modules')
+const { extractSync } = require('@pown/modules')
 const { getPreferencesSync } = require('@pown/preferences')
 
 const { buildRemoteTransforms } = require('../../../../lib/remote')
 
-const getCompoundTransforms = async () => {
+const getCompoundTransforms = () => {
   const { remotes = {} } = getPreferencesSync('recon')
 
   const remoteTransforms = buildRemoteTransforms(remotes)
@@ -15,12 +15,11 @@ const getCompoundTransforms = async () => {
 
     ...Object.assign(
       {},
-      ...(await Promise.all(
-        loadableTransforms.map(async (module) => {
+      ...loadableTransforms.map((module) => {
           let transforms
 
           try {
-            transforms = await atain(module)
+            transforms = require(module)
           } catch (e) {
             if (process.env.POWN_DEBUG) {
               console.error(e)
@@ -41,7 +40,6 @@ const getCompoundTransforms = async () => {
             })
           )
         })
-      ))
     ),
   }
 }
