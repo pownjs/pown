@@ -111,10 +111,9 @@ const execute = async (args, options = {}) => {
 
   const y = yargs(args)
 
-  // NOTE: only supported in yargs 13+
-  // y.parserConfiguration({
-  //   'populate--': true,
-  // })
+  y.parserConfiguration({
+    'populate--': true,
+  })
 
   y.env('POWN')
 
@@ -143,6 +142,8 @@ const execute = async (args, options = {}) => {
               result = await handler(...args)
             } catch (e) {
               reject(e)
+
+              return
             }
 
             resolve(result)
@@ -174,7 +175,7 @@ const execute = async (args, options = {}) => {
       inlineCommands: inlineCommands,
       file: file,
     }
-  })
+  }, true)
 
   const commands = [].concat(
     await Promise.all(
@@ -201,7 +202,7 @@ const execute = async (args, options = {}) => {
 
   y.demandCommand(1, 'You need to specify a command')
 
-  await y.parse() // await y.parseAsync()
+  await y.parseAsync()
 
   if (!promise) {
     promise = Promise.resolve()
