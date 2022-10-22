@@ -194,7 +194,7 @@ const execute = async (args, options = {}) => {
 
   commands.forEach(({ yargs }) => {
     if (yargs) {
-      y.command(yargs).fail(false)
+      y.command(yargs).fail(false) // NOTE: we don't want to prematurely exit
     }
   })
 
