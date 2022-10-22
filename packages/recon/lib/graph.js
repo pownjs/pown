@@ -100,8 +100,16 @@ class Graph extends EventEmitter {
             nodeData.label = label
           }
 
-          if (props) {
-            nodeData.props = { ...nodeData.props, ...props }
+          nodeData.props = {
+            ...(type
+              ? {
+                  [type]: label,
+                }
+              : null),
+
+            ...nodeData.props,
+
+            ...props,
           }
 
           node.data({ ...nodeData, ...data })
@@ -112,7 +120,7 @@ class Graph extends EventEmitter {
         }
       } else {
         if (process.env.NODE_ENV !== 'production') {
-          assert.ok(type, `Node type is not specified`)
+          assert.ok(type, `Node type must be specified`)
         }
 
         try {
@@ -124,7 +132,16 @@ class Graph extends EventEmitter {
               id,
               type,
               label,
-              props,
+
+              props: {
+                ...(type
+                  ? {
+                      [type]: label,
+                    }
+                  : null),
+
+                ...props,
+              },
             },
           })
         } catch (e) {
@@ -187,7 +204,7 @@ class Graph extends EventEmitter {
         this.cy.startBatch()
 
         for await (let node of nodes) {
-          handleNode(node)
+          await handleNode(node)
         }
 
         this.cy.endBatch()
@@ -249,7 +266,7 @@ class Graph extends EventEmitter {
         this.cy.startBatch()
 
         for await (let node of nodes) {
-          handleNode(node)
+          await handleNode(node)
         }
 
         this.cy.endBatch()
