@@ -1,5 +1,6 @@
 const yargs = require('yargs/yargs')
 const shellQuote = require('shell-quote')
+const { atain } = require('@pown/modules')
 
 const BLANK = function () {}
 
@@ -91,18 +92,7 @@ const execute = async (args, options = {}) => {
   const commands = [].concat(
     await Promise.all(
       loadableCommands.map(async (command) => {
-        try {
-          return require(command)
-        } catch (e) {
-          if (
-            e.code === 'ERR_REQUIRE_ESM' ||
-            e.message === 'Cannot use import statement outside a module'
-          ) {
-            return await import(command)
-          }
-
-          throw e
-        }
+        return await atain(command)
       })
     ),
     inlineCommands
