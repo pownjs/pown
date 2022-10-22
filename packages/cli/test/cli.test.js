@@ -33,12 +33,15 @@ describe('cli', () => {
         '$C',
         'd e',
       ])
-      assert.deepEqual(cli.parse(`a $B '$C' "d $E" $F`, { B: 'b', E: 'e', F: 'f g h' }), ['a', 'b', '$C', 'd e', 'f', 'g', 'h'])
+      assert.deepEqual(
+        cli.parse(`a $B '$C' "d $E" $F`, { B: 'b', E: 'e', F: 'f g h' }),
+        ['a', 'b', '$C', 'd e', 'f', 'g', 'h']
+      )
     })
 
     it('parses command with special vars', () => {
       assert.deepEqual(cli.parse(`a $@`, {}), ['a'])
-      assert.deepEqual(cli.parse(`a $@`, { '@': 'b c' }), ['a', 'b', 'c']) 
+      assert.deepEqual(cli.parse(`a $@`, { '@': 'b c' }), ['a', 'b', 'c'])
     })
   })
 
