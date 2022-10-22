@@ -40,6 +40,6 @@
     "inquirer": "^6.5.2",
     "shell-quote": "^1.7.4",
     "wordwrap": "^1.0.0",
-    "yargs": "^13.3.2"
+    "yargs": "^17.6.0"
   }
 }

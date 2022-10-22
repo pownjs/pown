@@ -90,16 +90,17 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "aws-sdk": "^2.899.0",
-    "memcached": "^2.2.2",
-    "@pown/cli": "*"
-  },
-  "devDependencies": {
+    "@pown/cli": "*",
     "@pown/script": "*",
     "@pown/shell": "*",
     "aws-sdk": "^2.1221.0",
-    "memcached": "^2.2.2",
-    "mocha": "^9.0.3",
-    "@pown/cli": "*"
+    "memcached": "^2.2.2"
+  },
+  "devDependencies": {
+    "@pown/cli": "*",
+    "@pown/script": "*",
+    "@pown/shell": "*",
+    "aws-sdk": "^2.1221.0",
+    "memcached": "^2.2.2"
   }
 }
