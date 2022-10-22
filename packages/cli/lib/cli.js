@@ -194,7 +194,7 @@ const execute = async (args, options = {}) => {
 
   commands.forEach(({ yargs }) => {
     if (yargs) {
-      y.command(yargs)
+      y.command(yargs).fail(false)
     }
   })
 
@@ -208,7 +208,7 @@ const execute = async (args, options = {}) => {
     promise = Promise.resolve()
   }
 
-  return promise
+  return await promise
 }
 
 module.exports = { execute, parse }
