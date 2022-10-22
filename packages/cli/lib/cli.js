@@ -1,8 +1,7 @@
 const yargs = require('yargs/yargs')
 const shellQuote = require('shell-quote')
-const { atain } = require('@pown/modules')
 
-const BLANK = function () {}
+const BLANK = function() {}
 
 const parse = (input, env = {}) => {
   return shellQuote.parse(input, env)
@@ -40,8 +39,8 @@ const execute = async (args, options = {}) => {
 
   let promise
 
-  y.command = (function (command) {
-    return function (options) {
+  y.command = (function(command) {
+    return function(options) {
       let { handler = BLANK } = options
 
       handler = handler.bind(yargs)
@@ -49,13 +48,14 @@ const execute = async (args, options = {}) => {
       return command.call(this, {
         ...options,
 
-        handler: function (...args) {
-          promise = new Promise(async function (resolve, reject) {
+        handler: function(...args) {
+          promise = new Promise(async function(resolve, reject) {
             let result
 
             try {
               result = await handler(...args)
-            } catch (e) {
+            }
+            catch (e) {
               reject(e)
             }
 
@@ -91,11 +91,9 @@ const execute = async (args, options = {}) => {
   })
 
   const commands = [].concat(
-    await Promise.all(
-      loadableCommands.map(async (command) => {
-        return await atain(command)
-      })
-    ),
+    loadableCommands.map(async (command) => {
+      return require(command)
+    }),
     inlineCommands
   )
 
