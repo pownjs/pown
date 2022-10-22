@@ -25,9 +25,10 @@ const execute = async (args, options = {}) => {
 
   const y = yargs(args)
 
-  y.parserConfiguration({
-    'populate--': true,
-  })
+  // NOTE: only supported in yargs 13+
+  // y.parserConfiguration({
+  //   'populate--': true,
+  // })
 
   y.env('POWN')
 

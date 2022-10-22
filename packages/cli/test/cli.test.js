@@ -94,21 +94,26 @@ describe('cli', () => {
       await cli.execute('foo bar', { inlineCommands })
     }).timeout(2000)
 
-    // NOTE: unfortunately this test does not work due to bugs in yargs, too bad
-    // it('check if varadic args can be passed after --', async () => {
-    //   const inlineCommands = [
-    //     {
-    //       yargs: {
-    //         command: 'echo <strings...>',
+    /**
+     * This behaviour does not seem to be supported in later versions of yargs
+     * which we believe it is a bug. This is why we only support yargs version
+     * 13 until a better solution is identified. This is also the reason why
+     * async builders are also not supported.
+     */
+    it('check if varadic args can be passed after --', async () => {
+      const inlineCommands = [
+        {
+          yargs: {
+            command: 'echo <strings...>',
 
-    //         handler: async ({ strings }) => {
-    //           assert.deepEqual(strings, ['a', 'b', 'd'])
-    //         },
-    //       },
-    //     },
-    //   ]
+            handler: async ({ strings }) => {
+              assert.deepEqual(strings, ['a', 'b', 'd']) // NOTE: it should really also capture -c but yars is kind of messy and broken
+            },
+          },
+        },
+      ]
 
-    //   await cli.execute('echo -- a b -c d', { inlineCommands })
-    // })
+      await cli.execute('echo -- a b -c d', { inlineCommands })
+    })
   })
 })
