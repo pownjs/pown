@@ -146,7 +146,7 @@ class ReconTemplate extends Template {
         const {
           selection,
           select = selection,
-          exp = selection,
+          exp = select,
           expression = exp,
           ...rest
         } = task
