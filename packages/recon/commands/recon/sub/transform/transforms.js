@@ -1,4 +1,4 @@
-const { extractSync } = require('@pown/modules')
+const { extractSync, atain } = require('@pown/modules')
 const { getPreferencesSync } = require('@pown/preferences')
 
 const { buildRemoteTransforms } = require('../../../../lib/remote')
@@ -20,15 +20,8 @@ const getCompoundTransforms = async () => {
           let transforms
 
           try {
-            transforms = require(module)
+            transforms = await atain(module)
           } catch (e) {
-            if (
-              e.code === 'ERR_REQUIRE_ESM' ||
-              e.message === 'Cannot use import statement outside a module'
-            ) {
-              return await import(module)
-            }
-
             return {}
           }
 
