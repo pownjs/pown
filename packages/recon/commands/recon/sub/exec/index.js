@@ -39,9 +39,7 @@ exports.yargs = {
 
       if (typeof module === 'function') {
         await module(recon)
-      }
-      else
-      if (typeof module.default === 'function') {
+      } else if (typeof module.default === 'function') {
         await module.default(recon)
       }
     }
