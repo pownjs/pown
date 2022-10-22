@@ -1,4 +1,5 @@
 const yargs = require('yargs/yargs')
+const { atain } = require('@pown/modules')
 
 const BLANK = function () {}
 
@@ -176,9 +177,15 @@ const execute = async (args, options = {}) => {
   })
 
   const commands = [].concat(
-    loadableCommands.map(async (command) => {
-      return require(command)
-    }),
+    await Promise.all(loadableCommands.map(async (command) => {
+      try {
+        return await atain(command)
+      } catch (e) {
+        if (process.env.POWN_DEBUG) {
+          console.error(e)
+        }
+      }
+    })),
     inlineCommands
   )
 
