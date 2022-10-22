@@ -15,16 +15,16 @@ const getCompoundTransforms = () => {
 
     ...Object.assign(
       {},
-      ...loadableTransforms.map(async (module) => {
+      ...loadableTransforms.map((module) => {
         let transforms
 
         try {
           transforms = require(module)
         } catch (e) {
-          return {}
-        }
+          if (process.env.POWN_DEBUG) {
+            console.error(e)
+          }
 
-        if (!transforms) {
           return {}
         }
 
