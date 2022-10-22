@@ -25,7 +25,7 @@ const execute = async (args, options = {}) => {
   const y = yargs(args)
 
   y.parserConfiguration({
-    'populate--': true
+    'populate--': true,
   })
 
   y.env('POWN')
