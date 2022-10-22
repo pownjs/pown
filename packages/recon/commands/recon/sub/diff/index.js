@@ -71,7 +71,7 @@ exports.yargs = {
     let fileBData
 
     try {
-      fileBData = await readFile(fileB)
+      fileBData = await fs.promises.readFile(fileB)
     } catch (e) {
       console.error(`Cannot read file ${fileB}`)
 
