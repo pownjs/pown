@@ -1,7 +1,7 @@
 const yargs = require('yargs/yargs')
 const shellQuote = require('shell-quote')
 
-const BLANK = function() {}
+const BLANK = function () {}
 
 const parse = (input, env = {}) => {
   return shellQuote.parse(input, env)
@@ -39,8 +39,8 @@ const execute = async (args, options = {}) => {
 
   let promise
 
-  y.command = (function(command) {
-    return function(options) {
+  y.command = (function (command) {
+    return function (options) {
       let { handler = BLANK } = options
 
       handler = handler.bind(yargs)
@@ -48,14 +48,13 @@ const execute = async (args, options = {}) => {
       return command.call(this, {
         ...options,
 
-        handler: function(...args) {
-          promise = new Promise(async function(resolve, reject) {
+        handler: function (...args) {
+          promise = new Promise(async function (resolve, reject) {
             let result
 
             try {
               result = await handler(...args)
-            }
-            catch (e) {
+            } catch (e) {
               reject(e)
             }
 

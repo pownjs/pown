@@ -13,14 +13,14 @@ const getCompoundTransforms = () => {
   return {
     ...remoteTransforms,
 
-    ...Object.assign({},
+    ...Object.assign(
+      {},
       ...loadableTransforms.map(async (module) => {
         let transforms
 
         try {
           transforms = require(module)
-        }
-        catch (e) {
+        } catch (e) {
           return {}
         }
 
@@ -28,7 +28,8 @@ const getCompoundTransforms = () => {
           return {}
         }
 
-        return Object.assign({},
+        return Object.assign(
+          {},
           ...Object.entries(transforms).map(([name, Transform]) => {
             return {
               [name]: class extends Transform {
