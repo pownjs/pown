@@ -210,6 +210,8 @@ const hasPownModule = (module) => {
 }
 
 const atain = async (module) => {
+  console.warn('WARNING: use of function atain is discouraged until pown migrates 100% to ESM')
+
   try {
     return require(module)
   } catch (e) {
