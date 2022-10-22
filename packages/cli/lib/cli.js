@@ -201,7 +201,7 @@ const execute = async (args, options = {}) => {
 
   y.demandCommand(1, 'You need to specify a command')
 
-  await y.parseAsync()
+  await y.parse() // await y.parseAsync()
 
   if (!promise) {
     promise = Promise.resolve()
