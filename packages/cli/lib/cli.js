@@ -1,10 +1,99 @@
 const yargs = require('yargs/yargs')
-const shellQuote = require('shell-quote')
 
 const BLANK = function () {}
 
+const tokenizeArgString = (argString) => {
+    // NOTE: copied from https://github.com/yargs/yargs-parser/blob/master/lib/tokenize-arg-string.ts
+
+    if (Array.isArray(argString)) {
+        return argString.map(e => typeof e !== 'string' ? e + '' : e)
+    }
+
+    argString = argString.trim()
+
+    let i = 0
+
+    let prevC = null
+
+    let c = null
+
+    let opening = null
+
+    const args = []
+
+    for (let ii = 0; ii < argString.length; ii++) {
+        prevC = c
+
+        c = argString.charAt(ii)
+
+        // split on spaces unless we're in quotes.
+
+        if (c === ' ' && !opening) {
+            if (!(prevC === ' ')) {
+                i++
+            }
+
+            continue
+        }
+
+        // don't split the string if we're in matching
+        // opening or closing single and double quotes.
+
+        if (c === opening) {
+            opening = null
+        }
+        else
+        if ((c === "'" || c === '"') && !opening) {
+            opening = c
+        }
+
+        if (!args[i]) {
+            args[i] = ''
+        }
+
+        args[i] += c
+    }
+
+    return args
+}
+
+const pass1 = (input, env) => {
+    input = input.replace(/\$(?:[\w_]+|[@])/g, (i) => {
+        return env[i.slice(1)] || ''
+    })
+
+    input = input.replace(/\$\{(?:[\w_]+|[@])\}/g, (i) => {
+        return env[i.slice(2, -1)] || ''
+    })
+
+    return input
+}
+
+const pass2 = (input, env) => {
+    input = input.split(/(\$(?:[\w_]+|[@])|\$\{(?:[\w_]+|[@])\})/g).map(i => pass1(i, env))
+
+    input = input.join(' ')
+
+    return tokenizeArgString(input)
+}
+
 const parse = (input, env = {}) => {
-  return shellQuote.parse(input, env)
+    const args = []
+
+    tokenizeArgString(input).forEach((arg) => {
+        if (arg.startsWith(`"`) && arg.endsWith(`"`)) {
+            args.push(pass1(arg.slice(1, -1), env))
+        }
+        else
+        if (arg.startsWith(`'`) && arg.endsWith(`'`)) {
+            args.push(arg.slice(1, -1))
+        }
+        else {
+            args.push(...pass2(arg, env))
+        }
+    })
+
+    return args
 }
 
 const execute = async (args, options = {}) => {
