@@ -177,15 +177,17 @@ const execute = async (args, options = {}) => {
   })
 
   const commands = [].concat(
-    await Promise.all(loadableCommands.map(async (command) => {
-      try {
-        return await atain(command)
-      } catch (e) {
-        if (process.env.POWN_DEBUG) {
-          console.error(e)
+    await Promise.all(
+      loadableCommands.map(async (command) => {
+        try {
+          return await atain(command)
+        } catch (e) {
+          if (process.env.POWN_DEBUG) {
+            console.error(e)
+          }
         }
-      }
-    })),
+      })
+    ),
     inlineCommands
   )
 
