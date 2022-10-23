@@ -40,6 +40,7 @@
     "fix:dependency-versions": "check-dependency-version-consistency . --fix",
     "fix:license": "sh scripts/fix-license.sh",
     "fix:npm": "sh scripts/fix-npm.sh",
+    "fix:main": "sh scripts/fix-main.sh",
     "fix:package-json": "node scripts/fix-package-json.js",
     "fix:package-lock-json": "sh scripts/fix-package-lock-json.sh",
     "fix:test": "sh scripts/fix-test.sh",
