@@ -13,6 +13,10 @@ Recon is a target reconnaissance framework powered by knowledge graphs. Using kn
 
 Pown recon is designed to be scripted either via your favorite shell environment, [Pown Script](https://github.com/pownjs/script), [Pown Engine Templates](https://github.com/pownjs/engine) and JavaScript. Scripts benefit from preserved context between each command execution. This means that you can build a graph without the need to save and restore into intermediate files.
 
+### Pown Script
+
+Pown Script is a simple scripting language similar to bash. It is designed to run a sequence of pown commands while preserving memory context for faster execution.
+
 Using your favourite editor create a file called `example.pown` with the following contents:
 
 ```sh
@@ -29,6 +33,120 @@ Execute the script from pown:
 $ pown script path/to/example.pown
 ```
 
+### Pown Recon Exec
+
+Pown Recon can execut JavaScript files directly via its command line. This gives you the ability to programatically interface with the engine which is a very powerful way to orchestrate complex setup.
+
+Using your favourite editor create a file called `example.js` with the following contents:
+
+```js
+module.exports = async (recon, { shq }) => {
+   // directly interface with the script using shq
+
+   const target = 'target.com'
+
+   await shq`recon add --node-type domain ${target}`
+
+   // if this is not enough you can interface with recon engine programatically
+
+   recon.addNode({
+      type: 'domain,
+      label: target
+   })
+}
+```
+
+Here is an example of scripted workflow we use at [secapps.com](https://secapps.com):
+
+```js
+module.exports = async (recon, { shq }) => {
+
+   await shq`set -x`
+
+   // ---
+
+   for (const remote of process.env.RECON_REMOTES.split(/\s+/g)) {
+      await shq`recon remote add ${remote}`
+   }
+
+   // ---
+
+   await shq`recon v set 'target_urls' 'filter node[id="group:Targets"] > node[type="uri"],node[type="url"]'`
+   await shq`recon v set 'target_domain_urls' 'filter node[id="group:Targets"] > node[type="domain"] | neighborhood node[type="uri"],node[type="url"]'`
+   await shq`recon v set 'target_domain_subodmain_urls' 'filter node[id="group:Targets"] > node[type="domain"] | neighborhood edge[type="subdomain"] | connectedNodes node[type="domain"] | neighborhood node[type="uri"],node[type="url"]'`
+   await shq`recon v set 'all_possible_urls' 'traverseByName target_urls & traverseByName target_domain_urls & traverseByName target_domain_subodmain_urls'`
+
+   // ---
+
+   for (const url of process.env.TARGET_URLS.split(/\s+/g)) {
+      await shq`recon add --node-type 'uri' ${url}`
+   }
+
+   for (const domain of process.env.TARGET_DOMAINS.split(/\s+/g)) {
+      await shq`recon add --node-type 'domain' ${domain}`
+   }
+
+   await shq`recon group Targets 'node[type="uri"],node[type="domain"]'`
+
+   // ---
+
+   const tasks = [
+      async () => {
+         await shq`recon t -C 1 cohesion_scanner -v 'filter node[id="group:Targets"] > node[type="uri"],node[type="url"]'`
+      },
+
+      async () => {
+         await shq`recon t auto -v 'filter node[id="group:Targets"] > node'`
+      },
+
+      async () => {
+         await shq`recon t build_uri --protocol 'http' -v 'filter node[type="domain"]'`
+         await shq`recon t build_uri --protocol 'https' -v 'filter node[type="domain"]'`
+      },
+
+      async () => {
+         await shq`recon t research --type 'uri' -v 'filter node[id="group:Targets"] > node[type="domain"]'`
+      },
+
+      async () => {
+         await shq`recon t -C 500 cohesion_analyser --analyse-scripts -v 'traverseByName all_possible_urls'`
+      },
+
+      async () => {
+         await shq`recon t -C 100 cohesion_finder -v 'traverseByName all_possible_urls'`
+      },
+
+      async () => {
+         await shq`recon p r ${path.join(__dirname, 'templates')}`
+      },
+
+      async () => {
+         await shq`recon t -C 100 local_vulndb -s 'node[type="issue"]'`
+      },
+
+      async () => {
+         await shq`recon g 'Issues' 'node[type="issue"],node[type="web:vuln:issue"],node[type="web:vuln:variant"]'`
+      },
+
+      async () => {
+         await shq`runner store --summary-kind 'type' --summary-select 'node[type="domain"],node[type="uri"],node[type="url"]'`
+      }
+    ]
+
+    for (const [task, index] of tasks.entries()) {
+      await shq`runner state -s ${index} -S ${tasks.length} -m '' --summarize`
+
+      await shq`mem`
+
+      await task()
+
+      await shq`mem`
+    }
+}
+```
+
+### Scripting Examples
+
 For more information, see the `./examples` for more ideas how to use scripts.
 
 ## Selectors
@@ -39,19 +157,19 @@ A selector functions similar to a CSS selector on DOM elements, but selectors in
 
 The selectors can be combined together to make powerful queries, for example:
 
-```
+```sh
 pown select 'node[weight >= 50][height < 180]'
 ```
 
 Selectors can be joined together (effectively creating a logical OR) with commas:
 
-```
+```sh
 pown select 'node#j, edge[source = "j"]'
 ```
 
 It is important to note that strings need to be enclosed by quotation marks:
 
-```
+```sh
 pown select 'node[type = "domain"]'
 ```
 
