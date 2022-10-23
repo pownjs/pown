@@ -17,7 +17,7 @@ exports.yargs = {
     installOutputOptions(yargs)
   },
 
-  handler: async(argv) => {
+  handler: async (argv) => {
     const { recon } = require('../../../lib/globals/recon')
 
     const {
