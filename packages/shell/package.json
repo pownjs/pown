@@ -34,15 +34,14 @@
       "commands/shell"
     ]
   },
-  "dependencies": {
+  "peerDependencies": {
     "@pown/cli": "*",
     "@pown/modules": "*",
     "@pown/script": "*"
   },
-  "peerDependencies": {
-    "@pown/cli": "*"
-  },
   "devDependencies": {
-    "@pown/cli": "*"
+    "@pown/cli": "*",
+    "@pown/modules": "*",
+    "@pown/script": "*"
   }
 }
