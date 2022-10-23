@@ -68,7 +68,6 @@
   },
   "dependencies": {
     "@pown/async": "*",
-    "@pown/cli": "*",
     "@pown/connect": "*",
     "@pown/engine": "*",
     "@pown/modules": "*",
