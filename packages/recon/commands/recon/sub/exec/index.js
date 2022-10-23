@@ -22,6 +22,7 @@ exports.yargs = {
 
     const path = require('path')
     const process = require('process')
+    const { atain } = require('@pown/modules')
 
     const { recon } = require('../../lib/globals/recon')
 
@@ -33,7 +34,7 @@ exports.yargs = {
     await handleReadOptions(argv, recon)
 
     for (let file of Array.isArray(files) ? files : [files]) {
-      const module = require(path.join(process.cwd(), file)) // TODO: we should not be doing our own path resolve
+      const module = await atain(path.join(process.cwd(), file)) // TODO: we should not be doing our own path resolve
 
       if (typeof module === 'function') {
         await module(recon)
