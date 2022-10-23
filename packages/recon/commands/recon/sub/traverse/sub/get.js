@@ -2,7 +2,7 @@ exports.yargs = {
   command: 'get <name>',
   describe: 'Get named traversal',
 
-  builder: (yargs) => {},
+  builder: () => {},
 
   handler: async (argv) => {
     const { name } = argv

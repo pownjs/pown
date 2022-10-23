@@ -49,6 +49,7 @@
     "format:src": "prettier -w .",
     "lint": "npm-run-all --continue-on-error --aggregate-output --parallel \"lint:*\"",
     "lint:dependency-versions": "check-dependency-version-consistency .",
+    "lint:packages": "eslint packages/",
     "test": "npm-run-all \"test:*\"",
     "test:packages": "npm -ws run test",
     "version": "node scripts/on-version.js"

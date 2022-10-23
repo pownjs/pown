@@ -727,9 +727,9 @@ class Template {
             if (process.env.NODE_ENV !== 'production') {
               console.debug(`Invalid regex input`)
             }
-
-            return {}
           }
+
+          return {}
 
         case 'script':
           return this.evaluate(script, input)

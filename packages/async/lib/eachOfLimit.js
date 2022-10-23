@@ -27,7 +27,7 @@ const eachOfLimit = async (iterable, handler, limit = 1) => {
 
   if (errors.length) {
     if (typeof AggregateError === 'function') {
-      throw new AggregateError(errors)
+      throw new AggregateError(errors) // eslint-disable-line
     } else {
       throw errors[0]
     }

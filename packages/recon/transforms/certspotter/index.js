@@ -41,7 +41,7 @@ const certspotterIssuances = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       domain: label,
       include_subdomains: 'true',

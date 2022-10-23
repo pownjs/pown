@@ -2,7 +2,7 @@ const querystring = require('querystring')
 
 const { Transform } = require('../../lib//transform')
 const { normalizeDomain } = require('../../lib//normalize')
-const { BRAND_TYPE, DOMAIN_TYPE, SUBDOMAIN_TYPE } = require('../../lib//types')
+const { BRAND_TYPE, DOMAIN_TYPE } = require('../../lib//types')
 
 const securitytrailsSuggestions = class extends Transform {
   static get alias() {

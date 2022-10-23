@@ -135,11 +135,11 @@ const execute = async (args, options = {}) => {
         ...options,
 
         handler: function (...args) {
-          promise = new Promise(async function (resolve, reject) {
+          promise = new Promise(function (resolve, reject) {
             let result
 
             try {
-              result = await handler(...args)
+              result = handler(...args)
             } catch (e) {
               reject(e)
 

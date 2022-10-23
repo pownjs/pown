@@ -5,7 +5,6 @@ const { Transform } = require('../../lib//transform')
 const { normalizeDomain } = require('../../lib//normalize')
 const {
   URI_TYPE,
-  BRAND_TYPE,
   SCREENSHOT_TYPE,
   DOMAIN_TYPE,
   SUBDOMAIN_TYPE,

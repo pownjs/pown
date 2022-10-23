@@ -8,7 +8,7 @@ const setCache = (c) => {
   cache = c
 }
 
-const clearCache = (c) => {
+const clearCache = () => {
   cache = undefined
 }
 

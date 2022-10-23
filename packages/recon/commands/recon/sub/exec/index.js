@@ -35,7 +35,8 @@ exports.yargs = {
     await handleReadOptions(argv, recon)
 
     const helpers = {
-      st, stq
+      st,
+      stq,
     }
 
     for (let file of Array.isArray(files) ? files : [files]) {

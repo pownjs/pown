@@ -17,7 +17,7 @@ const unrollOfParallel = async function* (iterables) {
     }
   })
     .then(() => ee.emit('end'))
-    .catch((error) => ee.emit('error'))
+    .catch((error) => ee.emit('error', error))
 
   yield* iterateOverEmitter(ee, 'item')
 }

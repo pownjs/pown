@@ -2,7 +2,7 @@ exports.yargs = {
   command: 'del <name>',
   describe: 'Delete named traversal',
 
-  builder: (yargs) => {},
+  builder: () => {},
 
   handler: async (argv) => {
     const { name } = argv

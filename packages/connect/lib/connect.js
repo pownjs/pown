@@ -9,7 +9,9 @@ const closeSocketAndCleanup = async (socket) => {
     // NOTE: force socket closure just in case
 
     socket.destroy()
-  } catch (e) {}
+  } catch (e) {
+    // pass
+  }
 }
 
 const connectInternal = (connect, resolve) => {

@@ -4,7 +4,7 @@ exports.yargs = {
 
   builder: {},
 
-  handler: (argv) => {
+  handler: () => {
     const os = require('os')
     const process = require('process')
 

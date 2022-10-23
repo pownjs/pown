@@ -3,7 +3,7 @@ exports.yargs = {
   describe: 'Export to file',
   aliases: ['x'],
 
-  builder: (yargs) => {},
+  builder: () => {},
 
-  handler: async (argv) => {},
+  handler: async () => {},
 }

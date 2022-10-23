@@ -2,7 +2,7 @@ exports.yargs = {
   command: 'set <name> <expression>',
   describe: 'Set named traversal',
 
-  builder: (yargs) => {},
+  builder: () => {},
 
   handler: async (argv) => {
     const { name, expression } = argv

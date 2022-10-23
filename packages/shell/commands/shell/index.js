@@ -2,7 +2,7 @@ exports.yargs = {
   command: 'shell [options]',
   describe: 'Simple shell for executing pown commands',
 
-  handler: async (argv) => {
+  handler: async () => {
     const { execute } = require('@pown/cli')
     const { extract } = require('@pown/modules')
 
@@ -40,7 +40,7 @@ exports.yargs = {
 
     const originalExit = process.exit
 
-    process.exit = function (...args) {}
+    process.exit = function () {}
 
     const processExit = (code) => {
       process.exit = originalExit

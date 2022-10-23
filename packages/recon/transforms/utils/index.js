@@ -9,8 +9,6 @@ const {
   DOMAIN_TYPE,
   EMAIL_TYPE,
   URI_TYPE,
-  IPV4_TYPE,
-  IPV6_TYPE,
   STRING_TYPE,
   BRAND_TYPE,
 } = require('../../lib//types')
@@ -474,7 +472,6 @@ const augment = class extends Transform {
         type: newType,
         id: makeId(newType, newLabel),
         label: newLabel,
-        label,
         props: {
           [newType]: newLabel,
         },

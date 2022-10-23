@@ -3,9 +3,9 @@ exports.yargs = {
   describe: 'Clear cache configuration',
   aliases: ['c'],
 
-  builder: (yargs) => {},
+  builder: () => {},
 
-  handler: (argv) => {
+  handler: () => {
     const { clearCache } = require('../../../lib/globals/cache')
 
     clearCache()

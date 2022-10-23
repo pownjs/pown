@@ -3,7 +3,7 @@ exports.yargs = {
   describe: 'List remotes',
   aliases: ['l'],
 
-  handler: async (argv) => {
+  handler: async () => {
     const { getPreferences } = require('@pown/preferences')
 
     const { remotes = {} } = await getPreferences('recon')
