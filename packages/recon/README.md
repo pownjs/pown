@@ -132,7 +132,7 @@ module.exports = async (recon, { shq }) => {
       }
     ]
 
-    for (const [task, index] of tasks.entries()) {
+    for (const [index, task] of tasks.entries()) {
       await shq`runner state -s ${index} -S ${tasks.length} -m '' --summarize`
 
       await shq`mem`
