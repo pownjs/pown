@@ -47,7 +47,7 @@ const threatcrowdDomainReport = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       domain: label,
     })
@@ -123,7 +123,7 @@ const threatcrowdIpReport = class extends Transform {
     return {}
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       ip: label,
     })

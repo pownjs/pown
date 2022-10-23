@@ -41,7 +41,7 @@ const crtshCNDomainReport = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       CN: `%.${label}`,
     })
@@ -132,7 +132,7 @@ const crtshSANDomainReport = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       dNSName: `%.${label}`,
     })

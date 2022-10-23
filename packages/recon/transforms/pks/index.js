@@ -42,7 +42,7 @@ const pksLookupKeys = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       search: label,
       op: 'index',

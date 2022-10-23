@@ -42,7 +42,7 @@ const gravatar = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const gravatar = crypto.createHash('md5').update(label).digest('hex')
 
     const query = querystring.stringify({

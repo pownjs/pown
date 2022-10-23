@@ -140,7 +140,7 @@ const urlscanSubdomains = class extends Transform {
 
   async handle(
     { id: source = '', label = '' },
-    { urlscanKey = process.env.URLSCAN_KEY, ...options }
+    { urlscanKey = process.env.URLSCAN_KEY }
   ) {
     if (!urlscanKey) {
       this.warn(`no urlscan api key specified`)

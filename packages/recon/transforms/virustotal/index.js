@@ -41,7 +41,7 @@ const virustotalSubdomains = class extends Transform {
     return 1
   }
 
-  async handle({ id: source = '', label = '' }, options) {
+  async handle({ id: source = '', label = '' }) {
     const query = querystring.stringify({
       limit: 40,
     })
