@@ -60,7 +60,6 @@ Here is an example of scripted workflow we use at [secapps.com](https://secapps.
 
 ```js
 module.exports = async (recon, { shq }) => {
-
    await shq`set -x`
 
    // ---
