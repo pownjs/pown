@@ -12,6 +12,7 @@ exports.yargs = {
     yargs.command(require('./sub/add').yargs)
     yargs.command(require('./sub/remove').yargs)
     yargs.command(require('./sub/edit').yargs)
+    yargs.command(require('./sub/show').yargs)
     yargs.command(require('./sub/merge').yargs)
     yargs.command(require('./sub/diff').yargs)
     yargs.command(require('./sub/group').yargs)
