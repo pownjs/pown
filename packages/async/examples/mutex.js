@@ -14,4 +14,4 @@ const main = async () => {
   console.log('unlocked')
 }
 
-main()
+main().catch(console.error)

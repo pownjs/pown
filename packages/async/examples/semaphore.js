@@ -31,4 +31,4 @@ const main = async () => {
   await semaphore.join()
 }
 
-main()
+main().catch(console.error)
