@@ -16,30 +16,30 @@ const getCompoundTransforms = () => {
     ...Object.assign(
       {},
       ...loadableTransforms.map((module) => {
-          let transforms
+        let transforms
 
-          try {
-            transforms = require(module)
-          } catch (e) {
-            if (process.env.POWN_DEBUG) {
-              console.error(e)
-            }
-
-            return {}
+        try {
+          transforms = require(module)
+        } catch (e) {
+          if (process.env.POWN_DEBUG) {
+            console.error(e)
           }
 
-          return Object.assign(
-            {},
-            ...Object.entries(transforms).map(([name, Transform]) => {
-              return {
-                [name]: class extends Transform {
-                  static loadableTransformModule = module
-                  static loadableTransformName = name
-                },
-              }
-            })
-          )
-        })
+          return {}
+        }
+
+        return Object.assign(
+          {},
+          ...Object.entries(transforms).map(([name, Transform]) => {
+            return {
+              [name]: class extends Transform {
+                static loadableTransformModule = module
+                static loadableTransformName = name
+              },
+            }
+          })
+        )
+      })
     ),
   }
 }
