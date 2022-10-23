@@ -868,7 +868,7 @@ class Template {
 
       yield result
 
-      if (!!result.error) {
+      if (result.error) {
         return
       }
 

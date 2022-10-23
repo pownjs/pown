@@ -86,7 +86,7 @@ const connectInternal = (connect, resolve) => {
 
     transaction.info.open = true
 
-    if (!!_tls) {
+    if (_tls) {
       if (data) {
         socket.write(data)
       }

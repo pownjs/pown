@@ -8,13 +8,13 @@ exports.yargs = {
 
     const { loadableModules, loadableCommands } = await extract()
 
-    const { subcommands } = require('@pown/script/commands/script/subcommands')
+    const { sub } = require('@pown/script/commands/script/sub')
 
     const executeOptions = {
       loadableModules: loadableModules,
       loadableCommands: loadableCommands,
 
-      inlineCommands: subcommands,
+      inlineCommands: sub,
     }
 
     const readline = require('readline')
@@ -71,7 +71,7 @@ exports.yargs = {
         }
       }
 
-      prompt: rl.prompt()
+      rl.prompt()
     }
 
     return processExit(0)
