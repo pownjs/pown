@@ -1,7 +1,7 @@
-module.exports = async (_, { stq }) => {
+module.exports = async (_, { shq }) => {
   const message = 'adding targets...'
 
-  await stq`echo ${message}`
+  await shq`echo ${message}`
 
-  await stq`recon add --node-type domain target.com`
+  await shq`recon add --node-type domain target.com`
 }

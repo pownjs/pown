@@ -20,7 +20,7 @@ async function exec(line) {
   await execute(line, executeOptions)
 }
 
-async function st(strings, ...args) {
+async function sh(strings, ...args) {
   const result = []
 
   for (const [index, string] of strings.entries()) {
@@ -32,7 +32,7 @@ async function st(strings, ...args) {
   return await exec(cmd)
 }
 
-async function stq(strings, ...args) {
+async function shq(strings, ...args) {
   const result = []
 
   for (const [index, string] of strings.entries()) {
@@ -50,6 +50,6 @@ async function stq(strings, ...args) {
 }
 
 module.exports = {
-  st,
-  stq,
+  sh,
+  shq,
 }
