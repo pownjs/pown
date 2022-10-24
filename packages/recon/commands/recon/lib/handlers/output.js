@@ -56,7 +56,7 @@ const handleOutputOptions = (argv, nodes) => {
     case 'table':
       const tables = {}
 
-      nodes.forEach(({ type, id, label, image, parent, props = {} }) => {
+      nodes.forEach(({ type, id, label, props = {} }) => {
         const row = {}
 
         if (type === 'group') {
@@ -93,7 +93,7 @@ const handleOutputOptions = (argv, nodes) => {
     case 'grid':
       const table = []
 
-      nodes.forEach(({ type, id, label, image, parent, props = {} }) => {
+      nodes.forEach(({ type, id, label, props = {} }) => {
         const row = {}
 
         row['type'] = type
@@ -125,7 +125,7 @@ const handleOutputOptions = (argv, nodes) => {
       const fields = {}
       const lines = []
 
-      nodes.forEach(({ id, type, label, image, parent, props }) => {
+      nodes.forEach(({ id, type, label, props }) => {
         const line = {}
 
         fields['type'] = 1
