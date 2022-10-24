@@ -66,6 +66,10 @@ const memory = (global[memoryKey] = global[memoryKey] ? global[memoryKey] : {})
 
 const memorize = (name, func) => {
   return async (...args) => {
+    if (name in memory) {
+      return memory[name]
+    }
+
     const result = await func(...args)
 
     memory[name] = result
