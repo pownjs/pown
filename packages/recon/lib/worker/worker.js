@@ -1,7 +1,7 @@
+const { Transform } = require('stream')
 const { atain } = require('@pown/modules')
-const { EventEmitter } = require('events')
 const { parentPort } = require('worker_threads')
-const { iterateOverEmitter } = require('@pown/async/lib/iterateOverEmitter')
+const { iterateOverStream } = require('@pown/async/lib/iterateOverStream')
 
 const { serialize } = require('./utils')
 const { Scheduler } = require('../scheduler')
@@ -37,33 +37,16 @@ console.debug = (...args) => {
   parentPort.postMessage({ type: 'transform.debug', args: getSafeArgs(args) })
 }
 
-const stream = new (class extends EventEmitter {
-  constructor() {
-    super()
+const stream = new Transform({
+  writablehighWaterMark: Infinity,
+  readableHighWaterMark: Number.MAX_VALUE,
 
-    this.finished = false
+  objectMode: true,
+
+  transform(chunk, encoding, callback) {
+    callback(null, chunk)
   }
-
-  async put(options) {
-    if (this.finished) {
-      throw new Error(`Stream already finished`)
-    } else {
-      const { node } = options
-
-      this.emit('node', node)
-    }
-  }
-
-  async end() {
-    if (this.finished) {
-      throw new Error(`Stream already finished`)
-    } else {
-      this.finished = true
-    }
-
-    this.emit('end')
-  }
-})()
+})
 
 const transform = new (class {
   constructor() {
@@ -123,11 +106,7 @@ const transform = new (class {
     transform.on('debug', this.debug)
     transform.on('progress', this.progress)
 
-    for await (let result of transform.itr(
-      iterateOverEmitter(stream, 'node'),
-      transformOptions,
-      transformConcurrency
-    )) {
+    for await (let result of transform.itr(iterateOverStream(stream, ({ node }) => node), transformOptions, transformConcurrency)) {
       parentPort.postMessage({ type: 'yield', result: serialize(result) })
     }
 
@@ -138,12 +117,12 @@ const transform = new (class {
 const onMessage = async ({ type, ...options }) => {
   switch (type) {
     case 'stream.put':
-      await stream.put(options)
+      await stream.push(options)
 
       break
 
     case 'stream.end':
-      await stream.end(options)
+      await stream.end()
 
       break
 
