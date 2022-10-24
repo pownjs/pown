@@ -36,7 +36,6 @@
     ],
     "transforms": [
       "transforms/bitbucket",
-      "transforms/bufferoverrun",
       "transforms/certspotter",
       "transforms/cloudflare",
       "transforms/crtsh",
