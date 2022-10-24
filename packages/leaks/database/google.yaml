@@ -9,12 +9,12 @@ checks:
     severity: 9
     regex: "((\\\"|'|`)?type(\\\"|'|`)?\\\\s{0,50}(:|=>|=)\\\\s{0,50}(\\\"|'|`)?service_account(\\\"|'|`)?,?)"
     safe: false
-    
+
   - title: Google API Key
     severity: 4
     regex: >-
       AIza[0-9a-zA-Z\-_]{35}
-    
+
   - title: Google Oauth ID
     severity: 1
     regex: >-

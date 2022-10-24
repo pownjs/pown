@@ -261,9 +261,7 @@
         "severity": 1,
         "regex": "https://[a-z0-9-_]+\\.firebaseio.com",
         "text": {
-          "valid": [
-            "databaseURL: 'https://bb-cat-bla.firebaseio.com',"
-          ]
+          "valid": ["databaseURL: 'https://bb-cat-bla.firebaseio.com',"]
         }
       }
     ]

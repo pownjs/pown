@@ -4,7 +4,7 @@ checks:
     severity: 6
     regex: linkedin(.{0,20})?['\"][0-9a-z]{12}['\"]
     safe: false
-    
+
   - title: LinkedIn Secret Key
     severity: 7
     regex: linkedin(.{0,20})?['\"][0-9a-z]{16}['\"]

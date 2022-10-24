@@ -4,11 +4,11 @@ checks:
     severity: 1
     regex: (facebook|fb)(.{0,20})?['\"][0-9]{13,17}['\"]
     safe: false
-    
+
   - title: Facebook Access Token
     severity: 6
     regex: EAACEdEose0cBA[0-9a-z]+
-    
+
   - title: Facebook Secret Key
     severity: 7
     regex: (facebook|fb)(.{0,20})?['\"][0-9a-f]{32}['\"]

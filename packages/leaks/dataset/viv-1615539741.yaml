@@ -23,7 +23,7 @@
 # - invalid: forgotPassword':'Forgotten
 # - invalid: password=null),t},u.parseQuery=function(t,e){if(!t)return{};if(!(t=t.replace(/&+/g,"
 - invalid: https://a@b
-- valid: Password = Password123!!! 
+- valid: Password = Password123!!!
 # - invalid: Password = AW.UI.Input.subclass()
 # - invalid: authorizePassword = function(e)
 # - invalid: 'key: "hideOver3MonthsButton'

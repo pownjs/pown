@@ -24,7 +24,10 @@ async function sh(strings, ...args) {
   const result = []
 
   for (const [index, string] of strings.entries()) {
-    result.push(string, index < args.length ? (args[index]?.toString?.() || '') : '')
+    result.push(
+      string,
+      index < args.length ? args[index]?.toString?.() || '' : ''
+    )
   }
 
   const cmd = result.join('')

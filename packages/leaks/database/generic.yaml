@@ -5,39 +5,39 @@ title: Generic
 variables:
   quick_boundary: >-
     \b[0-9a-zA-Z_-]*
-    
+
   assignment_operators: >-
     \s*(:|=|:=|=>|;s:\d+:)\s*
-    
+
   left_quote_maybe: >-
     \s*['"]?
-    
+
   right_quote_maybe: >-
     ['"]?\s*
-    
+
   token: >-
     (?<exact>[0-9a-zA-Z\.\-_=]{6,})
-    
+
   password: >-
     (?<exact>[^\s'"]{6,})
-    
+
   common_js_functions_call_conventions: >-
     (\w+\.call\(|function\(|this\.)
-    
+
 checks:
   - title: Generic Token
     severity: 1
-    
+
     flags: i
     regex: >-
       ${quick_boundary}(token)${left_quote_maybe}${assignment_operators}${left_quote_maybe}${token}
-      
+
     filterFlags: i
     filterRegex: >-
       (csrf|theme)
-      
+
     entropy: 85
-    
+
     tests:
       negative:
         - >-
@@ -54,22 +54,21 @@ checks:
           demotoken = ae4c9d06-8777-489f-b60a-90142df902cd
         - >-
           accessToken = d3baee3f34fb41778239a68516518723
-          
-  # ---
 
+  # ---
   - title: Generic Key
     severity: 1
-    
+
     flags: i
     regex: >-
       ${quick_boundary}(key)${left_quote_maybe}${assignment_operators}${left_quote_maybe}${token}
-      
+
     filterFlags: i
     filterRegex: >-
       (site|license|bugsnag|recaptcha|adblock)
-      
+
     entropy: 60
-    
+
     tests:
       negative:
         - >-
@@ -80,79 +79,79 @@ checks:
           reCaptchaKey":"6Lcw5PwUAAAAAEZ9dIIezn_kchXS0Ycqdwt
         - >-
           adblockkey="MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKX74ixpzVyXbJprcLfbH4psP4"
-          
+
     # ---
-    
+
   - title: Generic Secret
     severity: 1
-    
+
     flags: i
     regex: >-
       ${quick_boundary}(secret)${left_quote_maybe}${assignment_operators}${left_quote_maybe}${token}
-      
+
     filterRegex: >-
       =\s*${common_js_functions_call_conventions}
-      
+
     entropy: 60
-    
+
   # ---
-  
+
   - title: Generic Password
     severity: 1
-    
+
     flags: i
     regex: >-
       ${quick_boundary}(password|passwd|pwd)${left_quote_maybe}${assignment_operators}${left_quote_maybe}${password}
-      
+
     filterFlags: i
     filterRegex: >-
       =\s*${common_js_functions_call_conventions}
-      
+
     entropy: 20
-    
+
     tests:
       positive:
         - >-
           PASSWORD=secret123
       negative:
-        - '''PASSWORD'': '''','
+        - "'PASSWORD': '',"
         - '"passwd": "^1.0.0"'
-        
+
   # ---
-  
+
   - title: Generic Authorization
     severity: 1
-    
+
     flags: i
     regex: >-
       \b(authorization)\s*:\s*(bearer|token|basic)\s+[0-9a-zA-Z\.\-_]{6,}
-      
+
   # ---
-  
+
   - title: Sensitive URL Credentials
     severity: 7
-    
+
     flags: i
     regex: >-
       (https?|ftp):\/\/[^\s\{\}\(\)\<\>\/%$'"]+?:(?<exact>[^\s\{\}\(\)\<\>\/%]{3,})@[^\s'"\)]{4,}
-      
+
     filterRegex: >-
       (sentry\.io\|username|password)
-      
+
     entropy: 20
-    
+
   # ---
-  
+
   - title: Sensitive URL
     severity: 5
-    
+
     flags: i
     regex: >-
       (https?|ftp):\/\/[^\s\{\}\(\)\<\>\/%$'":]{3,}@[^\s'"\)]{4,}
-      
+
     filterRegex: >-
       (sentry\.io\/)
-      
+
     tests:
       positive:
         - http://user@acme.com
