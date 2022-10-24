@@ -3,6 +3,8 @@ exports.yargs = {
   describe: 'Perform inline transformation',
   aliases: ['t'],
 
+  // BUG: no commands are shown without --help when async builder is present
+
   builder: async (yargs) => {
     const {
       installReadOptions,
@@ -58,6 +60,7 @@ exports.yargs = {
           : Array.isArray(transform.alias)
           ? transform.alias
           : [transform.alias]
+
         const transformDescription = !transform.description
           ? ''
           : transform.description
@@ -492,9 +495,5 @@ exports.yargs = {
         })
       }
     )
-  },
-
-  handler: (argv) => {
-    argv.context.yargs.showHelp()
-  },
+  }
 }
