@@ -202,6 +202,8 @@ const execute = async (args, options = {}) => {
 
   y.demandCommand(1, 'You need to specify a command')
 
+  y.strict()
+
   try {
     await y.parseAsync()
   } catch (e) {
