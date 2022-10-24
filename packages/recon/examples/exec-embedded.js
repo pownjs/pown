@@ -3,5 +3,7 @@ module.exports = async ({ shq }) => {
 
   await shq`echo ${message}`
 
+  await shq`echo TEST=${process.env.TEST}`
+
   await shq`recon add --node-type domain target.com`
 }

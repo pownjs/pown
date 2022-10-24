@@ -24,7 +24,7 @@ async function sh(strings, ...args) {
   const result = []
 
   for (const [index, string] of strings.entries()) {
-    result.push(string, index < args.length ? args[index] : '')
+    result.push(string, index < args.length ? (args[index]?.toString?.() || '') : '')
   }
 
   const cmd = result.join('')
@@ -39,7 +39,7 @@ async function shq(strings, ...args) {
     result.push(
       string,
       index < args.length
-        ? `'${args[index].replace(/'/g, String.raw`\'`)}'`
+        ? `'${args[index]?.toString?.().replace(/'/g, String.raw`\'`) || ''}'`
         : ''
     )
   }
