@@ -1,0 +1,53 @@
+{
+  "name": "@pown/leaks",
+  "version": "3.5.1",
+  "description": "Pownage guaranteed",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "node ./scripts/generate-database.js",
+    "test": "NODE_ENV=test npx -y mocha@latest",
+    "start": "POWN_ROOT=. pown-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git"
+  },
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/leaks#readme",
+  "peerDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*",
+    "@pown/request": "*"
+  },
+  "devDependencies": {
+    "@pown/async": "*",
+    "@pown/cli": "*",
+    "@pown/request": "*",
+    "js-yaml": "^4.1.0",
+    "safe-regex": "^2.1.1"
+  },
+  "dependencies": {
+    "@pown/regexp": "*"
+  },
+  "pown": {
+    "commands": [
+      "commands/leaks"
+    ]
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

@@ -1,0 +1,8 @@
+title: Twilio Secrets
+checks:
+  - title: Twilio API Key
+    severity: 8
+    regex: SK[0-9a-fA-F]{32}
+    tests:
+      negative:
+        - sKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

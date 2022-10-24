@@ -1,0 +1,5 @@
+title: StackHawk Secrets
+checks:
+  - title: StackHawk API Key
+    severity: 9
+    regex: 'hawk\.[0-9A-Za-z\-_]{20}\.[0-9A-Za-z\-_]{20}'

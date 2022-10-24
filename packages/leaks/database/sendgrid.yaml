@@ -1,0 +1,5 @@
+title: SendGrid Secrets
+checks:
+  - title: SendGrid API Key
+    severity: 9
+    regex: 'SG\.[0-9A-Za-z\-_]{22}\.[0-9A-Za-z\-_]{43}'

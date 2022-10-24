@@ -1,0 +1,5 @@
+title: Square Secrets
+checks:
+  - title: Square API Token / Secret
+    severity: 9
+    regex: sq0(atp|csp)-[0-9a-z\-_]{22,43}

@@ -1,0 +1,5 @@
+title: Sauce Secrets
+checks:
+  - title: Sauce Token
+    severity: 9
+    regex: "sauce.{0,50}(\\\"|'|`)?[0-9a-f-]{36}(\\\"|'|`)?"

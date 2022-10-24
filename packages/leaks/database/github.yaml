@@ -1,0 +1,6 @@
+title: GitHhub Secrets
+checks:
+  - title: GitHub Token
+    severity: 9
+    regex: github(.{0,20})?['\"][0-9a-z]{35,40}['\"]
+    safe: false

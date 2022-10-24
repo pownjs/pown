@@ -1,0 +1,30 @@
+title: Google Secrets
+checks:
+  - title: Google Cloud Platform API key
+    severity: 9
+    regex: (google|gcp|youtube|drive|yt)(.{0,20})?['\"][AIza[0-9a-z\\-_]{35}]['\"]
+    safe: false
+
+  - title: Google (GCM) Service account
+    severity: 9
+    regex: "((\\\"|'|`)?type(\\\"|'|`)?\\\\s{0,50}(:|=>|=)\\\\s{0,50}(\\\"|'|`)?service_account(\\\"|'|`)?,?)"
+    safe: false
+    
+  - title: Google API Key
+    severity: 4
+    regex: >-
+      AIza[0-9a-zA-Z\-_]{35}
+    
+  - title: Google Oauth ID
+    severity: 1
+    regex: >-
+      [0-9]+-[0-9a-z_]{32}\.apps\.googleusercontent\.com
+
+  - title: Firebase Database URL
+    severity: 1
+    regex: >-
+      https://[a-z0-9-_]+\.firebaseio.com
+    text:
+      valid:
+        - >-
+          databaseURL: 'https://bb-cat-bla.firebaseio.com',

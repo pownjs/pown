@@ -1,0 +1,7 @@
+# source: https://github.com/deepfence/SecretScanner/blob/master/config.yaml
+
+title: CodeClimate Secrets
+checks:
+  - title: CodeClimate Key
+    severity: 9
+    regex: "codeclima.{0,50}(\\\"|'|`)?[0-9a-f]{64}(\\\"|'|`)?"

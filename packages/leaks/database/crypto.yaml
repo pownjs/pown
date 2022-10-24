@@ -1,0 +1,21 @@
+title: Crypto Secrets
+checks:
+  - title: RKCS8
+    severity: 9
+    regex: '-----BEGIN PRIVATE KEY-----'
+    # TODO: match location
+    
+  - title: RSA
+    severity: 9
+    regex: '-----BEGIN RSA PRIVATE KEY-----'
+    # TODO: match location
+    
+  - title: SSH
+    severity: 9
+    regex: '-----BEGIN OPENSSH PRIVATE KEY-----'
+    # TODO: match location
+    
+  - title: PGP
+    severity: 9
+    regex: '-----BEGIN PGP PRIVATE KEY BLOCK-----'
+    # TODO: match location

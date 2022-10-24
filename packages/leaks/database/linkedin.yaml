@@ -1,0 +1,11 @@
+title: LinkedIn Secrets
+checks:
+  - title: LinkedIn Client ID
+    severity: 6
+    regex: linkedin(.{0,20})?['\"][0-9a-z]{12}['\"]
+    safe: false
+    
+  - title: LinkedIn Secret Key
+    severity: 7
+    regex: linkedin(.{0,20})?['\"][0-9a-z]{16}['\"]
+    safe: false

@@ -1,0 +1,5 @@
+title: Braintree Secrets
+checks:
+  - title: Braintree API Key
+    severity: 9
+    regex: access_token\$production\$[0-9a-z]{16}\$[0-9a-f]{32}

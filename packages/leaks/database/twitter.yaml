@@ -1,0 +1,11 @@
+title: Twitter Secrets
+checks:
+  - title: Twitter Client ID
+    severity: 6
+    regex: twitter(.{0,20})?['\"][0-9a-z]{18,25}['\"]
+    safe: false
+    
+  - title: Twitter Secret Key
+    severity: 7
+    regex: twitter(.{0,20})?['\"][0-9a-z]{35,44}['\"]
+    safe: false

@@ -1,0 +1,8 @@
+# source: https://github.com/deepfence/SecretScanner/blob/master/config.yaml
+
+title: Artifactory Secrets
+checks:
+  - title: Artifactory Session Token
+    severity: 9
+    regex: "artifactory.{0,50}(\\\"|'|`)?[a-zA-Z0-9=]{112}(\\\"|'|`)?"
+    safe: false

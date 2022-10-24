@@ -1,0 +1,9 @@
+title: Slack Secrets
+checks:
+  - title: Slack Token
+    regex: xox[baprs]-([0-9a-z-]{10,48})
+    severity: 9
+
+  - title: Slack Webhook
+    regex: https://hooks.slack.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8,12}/[a-zA-Z0-9_]{24}
+    severity: 8

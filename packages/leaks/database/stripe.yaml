@@ -1,0 +1,17 @@
+title: Stripe Secrets
+checks:
+  - title: Stripe Secret Live Key
+    severity: 10
+    regex: (sk|rk)_live_[0-9a-z]{24}
+    
+  - title: Stripe Secret Test Key
+    severity: 5
+    regex: (sk|rk)_test_[0-9a-z]{24}
+    
+  - title: Stripe Public Live Key
+    severity: 1
+    regex: pk_live_[0-9a-z]{24}
+    
+  - title: Stripe Public Test Key
+    severity: 1
+    regex: pk_test_[0-9a-z]{24}

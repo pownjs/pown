@@ -1,0 +1,54 @@
+- valid: AIzaSyA65lEHUEizIsNtlbNo-l2K18dT680nsaM
+# - invalid: password=e},enumerable:!0,configurable:!0},host:{get:function(){var​
+- valid: fb:app_id" content="1401488693436528"​
+- valid: hubspot-forms-static-embed.s3.amazonaws.com
+# - invalid: password=n.password),n.idType&&(u.idType=n.idType);var​
+- valid: ec2-34-223-141-144.us-west-2.compute.amazonaws.com​
+- valid: sentry_key=7ab6425e7a7c4b01b71fdb51e76514bf
+- valid: AIzaSyA65lEHUEizIsNtlbNo-l2K18dT680nsaM
+- valid: AKIAIJRK7LE4JHJ4OK4Q
+- valid: fb:app_id" content="1606018679610384"
+- invalid: RECAPTCHA_PUBLIC_KEY = '6LfQyXYUAAAAAM4O0m1Trp_GhAQgX3csz0YU1lGF
+- invalid: adblockkey="MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKX74ixpzVyXbJprcLfbH4psP4
+- invalid: http://user:pass@example.com/
+# - invalid: usernamePassword={username:e.commonUsername,password:{isEmbedded:!0,newPassword:r.PasswordUnchanged}}):(e.hasManagedKeychain||e.hasOAuthCredential)&&(t.credentialOption="
+- invalid: password=Tt.call(e),e.host=jt.call(e),e.hostname=Mt.call(e),e.port=Pt.call(e),e.pathname=Lt.call(e),e.search=kt.call(e),e.searchParams=Nt.call(e),e.hash=Ft.call(e))},At=St.prototype,Et=function(){var
+# - invalid: usernamePassword={username:e.commonUsername,password:{isEmbedded:!0,newPassword:r.PasswordUnchanged}}):(e.hasManagedKeychain||e.hasOAuthCredential)&&(t.credentialOption="
+# - invalid: secret="+authToken,
+# - invalid: forgotpassword":"Forgot\x20password\x3F"
+# - invalid: forgotPassword=function(t){return
+# - invalid: loginAssistForgetPwd = function
+# - invalid: onPassword=r.onPassword),r&&r.onProgress&&(i.onProgress=r.onProgress),i}function
+# - invalid: CONFIRM_PASSWORD":"Confirmed
+# - invalid: forgotPassword':'Forgotten
+# - invalid: password=null),t},u.parseQuery=function(t,e){if(!t)return{};if(!(t=t.replace(/&+/g,"
+- invalid: https://a@b
+- valid: Password = Password123!!! 
+# - invalid: Password = AW.UI.Input.subclass()
+# - invalid: authorizePassword = function(e)
+# - invalid: 'key: "hideOver3MonthsButton'
+- invalid: resetPassword = function(e,
+# - invalid: pwd = SDPUtils.matchPrefix(mediaSection
+- invalid: regenOAuthAppSecret = function(t)
+- invalid: sentry_secret = this._globalSecret)
+- invalid: password = Ae.call(r),
+- invalid: password = Ut.call(r),
+- invalid: OY2tGUkJ9DFFXJCRrRlJCeH5RUFdvfEQQAj47Bgxcb3s3D
+- invalid: lq1f2S1vzU1ySHoRMvKwkHkzM5w+42U03h7oY2LzPHVegwCjMXwvZ63mR9zLK8kYRyuAKjBC4VMZWOYWNrQKpwoyfogkRp20ahFxQxE/zTjZ5sYufwlC+7rHBUHbSDhGLCN5dfQepx8
+# additional patter can be found at https://docs.gitguardian.com/secrets-detection/detectors/specifics/index
+- invalid: 'key: "wave2Style'
+# - invalid: oauth_token_secret = e.secret),
+# - invalid: password = o.password,
+- valid: password":"94t*R!TV@*^fKGbk%oe"
+- valid: sentry_key=7ab6425e7a7c4b01b71fdb51e76514bf
+- valid: AIzaSyA65lEHUEizIsNtlbNo-l2K18dT680nsaM
+- valid: AKIAIHW3CE3PFGSUG7XA
+- valid: AKIAIJRK7LE4JHJ4OK4Q
+- invalid: s3://npm-registry-packages
+- invalid: http://user:password@example.com:8080/#/some/path?foo=bar&baz=xoxo
+- valid: "apiKey: 'AIzaSyAPlPwE2qah_8C3XMnFIPtjFmKKXwEpgSg'"
+- valid: "headers: { 'X-Api-Key': 'adf51226795afbc4e7575ccc124face7' }"
+- valid: 'password"="94t*R!TV@*^fKGbk%oe"'
+- valid: accessToken = d3baee3f34fb41778239a68516518723
+# - invalid: "Key: supported-applicant-countries"
+# - invalid: '"Password = "password"'

@@ -1,0 +1,487 @@
+{
+  "artifactory": {
+    "title": "Artifactory Secrets",
+    "checks": [
+      {
+        "title": "Artifactory Session Token",
+        "severity": 9,
+        "regex": "artifactory.{0,50}(\\\"|'|`)?[a-zA-Z0-9=]{112}(\\\"|'|`)?",
+        "safe": false
+      }
+    ]
+  },
+  "aws": {
+    "title": "AWS Secrets & Enumeration",
+    "checks": [
+      {
+        "title": "AWS Client ID",
+        "severity": 6,
+        "regex": "\\b(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}"
+      },
+      {
+        "title": "AWS Secret Key",
+        "severity": 7,
+        "regex": "\\baws(.{0,20})?['\\\"][0-9a-z\\/+]{40}['\\\"]",
+        "safe": false
+      },
+      {
+        "title": "AWS MWS key",
+        "regex": "\\bamzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+        "severity": 8
+      },
+      {
+        "title": "AWS ARN",
+        "severity": 1,
+        "regex": "\\barn:aws:[a-z0-9-]+:[a-z]{2}-[a-z]+-[0-9]+:[0-9]+(?<!(123456789012|000000000000)):.+"
+      },
+      {
+        "title": "AWS EC2 Internal",
+        "severity": 1,
+        "regex": "\\bdomu-[\\w\\.-]+\\.compute(-1)?\\.internal"
+      },
+      {
+        "title": "AWS EC2 External",
+        "severity": 1,
+        "regex": "\\bec2-[\\w\\.-]+\\.compute(-1)?\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS ELB",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.elb\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS ELB",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.elb\\.[\\w\\.-]+\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS RDS",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.rds\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS ElasticCache",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.cache\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS ElasticSearch",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.es\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS S3 Endpoint",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.s3\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS S3 Website Endpoint",
+        "severity": 1,
+        "regex": "\\b[\\w\\.-]+\\.s3-website[\\w\\.-]+\\.amazonaws\\.com"
+      },
+      {
+        "title": "AWS S3 Bucket",
+        "severity": 1,
+        "regex": "s3://[0-9a-zA-Z.\\-_/]+",
+        "filterRegex": "(s3://npm-registry-packages)"
+      },
+      {
+        "title": "AWS API Gateway",
+        "severity": 1,
+        "regex": "\\b[0-9a-z]+\\.execute-api\\.[\\w\\.-]+\\.amazonaws\\.com"
+      }
+    ]
+  },
+  "braintree": {
+    "title": "Braintree Secrets",
+    "checks": [
+      {
+        "title": "Braintree API Key",
+        "severity": 9,
+        "regex": "access_token\\$production\\$[0-9a-z]{16}\\$[0-9a-f]{32}"
+      }
+    ]
+  },
+  "codeclimate": {
+    "title": "CodeClimate Secrets",
+    "checks": [
+      {
+        "title": "CodeClimate Key",
+        "severity": 9,
+        "regex": "codeclima.{0,50}(\\\"|'|`)?[0-9a-f]{64}(\\\"|'|`)?"
+      }
+    ]
+  },
+  "crypto": {
+    "title": "Crypto Secrets",
+    "checks": [
+      {
+        "title": "RKCS8",
+        "severity": 9,
+        "regex": "-----BEGIN PRIVATE KEY-----"
+      },
+      {
+        "title": "RSA",
+        "severity": 9,
+        "regex": "-----BEGIN RSA PRIVATE KEY-----"
+      },
+      {
+        "title": "SSH",
+        "severity": 9,
+        "regex": "-----BEGIN OPENSSH PRIVATE KEY-----"
+      },
+      {
+        "title": "PGP",
+        "severity": 9,
+        "regex": "-----BEGIN PGP PRIVATE KEY BLOCK-----"
+      }
+    ]
+  },
+  "facebook": {
+    "title": "Facebook Secrets",
+    "checks": [
+      {
+        "title": "Facebook Client ID",
+        "severity": 1,
+        "regex": "(facebook|fb)(.{0,20})?['\\\"][0-9]{13,17}['\\\"]",
+        "safe": false
+      },
+      {
+        "title": "Facebook Access Token",
+        "severity": 6,
+        "regex": "EAACEdEose0cBA[0-9a-z]+"
+      },
+      {
+        "title": "Facebook Secret Key",
+        "severity": 7,
+        "regex": "(facebook|fb)(.{0,20})?['\\\"][0-9a-f]{32}['\\\"]",
+        "safe": false
+      }
+    ]
+  },
+  "generic": {
+    "title": "Generic",
+    "checks": [
+      {
+        "title": "Generic Token",
+        "severity": 1,
+        "flags": "i",
+        "regex": "\\b[0-9a-zA-Z_-]*(token)\\s*['\"]?\\s*(:|=|:=|=>|;s:\\d+:)\\s*\\s*['\"]?(?<exact>[0-9a-zA-Z\\.\\-_=]{6,})",
+        "filterFlags": "i",
+        "filterRegex": "(csrf|theme)",
+        "entropy": 85
+      },
+      {
+        "title": "Generic Key",
+        "severity": 1,
+        "flags": "i",
+        "regex": "\\b[0-9a-zA-Z_-]*(key)\\s*['\"]?\\s*(:|=|:=|=>|;s:\\d+:)\\s*\\s*['\"]?(?<exact>[0-9a-zA-Z\\.\\-_=]{6,})",
+        "filterFlags": "i",
+        "filterRegex": "(site|license|bugsnag|recaptcha|adblock)",
+        "entropy": 60
+      },
+      {
+        "title": "Generic Secret",
+        "severity": 1,
+        "flags": "i",
+        "regex": "\\b[0-9a-zA-Z_-]*(secret)\\s*['\"]?\\s*(:|=|:=|=>|;s:\\d+:)\\s*\\s*['\"]?(?<exact>[0-9a-zA-Z\\.\\-_=]{6,})",
+        "filterRegex": "=\\s*(\\w+\\.call\\(|function\\(|this\\.)",
+        "entropy": 60
+      },
+      {
+        "title": "Generic Password",
+        "severity": 1,
+        "flags": "i",
+        "regex": "\\b[0-9a-zA-Z_-]*(password|passwd|pwd)\\s*['\"]?\\s*(:|=|:=|=>|;s:\\d+:)\\s*\\s*['\"]?(?<exact>[^\\s'\"]{6,})",
+        "filterFlags": "i",
+        "filterRegex": "=\\s*(\\w+\\.call\\(|function\\(|this\\.)",
+        "entropy": 20
+      },
+      {
+        "title": "Generic Authorization",
+        "severity": 1,
+        "flags": "i",
+        "regex": "\\b(authorization)\\s*:\\s*(bearer|token|basic)\\s+[0-9a-zA-Z\\.\\-_]{6,}"
+      },
+      {
+        "title": "Sensitive URL Credentials",
+        "severity": 7,
+        "flags": "i",
+        "regex": "(https?|ftp):\\/\\/[^\\s\\{\\}\\(\\)\\<\\>\\/%$'\"]+?:(?<exact>[^\\s\\{\\}\\(\\)\\<\\>\\/%]{3,})@[^\\s'\"\\)]{4,}",
+        "filterRegex": "(sentry\\.io\\|username|password)",
+        "entropy": 20
+      },
+      {
+        "title": "Sensitive URL",
+        "severity": 5,
+        "flags": "i",
+        "regex": "(https?|ftp):\\/\\/[^\\s\\{\\}\\(\\)\\<\\>\\/%$'\":]{3,}@[^\\s'\"\\)]{4,}",
+        "filterRegex": "(sentry\\.io\\/)"
+      }
+    ]
+  },
+  "github": {
+    "title": "GitHhub Secrets",
+    "checks": [
+      {
+        "title": "GitHub Token",
+        "severity": 9,
+        "regex": "github(.{0,20})?['\\\"][0-9a-z]{35,40}['\\\"]",
+        "safe": false
+      }
+    ]
+  },
+  "google": {
+    "title": "Google Secrets",
+    "checks": [
+      {
+        "title": "Google Cloud Platform API key",
+        "severity": 9,
+        "regex": "(google|gcp|youtube|drive|yt)(.{0,20})?['\\\"][AIza[0-9a-z\\\\-_]{35}]['\\\"]",
+        "safe": false
+      },
+      {
+        "title": "Google (GCM) Service account",
+        "severity": 9,
+        "regex": "((\\\"|'|`)?type(\\\"|'|`)?\\\\s{0,50}(:|=>|=)\\\\s{0,50}(\\\"|'|`)?service_account(\\\"|'|`)?,?)",
+        "safe": false
+      },
+      {
+        "title": "Google API Key",
+        "severity": 4,
+        "regex": "AIza[0-9a-zA-Z\\-_]{35}"
+      },
+      {
+        "title": "Google Oauth ID",
+        "severity": 1,
+        "regex": "[0-9]+-[0-9a-z_]{32}\\.apps\\.googleusercontent\\.com"
+      },
+      {
+        "title": "Firebase Database URL",
+        "severity": 1,
+        "regex": "https://[a-z0-9-_]+\\.firebaseio.com",
+        "text": {
+          "valid": [
+            "databaseURL: 'https://bb-cat-bla.firebaseio.com',"
+          ]
+        }
+      }
+    ]
+  },
+  "heroku": {
+    "title": "Heroku Secrets",
+    "checks": [
+      {
+        "title": "Heroku API Key",
+        "severity": 9,
+        "regex": "heroku(.{0,20})?['\"][0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}['\"]",
+        "safe": false
+      }
+    ]
+  },
+  "hockeyapp": {
+    "title": "HockeyApp Secrets",
+    "checks": [
+      {
+        "title": "HockeyApp API Key",
+        "severity": 9,
+        "regex": "hockey.{0,50}(\\\"|'|`)?[0-9a-f]{32}(\\\"|'|`)?",
+        "safe": false
+      }
+    ]
+  },
+  "linkedin": {
+    "title": "LinkedIn Secrets",
+    "checks": [
+      {
+        "title": "LinkedIn Client ID",
+        "severity": 6,
+        "regex": "linkedin(.{0,20})?['\\\"][0-9a-z]{12}['\\\"]",
+        "safe": false
+      },
+      {
+        "title": "LinkedIn Secret Key",
+        "severity": 7,
+        "regex": "linkedin(.{0,20})?['\\\"][0-9a-z]{16}['\\\"]",
+        "safe": false
+      }
+    ]
+  },
+  "mailchimp": {
+    "title": "Mailchimp Secrets",
+    "checks": [
+      {
+        "title": "Mailchimp API Key",
+        "severity": 9,
+        "regex": "[0-9a-f]{32}-us[0-9]{1,2}"
+      }
+    ]
+  },
+  "mailgun": {
+    "title": "Mailgun Secrets",
+    "checks": [
+      {
+        "title": "Mailgun API Key",
+        "regex": "key-[0-9a-zA-Z]{32}",
+        "severity": 9
+      }
+    ]
+  },
+  "nuget": {
+    "title": "Nuget Secrets",
+    "checks": [
+      {
+        "title": "Nuget API Key",
+        "severity": 9,
+        "regex": "\\b(?<exact>oy2[a-z0-9]{43})"
+      }
+    ]
+  },
+  "outlook": {
+    "title": "Outlook Secrets",
+    "checks": [
+      {
+        "title": "Outlook Team",
+        "severity": 9,
+        "regex": "(https\\\\://outlook\\\\.office.com/webhook/[0-9a-f-]{36}\\\\@)"
+      }
+    ]
+  },
+  "sauce": {
+    "title": "Sauce Secrets",
+    "checks": [
+      {
+        "title": "Sauce Token",
+        "severity": 9,
+        "regex": "sauce.{0,50}(\\\"|'|`)?[0-9a-f-]{36}(\\\"|'|`)?"
+      }
+    ]
+  },
+  "sendgrid": {
+    "title": "SendGrid Secrets",
+    "checks": [
+      {
+        "title": "SendGrid API Key",
+        "severity": 9,
+        "regex": "SG\\.[0-9A-Za-z\\-_]{22}\\.[0-9A-Za-z\\-_]{43}"
+      }
+    ]
+  },
+  "slack": {
+    "title": "Slack Secrets",
+    "checks": [
+      {
+        "title": "Slack Token",
+        "regex": "xox[baprs]-([0-9a-z-]{10,48})",
+        "severity": 9
+      },
+      {
+        "title": "Slack Webhook",
+        "regex": "https://hooks.slack.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8,12}/[a-zA-Z0-9_]{24}",
+        "severity": 8
+      }
+    ]
+  },
+  "sonarqube": {
+    "title": "SonarQube Secrets",
+    "checks": [
+      {
+        "title": "SonarQube API Key",
+        "severity": 9,
+        "regex": "sonar.{0,50}(\\\"|'|`)?[0-9a-f]{40}(\\\"|'|`)?"
+      }
+    ]
+  },
+  "square": {
+    "title": "Square Secrets",
+    "checks": [
+      {
+        "title": "Square API Token / Secret",
+        "severity": 9,
+        "regex": "sq0(atp|csp)-[0-9a-z\\-_]{22,43}"
+      }
+    ]
+  },
+  "stackhawk": {
+    "title": "StackHawk Secrets",
+    "checks": [
+      {
+        "title": "StackHawk API Key",
+        "severity": 9,
+        "regex": "hawk\\.[0-9A-Za-z\\-_]{20}\\.[0-9A-Za-z\\-_]{20}"
+      }
+    ]
+  },
+  "stripe": {
+    "title": "Stripe Secrets",
+    "checks": [
+      {
+        "title": "Stripe Secret Live Key",
+        "severity": 10,
+        "regex": "(sk|rk)_live_[0-9a-z]{24}"
+      },
+      {
+        "title": "Stripe Secret Test Key",
+        "severity": 5,
+        "regex": "(sk|rk)_test_[0-9a-z]{24}"
+      },
+      {
+        "title": "Stripe Public Live Key",
+        "severity": 1,
+        "regex": "pk_live_[0-9a-z]{24}"
+      },
+      {
+        "title": "Stripe Public Test Key",
+        "severity": 1,
+        "regex": "pk_test_[0-9a-z]{24}"
+      }
+    ]
+  },
+  "telegram": {
+    "title": "Telegram Secrets",
+    "checks": [
+      {
+        "title": "Telegram Secret",
+        "severity": 7,
+        "regex": "\\d{5,}:A[0-9a-z_\\-]{34,34}"
+      }
+    ]
+  },
+  "trello": {
+    "title": "Trello Secrets",
+    "checks": [
+      {
+        "title": "Trello URL",
+        "severity": 1,
+        "regex": "https://trello.com/b/[0-9a-z]/[0-9a-z_-]+"
+      }
+    ]
+  },
+  "twilio": {
+    "title": "Twilio Secrets",
+    "checks": [
+      {
+        "title": "Twilio API Key",
+        "severity": 8,
+        "regex": "SK[0-9a-fA-F]{32}"
+      }
+    ]
+  },
+  "twitter": {
+    "title": "Twitter Secrets",
+    "checks": [
+      {
+        "title": "Twitter Client ID",
+        "severity": 6,
+        "regex": "twitter(.{0,20})?['\\\"][0-9a-z]{18,25}['\\\"]",
+        "safe": false
+      },
+      {
+        "title": "Twitter Secret Key",
+        "severity": 7,
+        "regex": "twitter(.{0,20})?['\\\"][0-9a-z]{35,44}['\\\"]",
+        "safe": false
+      }
+    ]
+  }
+}

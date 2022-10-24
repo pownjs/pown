@@ -1,0 +1,5 @@
+title: SonarQube Secrets
+checks:
+  - title: SonarQube API Key
+    severity: 9
+    regex: "sonar.{0,50}(\\\"|'|`)?[0-9a-f]{40}(\\\"|'|`)?"

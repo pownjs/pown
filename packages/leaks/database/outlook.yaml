@@ -1,0 +1,5 @@
+title: Outlook Secrets
+checks:
+  - title: Outlook Team
+    severity: 9
+    regex: '(https\\://outlook\\.office.com/webhook/[0-9a-f-]{36}\\@)'

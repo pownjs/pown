@@ -1,0 +1,9 @@
+title: Mailgun Secrets
+checks:
+  - title: Mailgun API Key
+    regex: key-[0-9a-zA-Z]{32}
+    severity: 9
+    tests:
+      negative:
+        - >-
+          propertyKey-68ecc0e37e9cc9197b98823e56976888

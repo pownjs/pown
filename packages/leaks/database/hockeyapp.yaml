@@ -1,0 +1,6 @@
+title: HockeyApp Secrets
+checks:
+  - title: HockeyApp API Key
+    severity: 9
+    regex: "hockey.{0,50}(\\\"|'|`)?[0-9a-f]{32}(\\\"|'|`)?"
+    safe: false

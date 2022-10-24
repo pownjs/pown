@@ -1,0 +1,92 @@
+title: AWS Secrets & Enumeration
+checks:
+  - title: AWS Client ID
+    severity: 6
+    regex: \b(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+    tests:
+      negative:
+        - A3TxNQshlGLAnE44zCIL
+        - AKIArQDJAMcArgBiAGMA
+        
+  - title: AWS Secret Key
+    severity: 7
+    regex: \baws(.{0,20})?['\"][0-9a-z\/+]{40}['\"]
+    safe: false
+    
+  - title: AWS MWS key
+    regex: \bamzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    severity: 8
+    
+  - title: AWS ARN
+    severity: 1
+    regex: >-
+      \barn:aws:[a-z0-9-]+:[a-z]{2}-[a-z]+-[0-9]+:[0-9]+(?<!(123456789012|000000000000)):.+
+    tests:
+      positive:
+        - arn:aws:dynamodb:eu-west-1:135689:table
+      negative:
+        - 'arn:aws:s3:::'
+        - arn:aws:iam::*ACCOUNT_ID*:role/*ROLE*
+        - arn:aws:eks:us-east-1:123456789012:cluster/my-cluster-01
+        - arn:aws:sns:us-east-1:000000000000:topic-name
+        
+  - title: AWS EC2 Internal
+    severity: 1
+    regex: \bdomu-[\w\.-]+\.compute(-1)?\.internal
+    tests:
+      positive:
+        - domu-12-31-39-09-a6-74.compute-1.internal
+        
+  - title: AWS EC2 External
+    severity: 1
+    regex: \bec2-[\w\.-]+\.compute(-1)?\.amazonaws\.com
+    
+  - title: AWS ELB
+    severity: 1
+    regex: \b[\w\.-]+\.elb\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    
+  - title: AWS ELB
+    severity: 1
+    regex: \b[\w\.-]+\.elb\.[\w\.-]+\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    
+  - title: AWS RDS
+    severity: 1
+    regex: \b[\w\.-]+\.rds\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    tests:
+      positive:
+        - abcw3n-prod.cbmbuiv8aakk.us-east-1.rds.amazonaws.com
+        
+  - title: AWS ElasticCache
+    severity: 1
+    regex: \b[\w\.-]+\.cache\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    
+  - title: AWS ElasticSearch
+    severity: 1
+    regex: \b[\w\.-]+\.es\.amazonaws\.com
+    
+  - title: AWS S3 Endpoint
+    severity: 1
+    regex: \b[\w\.-]+\.s3\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    
+  - title: AWS S3 Website Endpoint
+    severity: 1
+    regex: \b[\w\.-]+\.s3-website[\w\.-]+\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    
+  - title: AWS S3 Bucket
+    severity: 1
+    regex: s3://[0-9a-zA-Z.\-_/]+
+    filterRegex: (s3://npm-registry-packages)
+    
+  - title: AWS API Gateway
+    severity: 1
+    regex: \b[0-9a-z]+\.execute-api\.[\w\.-]+\.amazonaws\.com
+    # TODO: This is slow, requires improvements.
+    tests:
+      positive:
+        - https://956uxyx6ej.execute-api.ap-northeast-1.amazonaws.com/prod/slack
