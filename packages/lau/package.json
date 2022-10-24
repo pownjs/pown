@@ -1,0 +1,47 @@
+{
+  "name": "@pown/lau",
+  "version": "3.5.1",
+  "description": "Pownage guaranteed",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test npx -y mocha@latest",
+    "start": "POWN_ROOT=. pown-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pownjs/pown.git"
+  },
+  "keywords": [
+    "security",
+    "framework"
+  ],
+  "author": "pdp <pdp@gnucitizen.org>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pownjs/pown/issues"
+  },
+  "homepage": "https://github.com/pownjs/pown/tree/master/packages/lau#readme",
+  "devDependencies": {
+    "@pown/cli": "*"
+  },
+  "dependencies": {
+    "@pown/async": "*",
+    "@pown/request": "*"
+  },
+  "pown": {
+    "commands": [
+      "commands/lau"
+    ]
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "@pown/cli": "*"
+  }
+}

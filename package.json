@@ -30,6 +30,7 @@
     "packages/shell",
     "packages/request",
     "packages/connect",
+    "packages/lau",
     "packages/recon",
     "packages/pown"
   ],
