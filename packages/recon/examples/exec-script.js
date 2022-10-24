@@ -1,8 +1,4 @@
-/**
- * This is an example of `pown exec` dynamic embedding.
- */
-
-module.exports = (recon) => {
+module.exports = ({ recon }) => {
   recon.add([
     {
       type: 'domain',

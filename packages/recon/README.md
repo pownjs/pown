@@ -59,124 +59,118 @@ module.exports = async (recon, { shq }) => {
 Here is an example of scripted workflow we use at [secapps.com](https://secapps.com):
 
 ```js
-module.exports = async (recon, { shq }) => {
-   // print everything that we do
+module.exports = async ({ shq }) => {
+  // print everything that we do
 
-   await shq`set -x`
+  await shq`set -x`
 
-   // add remotes to the engine
+  // add remotes to the engine
 
-   for (const remote of process.env.RECON_REMOTES.split(/\s+/g)) {
-      await shq`recon remote add ${remote}`
-   }
+  for (const remote of process.env.RECON_REMOTES.split(/\s+/g)) {
+    await shq`recon remote add ${remote}`
+  }
 
-   // setup useful tranversal functions we will use later
+  // setup useful tranversal functions we will use later
 
-   await shq`recon v set 'target_urls' 'filter node[id="group:Targets"] > node[type="uri"],node[type="url"]'`
-   await shq`recon v set 'target_domain_urls' 'filter node[id="group:Targets"] > node[type="domain"] | neighborhood node[type="uri"],node[type="url"]'`
-   await shq`recon v set 'target_domain_subodmain_urls' 'filter node[id="group:Targets"] > node[type="domain"] | neighborhood edge[type="subdomain"] | connectedNodes node[type="domain"] | neighborhood node[type="uri"],node[type="url"]'`
-   await shq`recon v set 'all_possible_urls' 'traverseByName target_urls & traverseByName target_domain_urls & traverseByName target_domain_subodmain_urls'`
+  await shq`recon v set 'target_urls' 'filter node[id="group:Targets"] > node[type="uri"],node[type="url"]'`
+  await shq`recon v set 'target_domain_urls' 'filter node[id="group:Targets"] > node[type="domain"] | neighborhood node[type="uri"],node[type="url"]'`
+  await shq`recon v set 'target_domain_subodmain_urls' 'filter node[id="group:Targets"] > node[type="domain"] | neighborhood edge[type="subdomain"] | connectedNodes node[type="domain"] | neighborhood node[type="uri"],node[type="url"]'`
+  await shq`recon v set 'all_possible_urls' 'traverseByName target_urls & traverseByName target_domain_urls & traverseByName target_domain_subodmain_urls'`
 
-   // add all url targets
+  // add all url targets
 
-   for (const url of process.env.TARGET_URLS.split(/\s+/g)) {
-      await shq`recon add --node-type 'uri' ${url}`
-   }
+  for (const url of process.env.TARGET_URLS.split(/\s+/g)) {
+    await shq`recon add --node-type 'uri' ${url}`
+  }
 
-   // add all domain targets
+  // add all domain targets
 
-   for (const domain of process.env.TARGET_DOMAINS.split(/\s+/g)) {
-      await shq`recon add --node-type 'domain' ${domain}`
-   }
+  for (const domain of process.env.TARGET_DOMAINS.split(/\s+/g)) {
+    await shq`recon add --node-type 'domain' ${domain}`
+  }
 
-   // group target as Targets so that we can find them easily
+  // group target as Targets so that we can find them easily
 
-   await shq`recon group Targets 'node[type="uri"],node[type="domain"]'`
+  await shq`recon group Targets 'node[type="uri"],node[type="domain"]'`
 
-   // setup a list of tasks we will run in order
+  // setup a list of tasks we will run in order
 
-   const tasks = [
-      async () => {
-         // run the cohesion scanner on all targets
+  const tasks = [
+    async () => {
+      // run the cohesion scanner on all targets
 
-         await shq`recon t -C 1 cohesion_scanner -v 'filter node[id="group:Targets"] > node[type="uri"],node[type="url"]'`
-      },
+      await shq`recon t -C 1 cohesion_scanner -v 'filter node[id="group:Targets"] > node[type="uri"],node[type="url"]'`
+    },
 
-      async () => {
-         // do some automatic transformations on all nodes connected to targets
+    async () => {
+      // do some automatic transformations on all nodes connected to targets
 
-         await shq`recon t auto -v 'filter node[id="group:Targets"] > node'`
-      },
+      await shq`recon t auto -v 'filter node[id="group:Targets"] > node'`
+    },
 
-      async () => {
-         // construct urls
+    async () => {
+      // construct urls
 
-         await shq`recon t build_uri --protocol 'http' -v 'filter node[type="domain"]'`
-         await shq`recon t build_uri --protocol 'https' -v 'filter node[type="domain"]'`
-      },
+      await shq`recon t build_uri --protocol 'http' -v 'filter node[type="domain"]'`
+      await shq`recon t build_uri --protocol 'https' -v 'filter node[type="domain"]'`
+    },
 
-      async () => {
-         // probe the research cluster (internal system) for any knowledge about target domains
+    async () => {
+      // probe the research cluster (internal system) for any knowledge about target domains
 
-         await shq`recon t research --type 'uri' -v 'filter node[id="group:Targets"] > node[type="domain"]'`
-      },
+      await shq`recon t research --type 'uri' -v 'filter node[id="group:Targets"] > node[type="domain"]'`
+    },
 
-      async () => {
-         // run the cohesion analyser
+    async () => {
+      // run the cohesion analyser
 
-         await shq`recon t -C 500 cohesion_analyser --analyse-scripts -v 'traverseByName all_possible_urls'`
-      },
+      await shq`recon t -C 500 cohesion_analyser --analyse-scripts -v 'traverseByName all_possible_urls'`
+    },
 
-      async () => {
-         // run the cohesion finder
+    async () => {
+      // run the cohesion finder
 
-         await shq`recon t -C 100 cohesion_finder -v 'traverseByName all_possible_urls'`
-      },
+      await shq`recon t -C 100 cohesion_finder -v 'traverseByName all_possible_urls'`
+    },
 
-      async () => {
-         // run external templates
+    async () => {
+      // assign vulndb entries for all issues
 
-         await shq`recon p r ${path.join(__dirname, 'templates')}`
-      },
+      await shq`recon t -C 100 local_vulndb -s 'node[type="issue"]'`
+    },
 
-      async () => {
-         // assign vulndb entries for all issues
+    async () => {
+      // group all issues as Issues
 
-         await shq`recon t -C 100 local_vulndb -s 'node[type="issue"]'`
-      },
+      await shq`recon g 'Issues' 'node[type="issue"],node[type="web:vuln:issue"],node[type="web:vuln:variant"]'`
+    },
 
-      async () => {
-         // group all issues as Issues
+    async () => {
+      // sumarise everything
 
-         await shq`recon g 'Issues' 'node[type="issue"],node[type="web:vuln:issue"],node[type="web:vuln:variant"]'`
-      },
+      await shq`runner store --summary-kind 'type' --summary-select 'node[type="domain"],node[type="uri"],node[type="url"]'`
+    },
+  ]
 
-      async () => {
-         // sumarise everything
+  // run the tasks in order
 
-         await shq`runner store --summary-kind 'type' --summary-select 'node[type="domain"],node[type="uri"],node[type="url"]'`
-      }
-    ]
+  for (const [index, task] of tasks.entries()) {
+    // update the state
 
-   // run the tasks in order
+    await shq`runner state -s ${index} -S ${tasks.length} -m '' --summarize`
 
-   for (const [index, task] of tasks.entries()) {
-      // update the state
+    // print the mem so that we know how well we are doing before running the task
 
-      await shq`runner state -s ${index} -S ${tasks.length} -m '' --summarize`
+    await shq`mem`
 
-      // print the mem so that we know how well we are doing before running the task
+    // run the task
 
-      await shq`mem`
+    await task()
 
-      // run the task
+    // checkout the mem again
 
-      await task()
-
-      // checkout the mem again
-
-      await shq`mem`
-    }
+    await shq`mem`
+  }
 }
 ```
 

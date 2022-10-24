@@ -1,5 +1,5 @@
 exports.yargs = {
-  command: 'exec <files...>',
+  command: 'exec <file>',
   describe: 'Execute js file',
   aliases: ['c'],
 
@@ -18,7 +18,7 @@ exports.yargs = {
   },
 
   handler: async (argv) => {
-    const { files } = argv
+    const { file } = argv
 
     const path = require('path')
     const process = require('process')
@@ -34,24 +34,26 @@ exports.yargs = {
 
     await handleReadOptions(argv, recon)
 
-    const helpers = {
+    const context = {
+      argv: argv['--'] || [],
+
+      recon,
+
       sh,
       shq,
     }
 
-    for (let file of Array.isArray(files) ? files : [files]) {
-      console.info(`executing script ${file}`)
+    console.info(`executing script ${file}`)
 
-      const module = await atain(path.join(process.cwd(), file)) // TODO: we should not be doing our own path resolve
+    const module = await atain(path.join(process.cwd(), file)) // TODO: we should not be doing our own path resolve
 
-      if (typeof module === 'function') {
-        await module(recon, helpers)
-      } else if (typeof module.default === 'function') {
-        await module.default(recon, helpers)
-      }
-
-      console.debug(`script execution completed`)
+    if (typeof module === 'function') {
+      await module(context)
+    } else if (typeof module.default === 'function') {
+      await module.default(context)
     }
+
+    console.debug(`script execution completed`)
 
     const resultNodes = recon.selection.map((node) => node.data())
 

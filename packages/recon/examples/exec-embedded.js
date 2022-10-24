@@ -1,4 +1,4 @@
-module.exports = async (_, { shq }) => {
+module.exports = async ({ shq }) => {
   const message = 'adding targets...'
 
   await shq`echo ${message}`
