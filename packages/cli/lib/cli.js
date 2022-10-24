@@ -200,9 +200,7 @@ const execute = async (args, options = {}) => {
 
   y.help()
 
-  y.demandCommand(1, 'You need to specify a command')
-
-  y.strict()
+  y.demandCommand()
 
   try {
     await y.parseAsync()
