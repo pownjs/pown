@@ -1,3 +1,4 @@
+const { atain } = require('@pown/modules')
 const { EventEmitter } = require('events')
 const { parentPort } = require('worker_threads')
 const { iterateOverEmitter } = require('@pown/async/lib/iterateOverEmitter')
@@ -106,9 +107,13 @@ const transform = new (class {
       transformConcurrency,
     } = options
 
-    const module = require(transformModule)
+    const module = await atain(transformModule)
 
-    const Transform = transformName ? module[transformName] : module
+    const Transform = transformName ? module[transformName] : typeof module === 'function' ? module : module.default
+
+    if (typeof Transform !== 'function') {
+      throw new Error(`Transform ${transformName} not found`)
+    }
 
     const transform = new Transform({ scheduler: new Scheduler() })
 

@@ -31,7 +31,7 @@ const getCompoundTransforms = async () => {
 
           return Object.assign(
             {},
-            ...Object.entries(transforms).map(([name, Transform]) => {
+            ...Object.entries(transforms).filter(([name]) => name !== 'default').map(([name, Transform]) => {
               return {
                 [name]: class extends Transform {
                   static loadableTransformModule = module
