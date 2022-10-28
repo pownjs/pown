@@ -48,7 +48,7 @@ const pksLookupKeys = class extends Transform {
       op: 'index',
     })
 
-    const server = 'http://hkps.pool.sks-keyservers.net'
+    const server = 'https://keyserver.ubuntu.com'
 
     const { responseBody } = await this.scheduler.tryRequest({
       uri: `${server}/pks/lookup?${query}`,
@@ -76,31 +76,20 @@ const pksLookupKeys = class extends Transform {
 
       let key = ''
       let uri = ''
-      let addresses = []
+      let content = ''
 
       const innerMatch = inner.match(
-        /<a href="([\s\S]+?)">([\s\S]+?)<\/a>[\s\S]+?<a href="([\s\S]+?)">([\s\S]+?)<\/a>((?:.|[\r\n])*?)$/
+        /<a href="(?<uri>[\s\S]+?)">(?<key>[\s\S]+?)<\/a>[\s\S]+?<a href="[\s\S]+?">[\s\S]+?<\/a>(?<content>[\s\S]*)/
       )
 
       if (innerMatch) {
-        uri = `${server}${innerMatch[1].trim()}`
-        key = innerMatch[2].trim()
-
-        addresses.push(innerMatch[4].trim())
-
-        innerMatch[5].split(/\r|\n/g).forEach((line) => {
-          line = line.trim()
-
-          if (!line) {
-            return
-          }
-
-          addresses.push(line)
-        })
+        uri = `${server}${innerMatch.groups.uri.trim()}`
+        key = innerMatch.groups.key.trim()
+        content = innerMatch.groups.content.trim()
       }
 
       if (key && uri) {
-        if (!/^[0-9A-Z]{8}$/.test(key)) {
+        if (!/^rsa/.test(key)) {
           continue
         }
 
@@ -114,20 +103,14 @@ const pksLookupKeys = class extends Transform {
 
         results.push(keyNode)
 
-        addresses.forEach((address) => {
-          let name = ''
-          let email = ''
+        let emailRegex =
+          /<span class="uid">(?<name>.+?)<(?<email>.+?)><\/span>/g
 
-          const emailMatch = address.match(/^(.*?)<(.*?)>$/)
+        let emailMatch
 
-          if (emailMatch) {
-            const [_, _name = '', _email = ''] = emailMatch
-
-            name = _name.trim()
-            email = _email.trim()
-          } else {
-            email = address.trim()
-          }
+        while ((emailMatch = emailRegex.exec(content))) {
+          const name = emailMatch.groups.name.trim()
+          const email = emailMatch.groups.email.trim()
 
           if (!isEmail(email)) {
             return
@@ -152,7 +135,7 @@ const pksLookupKeys = class extends Transform {
               edges: [emailNode.id],
             })
           }
-        })
+        }
       }
     }
 
