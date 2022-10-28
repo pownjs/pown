@@ -34,6 +34,7 @@ class SystemScheduler extends EventEmitter {
       retryBackoff = 1000,
 
       maxFailuresToBar = 10,
+      barredOrigins = {},
     } = options || {}
 
     this.maxRetries = maxRetries
@@ -41,11 +42,26 @@ class SystemScheduler extends EventEmitter {
 
     this.maxFailuresToBar = maxFailuresToBar
 
-    this.barredOrigins = {}
+    this.barredOrigins = barredOrigins
   }
 
   update(options) {
     this.limiter.updateSettings(options)
+
+    const {
+      maxRetries,
+      retryBackoff,
+
+      maxFailuresToBar,
+      barredOrigins,
+    } = options
+
+    Object.assign(this, {
+      maxRetries,
+      retryBackoff,
+      maxFailuresToBar,
+      barredOrigins,
+    })
   }
 
   stop() {
