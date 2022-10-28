@@ -111,23 +111,35 @@ const maybeUnzip = async (buf, headers) => {
 const requestInternal = (request, resolve, followCount = 0) => {
   const {
     type = 'base',
+
     method = 'GET',
     uri,
     version = 'HTTP/1.1',
+
     headers: _headers = EMPTY_OBJECT,
+
     body,
+
     info,
+
     timeout = 30000,
     connectTimeout = timeout,
     dataTimeout = timeout,
+
     follow = false,
     followLimit = 10,
+
     download = true,
     downloadLimit = Infinity,
-    certificate = false,
-    correctHeaders = true,
+
     rejectUnauthorized = true,
+
+    certificate = false,
+
+    correctHeaders = true,
+
     client,
+
     ...rest
   } = request
 
@@ -272,7 +284,9 @@ const requestInternal = (request, resolve, followCount = 0) => {
         const error = new Error('Redirect Loop')
 
         transaction.info.error = error
+
         transaction.info.stopTime = performanceNow()
+
         transaction.responseBody = await maybeUnzip(
           Buffer.concat(responseBodyDataChunks),
           transaction.responseHeaders || {}
@@ -296,6 +310,7 @@ const requestInternal = (request, resolve, followCount = 0) => {
       resolve = null
 
       transaction.info.stopTime = performanceNow()
+
       transaction.responseBody = EMPTY_BUFFER
 
       localResolve(transaction)
