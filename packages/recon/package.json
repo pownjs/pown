@@ -42,7 +42,6 @@
       "transforms/dns",
       "transforms/dockerhub",
       "transforms/gravatar",
-      "transforms/hackertarget",
       "transforms/http",
       "transforms/ipinfoio",
       "transforms/omnisint",
