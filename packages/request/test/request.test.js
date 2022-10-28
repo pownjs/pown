@@ -51,7 +51,17 @@ describe('request', () => {
     it('must timeout', async function () {
       this.timeout(4000)
 
-      await request.request({ uri: 'https://twilio.com:9443', timeout: 3000 })
+      const result = await request.request({ uri: 'https://twilio.com:9443', timeout: 3000 })
+
+      assert.equal(result.info.error.message, 'Timeout')
+    })
+  })
+
+  describe('notfound harness', async () => {
+    it('must capture error', async function () {
+      const result = await request.request({ uri: 'https://es.tripactions.com', timeout: 3000 })
+
+      assert.equal(result.info.error.code, 'ENOTFOUND')
     })
   })
 })
