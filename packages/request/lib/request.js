@@ -48,6 +48,36 @@ try {
   brotliDecompressAsync = (input) => input
 }
 
+const TIMEOUT_ERROR_CODE = 'TIMEOUT'
+
+class TimeoutError extends Error {
+  constructor(message) {
+    super(message)
+
+    this.code = TIMEOUT_ERROR_CODE
+  }
+}
+
+const ABORTED_ERROR_CODE = 'ABORTED'
+
+class AbortedError extends Error {
+  constructor(message) {
+    super(message)
+
+    this.code = ABORTED_ERROR_CODE
+  }
+}
+
+const ABORT_ERROR_CODE = 'ABORT'
+
+class AbortError extends Error {
+  constructor(message) {
+    super(message)
+
+    this.code = ABORT_ERROR_CODE
+  }
+}
+
 const transport = {
   'http:': http,
   'https:': https,
@@ -65,7 +95,7 @@ const closeRequestAndCleanup = async (req) => {
   } catch (e) {}
 }
 
-const maybeUnzip = async (buf, headers) => {
+const maybeDecompress = async (buf, headers) => {
   try {
     // NOTE: guard against acidental problems as the method does not ensure decompression
 
@@ -108,6 +138,15 @@ const maybeUnzip = async (buf, headers) => {
   return buf
 }
 
+/**
+ * This method will do quite a few things, including automatically following
+ * response, downloading up-to a limit, capturing certificates and more. What
+ * this method does not do is to retry the request. The reason for this is
+ * because retry logic is often captured globally to ensure repeated failures
+ * for some type of request origins are automatically denied for examples.
+ *
+ * The rest is prerty standard.
+ */
 const requestInternal = (request, resolve, followCount = 0) => {
   const {
     type = 'base',
@@ -131,6 +170,8 @@ const requestInternal = (request, resolve, followCount = 0) => {
 
     download = true,
     downloadLimit = Infinity,
+
+    decompress = true,
 
     rejectUnauthorized = true,
 
@@ -210,7 +251,7 @@ const requestInternal = (request, resolve, followCount = 0) => {
     }, connectTimeout)
   }
 
-  const createErrorHandler = (errorType) => {
+  const createErrorHandler = (errorType, ErrorClass = Error) => {
     return async (error) => {
       clearTimeout(connectTimeoutHandler)
       clearTimeout(dataTimeoutHandler)
@@ -225,14 +266,20 @@ const requestInternal = (request, resolve, followCount = 0) => {
 
       resolve = null
 
-      error = error || new Error(errorType)
+      error = error || new ErrorClass(errorType)
 
       transaction.info.error = error
+
       transaction.info.stopTime = performanceNow()
-      transaction.responseBody = await maybeUnzip(
-        Buffer.concat(responseBodyDataChunks),
-        transaction.responseHeaders || {}
-      )
+
+      transaction.responseBody = Buffer.concat(responseBodyDataChunks)
+
+      if (decompress) {
+        transaction.responseBody = await maybeDecompress(
+          transaction.responseBody,
+          transaction.responseHeaders || {}
+        )
+      }
 
       localResolve(transaction)
     }
@@ -287,10 +334,14 @@ const requestInternal = (request, resolve, followCount = 0) => {
 
         transaction.info.stopTime = performanceNow()
 
-        transaction.responseBody = await maybeUnzip(
-          Buffer.concat(responseBodyDataChunks),
-          transaction.responseHeaders || {}
-        )
+        transaction.responseBody = Buffer.concat(responseBodyDataChunks)
+
+        if (decompress) {
+          transaction.responseBody = await maybeDecompress(
+            transaction.responseBody,
+            transaction.responseHeaders || {}
+          )
+        }
 
         localResolve(transaction)
 
@@ -318,11 +369,11 @@ const requestInternal = (request, resolve, followCount = 0) => {
       return
     }
 
-    res.on('timeout', createErrorHandler('Timeout'))
+    res.on('timeout', createErrorHandler('Timeout', TimeoutError))
 
-    res.on('aborted', createErrorHandler('Aborted'))
+    res.on('aborted', createErrorHandler('Aborted', AbortedError))
 
-    res.on('abort', createErrorHandler('Abort'))
+    res.on('abort', createErrorHandler('Abort', AbortError))
 
     res.on('error', createErrorHandler('Error'))
 
@@ -366,35 +417,52 @@ const requestInternal = (request, resolve, followCount = 0) => {
       resolve = null
 
       transaction.info.stopTime = performanceNow()
-      transaction.responseBody = await maybeUnzip(
-        Buffer.concat(responseBodyDataChunks),
-        transaction.responseHeaders
-      )
+
+      transaction.responseBody = Buffer.concat(responseBodyDataChunks)
+
+      if (decompress) {
+        transaction.responseBody = await maybeDecompress(
+          transaction.responseBody,
+          transaction.responseHeaders
+        )
+      }
 
       localResolve(transaction)
     })
   })
 
-  req.on('timeout', createErrorHandler('Timeout'))
+  req.on('timeout', createErrorHandler('Timeout', TimeoutError))
 
-  req.on('aborted', createErrorHandler('Aborted'))
+  req.on('aborted', createErrorHandler('Aborted', AbortedError))
 
-  req.on('abort', createErrorHandler('Abort'))
+  req.on('abort', createErrorHandler('Abort', AbortError))
 
   req.on('error', createErrorHandler('Error'))
 
   req.end(body)
 }
 
-const request = (request) =>
-  new Promise((resolve, reject) => {
-    try {
-      // all paths are happy paths
+const request = (request) => {
+  return new Promise((resolve) => {
+    // all paths are happy paths because errors are captured by the info object
 
+    try {
       requestInternal(request, resolve)
     } catch (e) {
-      reject(e)
+      resolve({ ...request, info: { ...request.info, error: e } })
     }
   })
+}
 
-module.exports = { request }
+module.exports = {
+  TIMEOUT_ERROR_CODE,
+  TimeoutError,
+
+  ABORTED_ERROR_CODE,
+  AbortedError,
+
+  ABORT_ERROR_CODE,
+  AbortError,
+
+  request,
+}
