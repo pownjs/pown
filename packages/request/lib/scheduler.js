@@ -29,7 +29,11 @@ class SystemScheduler extends EventEmitter {
 
     this.limiter = systemLimiter
 
-    const { maxRetries = 5, retryBackoff = 1000, maxFailuresToBar = 10 } = options || {}
+    const {
+      maxRetries = 5,
+      retryBackoff = 1000,
+      maxFailuresToBar = 10,
+    } = options || {}
 
     this.maxRetries = maxRetries
     this.retryBackoff = retryBackoff
@@ -56,31 +60,34 @@ class SystemScheduler extends EventEmitter {
   }
 
   getBarOrigin = (request) => {
-      return request.uri?.replace(/^(https?:\/\/[^/]+).*/i, '$1') || ''
+    return request.uri?.replace(/^(https?:\/\/[^/]+).*/i, '$1') || ''
   }
 
   reverseBar = (request) => {
-      const origin = this.getBarOrigin(request)
+    const origin = this.getBarOrigin(request)
 
-      delete this.barredOrigins[origin]
+    delete this.barredOrigins[origin]
   }
 
   riseBar = (request) => {
-      const origin = this.getBarOrigin(request)
+    const origin = this.getBarOrigin(request)
 
-      this.barredOrigins[origin] = (this.barredOrigins[origin] || 0) + 1
+    this.barredOrigins[origin] = (this.barredOrigins[origin] || 0) + 1
   }
 
   permanentlyBar(request) {
-      const origin = this.getBarOrigin(request)
+    const origin = this.getBarOrigin(request)
 
-      this.barredOrigins[origin] = this.maxFailuresToBar
+    this.barredOrigins[origin] = this.maxFailuresToBar
   }
 
   isBarred = (request) => {
-      const origin = this.getBarOrigin(request)
+    const origin = this.getBarOrigin(request)
 
-      return this.barredOrigins[origin] && this.barredOrigins[origin] >= this.maxFailuresToBar
+    return (
+      this.barredOrigins[origin] &&
+      this.barredOrigins[origin] >= this.maxFailuresToBar
+    )
   }
 
   async request(options) {
@@ -107,16 +114,14 @@ class SystemScheduler extends EventEmitter {
             this.permanentlyBar(options)
 
             break
-          }
-          else {
+          } else {
             this.riseBar(options)
 
             await new Promise((resolve) => {
               setTimeout(resolve, this.retryBackoff * Math.pow(2, retries++))
             })
           }
-        }
-        else {
+        } else {
           this.reverseBar(options)
 
           break
@@ -175,5 +180,5 @@ module.exports = {
 
   SystemScheduler,
 
-  Scheduler
+  Scheduler,
 }
