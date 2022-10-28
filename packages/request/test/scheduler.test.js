@@ -3,7 +3,7 @@ const { Scheduler, SystemScheduler } = require('../lib/scheduler')
 const assert = require('assert')
 
 describe('scheduler', () => {
-  describe('#request()', () => {
+  describe('#request', () => {
     const scheduler = new Scheduler()
 
     it('must fetch http request', async () => {
@@ -42,7 +42,7 @@ describe('scheduler', () => {
 })
 
 describe('systemScheduler', () => {
-  describe('#request()', () => {
+  describe('#request', () => {
     const scheduler = new SystemScheduler()
 
     it('must request http request', async () => {
