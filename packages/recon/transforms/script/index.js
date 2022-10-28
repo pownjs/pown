@@ -1,4 +1,5 @@
 const path = require('path')
+const { atain } = require('@pown/modules')
 
 const { Transform } = require('../../lib//transform')
 
@@ -64,7 +65,7 @@ const script = class extends Transform {
       throw new Error(`No script to load`)
     }
 
-    const func = require(path.resolve(process.cwd(), script))
+    const func = await atain(path.resolve(process.cwd(), script))
 
     if (typeof func !== 'function') {
       throw new Error(`No function exported in ${script}`)
