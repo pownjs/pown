@@ -55,7 +55,6 @@
       "transforms/shodan",
       "transforms/spyse",
       "transforms/tcp",
-      "transforms/threatcrowd",
       "transforms/urlscan",
       "transforms/utils",
       "transforms/virustotal",
