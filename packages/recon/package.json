@@ -49,7 +49,6 @@
       "transforms/pwndb",
       "transforms/riddler",
       "transforms/script",
-      "transforms/scylla",
       "transforms/securitytrails",
       "transforms/shodan",
       "transforms/spyse",
