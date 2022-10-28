@@ -45,7 +45,7 @@ const stream = new Transform({
 
   transform(chunk, encoding, callback) {
     callback(null, chunk)
-  }
+  },
 })
 
 const transform = new (class {
@@ -92,7 +92,11 @@ const transform = new (class {
 
     const module = await atain(transformModule)
 
-    const Transform = transformName ? module[transformName] : typeof module === 'function' ? module : module.default
+    const Transform = transformName
+      ? module[transformName]
+      : typeof module === 'function'
+      ? module
+      : module.default
 
     if (typeof Transform !== 'function') {
       throw new Error(`Transform ${transformName} not found`)
@@ -106,7 +110,11 @@ const transform = new (class {
     transform.on('debug', this.debug)
     transform.on('progress', this.progress)
 
-    for await (let result of transform.itr(iterateOverStream(stream, ({ node }) => node), transformOptions, transformConcurrency)) {
+    for await (let result of transform.itr(
+      iterateOverStream(stream, ({ node }) => node),
+      transformOptions,
+      transformConcurrency
+    )) {
       parentPort.postMessage({ type: 'yield', result: serialize(result) })
     }
 

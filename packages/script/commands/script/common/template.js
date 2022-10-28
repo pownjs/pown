@@ -24,8 +24,7 @@ async function exec(line) {
 
   if (options.exit) {
     await execute(line, executeOptions)
-  }
-  else {
+  } else {
     try {
       await execute(line, executeOptions)
     } catch (e) {

@@ -31,14 +31,16 @@ const getCompoundTransforms = async () => {
 
           return Object.assign(
             {},
-            ...Object.entries(transforms).filter(([name]) => name !== 'default').map(([name, Transform]) => {
-              return {
-                [name]: class extends Transform {
-                  static loadableTransformModule = module
-                  static loadableTransformName = name
-                },
-              }
-            })
+            ...Object.entries(transforms)
+              .filter(([name]) => name !== 'default')
+              .map(([name, Transform]) => {
+                return {
+                  [name]: class extends Transform {
+                    static loadableTransformModule = module
+                    static loadableTransformName = name
+                  },
+                }
+              })
           )
         })
       ))
