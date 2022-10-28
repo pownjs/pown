@@ -32,6 +32,7 @@ class SystemScheduler extends EventEmitter {
     const {
       maxRetries = 5,
       retryBackoff = 1000,
+
       maxFailuresToBar = 10,
     } = options || {}
 
