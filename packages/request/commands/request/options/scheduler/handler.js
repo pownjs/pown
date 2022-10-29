@@ -2,7 +2,7 @@ const init = (options, scheduler) => {
   const { requestConcurrency } = options
 
   if (requestConcurrency) {
-    scheduler.update({ maxConcurrent: requestConcurrency })
+    scheduler.reset({ maxConcurrent: requestConcurrency })
   }
 }
 

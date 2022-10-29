@@ -1,22 +1,14 @@
 const EventEmitter = require('events')
-const Bottleneck = require('bottleneck')
 
 const { request } = require('./request')
-
-const BARRED_ERROR_CODE = 'BARRED'
-
-class BarredError extends Error {
-  constructor(message) {
-    super(message)
-
-    this.code = BARRED_ERROR_CODE
-  }
-}
+const { BarredError } = require('./bar')
+const { systemLimiter, Limiter } = require('./limiter')
 
 /**
- * The system limiter is a global throttle for all requests.
+ * @typedef {{maxRetries?: number, retryBackoff?: number}} RetryOptions
+ * @typedef {{maxFailuresToBar?: number, barredOrigins?: Record<string,number>}} BarOptions
+ * @typedef {{maxConcurrent?: number, reservoir?: number}} LimiterOptions
  */
-const systemLimiter = new Bottleneck()
 
 /**
  * The system scheduler is global for the entire running applications. This is
@@ -24,6 +16,9 @@ const systemLimiter = new Bottleneck()
  * and other forms of paralism.
  */
 class SystemScheduler extends EventEmitter {
+  /**
+   * @param {RetryOptions & BarOptions} [options]
+   */
   constructor(options) {
     super()
 
@@ -45,23 +40,31 @@ class SystemScheduler extends EventEmitter {
     this.barredOrigins = barredOrigins
   }
 
-  update(options) {
-    this.limiter.updateSettings(options)
-
+  /**
+   * @param {RetryOptions & BarOptions & LimiterOptions} options
+   */
+  reset(options) {
     const {
       maxRetries,
       retryBackoff,
 
       maxFailuresToBar,
+
       barredOrigins,
+
+      ...limiterOptions
     } = options
 
-    Object.assign(this, {
-      maxRetries,
-      retryBackoff,
-      maxFailuresToBar,
-      barredOrigins,
-    })
+    if (Object.keys(limiterOptions).length) {
+      this.limiter.updateSettings(limiterOptions)
+    }
+
+    this.maxRetries = maxRetries ?? this.maxRetries
+    this.retryBackoff = retryBackoff ?? this.retryBackoff
+
+    this.maxFailuresToBar = maxFailuresToBar ?? this.maxFailuresToBar
+
+    this.barredOrigins = barredOrigins ?? this.barredOrigins
   }
 
   stop() {
@@ -69,11 +72,11 @@ class SystemScheduler extends EventEmitter {
   }
 
   pause() {
-    this.update({ reservoir: 0 })
+    this.limiter.updateSettings({ reservoir: 0 })
   }
 
   resume() {
-    this.update({ reservoir: null })
+    this.limiter.updateSettings({ reservoir: null })
   }
 
   getBarOrigin = (request) => {
@@ -134,6 +137,15 @@ class SystemScheduler extends EventEmitter {
           } else {
             this.riseBar(options)
 
+            // NOTE: This mechanism is suboptimal because the scheduler will
+            // idle while the task is sleeping instead of doing some work with
+            // other incoming requests.
+            //
+            // A better approach might be to simply push the task back
+            // into the queue but with some backoff timeout but this could also
+            // have some undesirable side-effects especially when other multi-
+            // tasking capabilities are in place.
+
             await new Promise((resolve) => {
               setTimeout(resolve, this.retryBackoff * Math.pow(2, retries++))
             })
@@ -157,45 +169,51 @@ class SystemScheduler extends EventEmitter {
 }
 
 /**
+ * The system scheduler is a global scheduler for all requests
+ */
+const systemScheduler = new SystemScheduler()
+
+/**
  * Requests can be further limited but a dedicated Scheduler instance. This
  * class takes into account the preferences of the system scheduler.
  */
 class Scheduler extends SystemScheduler {
+  /**
+   * @param {RetryOptions & BarOptions & LimiterOptions} [options]
+   */
   constructor(options) {
-    super(options)
+    const {
+      maxRetries,
+      retryBackoff,
 
-    const limiter = new Bottleneck(options)
+      maxFailuresToBar,
+
+      barredOrigins,
+
+      ...limiterOptions
+    } = options || {}
+
+    super({
+      maxRetries,
+      retryBackoff,
+
+      maxFailuresToBar,
+
+      barredOrigins,
+    })
+
+    const limiter = new Limiter(limiterOptions)
 
     limiter.chain(this.limiter)
 
     this.limiter = limiter
   }
-
-  update(options) {
-    this.limiter.updateSettings(options)
-  }
-
-  stop() {
-    this.limiter.stop()
-  }
-
-  pause() {
-    this.update({ reservoir: 0 })
-  }
-
-  resume() {
-    this.update({ reservoir: null })
-  }
 }
 
 module.exports = {
-  BARRED_ERROR_CODE,
-
-  BarredError,
-
-  systemLimiter,
-
   SystemScheduler,
+
+  systemScheduler,
 
   Scheduler,
 }
