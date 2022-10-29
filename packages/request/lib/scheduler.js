@@ -140,7 +140,7 @@ class SystemScheduler extends EventEmitter {
         correctHeaders: this.correctHeaders,
         rejectUnauthorized: this.rejectUnauthorized,
 
-        ...options
+        ...options,
       }
 
       this.emit('request-executed', options)
@@ -154,13 +154,21 @@ class SystemScheduler extends EventEmitter {
 
       for (;;) {
         if (retries >= maxRetries) {
-          result = { ...options, info: { error: new RetryError('Max retries exceeded') } }
+          result = {
+            ...options,
+
+            info: { error: new RetryError('Max retries exceeded') },
+          }
 
           break
         }
 
         if (this.isBarred(options)) {
-          result = { ...options, info: { error: new BarredError('Request origin barred') } }
+          result = {
+            ...options,
+
+            info: { error: new BarredError('Request origin barred') },
+          }
 
           break
         }

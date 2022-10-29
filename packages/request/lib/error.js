@@ -7,11 +7,11 @@ class RetryError extends Error {
   /**
    * @param {string} message
    */
-   constructor(message) {
-     super(message)
+  constructor(message) {
+    super(message)
 
-     this.code = RETRY_ERROR_CODE
-   }
+    this.code = RETRY_ERROR_CODE
+  }
 }
 
 const BARRED_ERROR_CODE = 'BARRED'
