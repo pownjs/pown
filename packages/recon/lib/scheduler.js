@@ -1,10 +1,18 @@
-const { sleep } = require('@pown/async/lib/sleep')
 const { Scheduler: PownScheduler } = require('@pown/request/lib/scheduler')
 
 class Scheduler extends PownScheduler {
-  // NOTE: it is tempting to overload the request method but we do not do that here because the scheduler could be used by other
-  // libraries and as a result this specific behaviour might be unexpected side-effect
-
+  /**
+   * The Pown Scheduler does not throw in normal circumstances no matter the
+   * error. This method changes this behaviour slightly. Error is thrown when
+   * the response contains an error or even when the response code itself is
+   * an error, i.e. 500. This is done in order to minimise further error
+   * checking when programming a transform. If the request contains and error
+   * the transform will simply bail out by the means of the exception.
+   *
+   * It is tempting to overload the request method but we do not do that here
+   * because the scheduler could be used by other libraries and as a result this
+   * specific behaviour might be unexpected side-effect.
+   */
   async tryRequest(request) {
     if (request.headers && !request.headers['user-agent']) {
       request = {
@@ -14,30 +22,38 @@ class Scheduler extends PownScheduler {
       }
     }
 
-    const res = await this.request(request)
+    const response = await this.request(request)
 
-    if (res.info.error) {
-      console.error(`${res.method || 'GET'}`, res.uri, '->', res.info.error)
+    if (response.info.error) {
+      // NOTE: in the context of Recon the scheduler also prints error messages for better monitoring of complex tasks
+
+      console.error(`${response.method || 'GET'}`, response.uri, '->', response.info.error)
+
+      // NOTE: as per the above, we throw errors to bail out as soon as we can
+
+      throw response.info.error
     } else {
       console.debug(
-        `${res.method || 'GET'}`,
-        res.uri,
+        `${response.method || 'GET'}`,
+        response.uri,
         '->',
-        res.responseCode,
-        Buffer.from(res.responseBody).slice(0, 512).toString('base64')
+        response.responseCode,
+        Buffer.from(response.responseBody).slice(0, 512).toString('base64')
       )
     }
 
-    if (!res || res.responseCode >= 500) {
+    if (response.responseCode >= 500) {
+        // NOTE: as per the above, we throw errors to bail out as soon as we can
+
       throw new Error(
-        `Cannot request ${res.method} ${res.uri} -> ${res.responseCode}`
+        `Cannot request ${response.method} ${response.uri} -> ${response.responseCode}`
       )
     }
 
     if (request.toJson || request.toJSON) {
-      return JSON.parse(res.responseBody)
+      return JSON.parse(response.responseBody)
     } else {
-      return res
+      return response
     }
   }
 }
