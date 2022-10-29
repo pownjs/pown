@@ -1,11 +1,12 @@
 const EventEmitter = require('events')
 
 const { request } = require('./request')
-const { BarredError } = require('./bar')
+const { RetryError, BarredError } = require('./error')
 const { systemLimiter, Limiter } = require('./limiter')
 
 /**
  * @typedef {{maxRetries?: number, retryBackoff?: number}} RetryOptions
+ * @typedef {{timeout?: number, correctHeaders?: boolean, rejectUnauthorized: boolean}} RequestOptions
  * @typedef {{maxFailuresToBar?: number, barredOrigins?: Record<string,number>}} BarOptions
  * @typedef {{maxConcurrent?: number, reservoir?: number}} LimiterOptions
  */
@@ -17,7 +18,7 @@ const { systemLimiter, Limiter } = require('./limiter')
  */
 class SystemScheduler extends EventEmitter {
   /**
-   * @param {RetryOptions & BarOptions} [options]
+   * @param {RequestOptions & RetryOptions & BarOptions} [options]
    */
   constructor(options) {
     super()
@@ -25,12 +26,20 @@ class SystemScheduler extends EventEmitter {
     this.limiter = systemLimiter
 
     const {
+      timeout = 30000,
+      correctHeaders = true,
+      rejectUnauthorized = true,
+
       maxRetries = 5,
       retryBackoff = 1000,
 
       maxFailuresToBar = 10,
       barredOrigins = {},
     } = options || {}
+
+    this.timeout = timeout
+    this.correctHeaders = correctHeaders
+    this.rejectUnauthorized = rejectUnauthorized
 
     this.maxRetries = maxRetries
     this.retryBackoff = retryBackoff
@@ -41,10 +50,14 @@ class SystemScheduler extends EventEmitter {
   }
 
   /**
-   * @param {RetryOptions & BarOptions & LimiterOptions} options
+   * @param {RequestOptions & RetryOptions & BarOptions & LimiterOptions} options
    */
   reset(options) {
     const {
+      timeout,
+      correctHeaders,
+      rejectUnauthorized,
+
       maxRetries,
       retryBackoff,
 
@@ -58,6 +71,10 @@ class SystemScheduler extends EventEmitter {
     if (Object.keys(limiterOptions).length) {
       this.limiter.updateSettings(limiterOptions)
     }
+
+    this.timeout = timeout ?? this.timeout
+    this.correctHeaders = correctHeaders ?? this.correctHeaders
+    this.rejectUnauthorized = rejectUnauthorized ?? this.rejectUnauthorized
 
     this.maxRetries = maxRetries ?? this.maxRetries
     this.retryBackoff = retryBackoff ?? this.retryBackoff
@@ -118,15 +135,32 @@ class SystemScheduler extends EventEmitter {
     this.emit('request-scheduled', options)
 
     const result = await this.limiter.schedule(async (options) => {
+      options = {
+        timeout: this.timeout,
+        correctHeaders: this.correctHeaders,
+        rejectUnauthorized: this.rejectUnauthorized,
+
+        ...options
+      }
+
       this.emit('request-executed', options)
 
       let result
 
+      const maxRetries = options.maxRetries ?? this.maxRetries
+      const retryBackoff = options.retryBackoff ?? this.retryBackoff
+
       let retries = 0
 
       for (;;) {
+        if (retries >= maxRetries) {
+          result = { ...options, info: { error: new RetryError('Max retries exceeded') } }
+
+          break
+        }
+
         if (this.isBarred(options)) {
-          result = { ...options, info: { error: new BarredError('Barred') } }
+          result = { ...options, info: { error: new BarredError('Request origin barred') } }
 
           break
         }
@@ -155,7 +189,7 @@ class SystemScheduler extends EventEmitter {
             this.riseBar(options)
 
             await new Promise((resolve) => {
-              setTimeout(resolve, this.retryBackoff * Math.pow(2, retries++))
+              setTimeout(resolve, retryBackoff * Math.pow(2, retries++))
             })
           }
         } else {
@@ -163,7 +197,7 @@ class SystemScheduler extends EventEmitter {
             this.riseBar(options)
 
             await new Promise((resolve) => {
-              setTimeout(resolve, this.retryBackoff * Math.pow(2, retries++))
+              setTimeout(resolve, retryBackoff * Math.pow(2, retries++))
             })
           } else {
             this.reverseBar(options)
