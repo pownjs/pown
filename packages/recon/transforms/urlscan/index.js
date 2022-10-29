@@ -154,60 +154,40 @@ const urlscanSubdomains = class extends Transform {
 
     let domains = []
 
-    let count = 0
+    const query = querystring.stringify({
+      q: `domain:${label}`,
 
-    for (;;) {
-      const query = querystring.stringify({
-        q: `domain:${label}`,
+      size: 10000,
+    })
 
-        size: 100,
+    const { results } = await this.scheduler.tryRequest({
+      uri: `https://urlscan.io/api/v1/search/?${query}`,
+      headers,
+      toJson: true,
+    })
 
-        offset: count,
-      })
+    results.forEach((result) => {
+      const { task, page } = result || {}
 
-      this.info(`retrieving urlscan page with offset ${count}`)
+      const { url } = task || {}
+      const { domain } = page || {}
 
-      const { results, total } = await this.scheduler.tryRequest({
-        uri: `https://urlscan.io/api/v1/search/?${query}`,
-        headers,
-        toJson: true,
-      })
+      const domainMatch = url.match(/^https?:\/\/([^\/]+)/)
 
-      this.info(`total results in this query is ${total}`)
+      if (domainMatch) {
+        const domain = domainMatch[1]
 
-      if (!results || !results.length) {
-        break
+        if (domain.endsWith(`.${label}`)) {
+          domains.push(domain.trim().toLowerCase())
+        }
       }
 
-      results.forEach((result) => {
-        const { task, page } = result || {}
-
-        const { url } = task || {}
-        const { domain } = page || {}
-
-        const domainMatch = url.match(/^https?:\/\/([^\/]+)/)
-
-        if (domainMatch) {
-          const domain = domainMatch[1]
-
-          if (domain.endsWith(`.${label}`)) {
-            domains.push(domain.trim().toLowerCase())
-          }
+      if (domain) {
+        if (domain.endsWith(`.${label}`)) {
+          domains.push(domain.trim().toLowerCase())
         }
-
-        if (domain) {
-          if (domain.endsWith(`.${label}`)) {
-            domains.push(domain.trim().toLowerCase())
-          }
-        }
-      })
-
-      count += results.length
-
-      if (count >= total) {
-        break
       }
-    }
+    })
 
     const nodes = []
 
