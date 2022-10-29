@@ -55,7 +55,6 @@
       "transforms/tcp",
       "transforms/urlscan",
       "transforms/utils",
-      "transforms/virustotal",
       "transforms/vulners",
       "transforms/wappalyzer",
       "transforms/worker",
