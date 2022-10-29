@@ -47,7 +47,7 @@ class Scheduler extends PownScheduler {
       )
     }
 
-    if (response.responseCode >= 500) {
+    if (response.responseCode < 200 || response.responseCode > 299) {
       // NOTE: as per the above, we throw errors to bail out as soon as we can
 
       throw new Error(
