@@ -101,13 +101,17 @@ class SystemScheduler extends EventEmitter {
     this.barredOrigins[origin] = this.maxFailuresToBar
   }
 
-  isBarred = (request) => {
+  isBarred(request) {
     const origin = this.getBarOrigin(request)
 
     return (
       this.barredOrigins[origin] &&
       this.barredOrigins[origin] >= this.maxFailuresToBar
     )
+  }
+
+  shouldRetry(request) {
+    return request.responseCode == 429
   }
 
   async request(options) {
@@ -127,7 +131,20 @@ class SystemScheduler extends EventEmitter {
           break
         }
 
+        // NOTE: We assume the implementation of request should never fail under
+        // normal circumstances. Errors are trapped! Any exceptions raised by
+        // method are considered system failures impossible to recover from.
+
         result = await request(options)
+
+        // NOTE: This mechanism is suboptimal because the scheduler will idle
+        // while the task is sleeping instead of doing some work with other
+        // incoming requests.
+        //
+        // A better approach might be to simply push the task back into the
+        // queue but with some backoff timeout but this could also have some
+        // undesirable side-effects especially when other multi-tasking
+        // capabilities are in place.
 
         if (result.info?.error) {
           if (result.info.error.code === 'ENOTFOUND') {
@@ -137,23 +154,22 @@ class SystemScheduler extends EventEmitter {
           } else {
             this.riseBar(options)
 
-            // NOTE: This mechanism is suboptimal because the scheduler will
-            // idle while the task is sleeping instead of doing some work with
-            // other incoming requests.
-            //
-            // A better approach might be to simply push the task back
-            // into the queue but with some backoff timeout but this could also
-            // have some undesirable side-effects especially when other multi-
-            // tasking capabilities are in place.
-
             await new Promise((resolve) => {
               setTimeout(resolve, this.retryBackoff * Math.pow(2, retries++))
             })
           }
         } else {
-          this.reverseBar(options)
+          if (this.shouldRetry(result)) {
+            this.riseBar(options)
 
-          break
+            await new Promise((resolve) => {
+              setTimeout(resolve, this.retryBackoff * Math.pow(2, retries++))
+            })
+          } else {
+            this.reverseBar(options)
+
+            break
+          }
         }
       }
 
