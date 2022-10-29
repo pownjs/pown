@@ -27,7 +27,12 @@ class Scheduler extends PownScheduler {
     if (response.info.error) {
       // NOTE: in the context of Recon the scheduler also prints error messages for better monitoring of complex tasks
 
-      console.error(`${response.method || 'GET'}`, response.uri, '->', response.info.error)
+      console.error(
+        `${response.method || 'GET'}`,
+        response.uri,
+        '->',
+        response.info.error
+      )
 
       // NOTE: as per the above, we throw errors to bail out as soon as we can
 
@@ -43,7 +48,7 @@ class Scheduler extends PownScheduler {
     }
 
     if (response.responseCode >= 500) {
-        // NOTE: as per the above, we throw errors to bail out as soon as we can
+      // NOTE: as per the above, we throw errors to bail out as soon as we can
 
       throw new Error(
         `Cannot request ${response.method} ${response.uri} -> ${response.responseCode}`
