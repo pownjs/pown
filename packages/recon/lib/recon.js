@@ -367,6 +367,16 @@ class Recon extends Graph {
           results = results.slice(0, maxNodesCap)
         }
 
+        results.forEach((result) => {
+          result.edges = result.edges?.map((edge) => {
+              if (typeof edge === 'string') {
+                return { source: edge, transform: transform.name }
+              } else {
+                return { ...edge, transform: transform.name }
+              }
+          })
+        })
+
         return results
       }
     }
@@ -394,7 +404,7 @@ class Recon extends Graph {
 
       const oldSelection = this.selection
 
-      await this.addNodes(nodes)
+      await this.add(nodes)
 
       this.emit('warn', `finished adding ${nodes.length} nodes`)
 
